@@ -1,6 +1,6 @@
 # solucionutiles
 
-A new Flutter project.
+A new Flutter awesome project.
 
 ## Getting Started
 
