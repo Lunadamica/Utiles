@@ -56,7 +56,7 @@ class _PaginaBuscarUtilState extends State<PaginaBuscarUtil> {
 
     return Scaffold(
       drawer: MenuNavegacion(),
-      appBar: dameAppBar('Buscador', context),
+      appBar: dameAppBar('Buscador ' + opcionSeleccionada, context),
       body: Stack(children: [
         Background(),
         SingleChildScrollView(
@@ -95,6 +95,7 @@ class _PaginaBuscarUtilState extends State<PaginaBuscarUtil> {
                               child: InputText(
                                 label: 'Introduzca el código útil',
                                 fontSize: 17,
+                                //Cargamos los datos haciendo uso del boton del teclado
                                 onFieldSubmitted: (_) {
                                   if (opcionSeleccionada == 'Cliche') {
                                     cargarCliches();
