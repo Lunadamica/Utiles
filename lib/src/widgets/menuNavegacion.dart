@@ -159,10 +159,9 @@ class _MenuNavegacionState extends State<MenuNavegacion> {
         );
         break;
       case 4:
-        Navigator.pushNamedAndRemoveUntil(
+        Navigator.pushNamed(
           context,
           'retirada',
-          (_) => false,
         );
         break;
     }

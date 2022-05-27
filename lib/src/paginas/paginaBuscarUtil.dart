@@ -54,110 +54,115 @@ class _PaginaBuscarUtilState extends State<PaginaBuscarUtil> {
       contador++;
     }
 
-    return Scaffold(
-      drawer: MenuNavegacion(),
-      appBar: dameAppBar('Buscador ' + opcionSeleccionada, context),
-      body: Stack(children: [
-        Background(),
-        SingleChildScrollView(
-          child: Container(
-            margin: EdgeInsets.all(10),
-            child: Column(
-              children: <Widget>[
-                Visibility(
-                  visible: isVisible,
-                  child: Container(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Text(
-                          'Número:',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
+    return GestureDetector(
+      onTap: () {
+        FocusScope.of(context).unfocus();
+      },
+      child: Scaffold(
+        drawer: MenuNavegacion(),
+        appBar: dameAppBar('Buscador ' + opcionSeleccionada, context),
+        body: Stack(children: [
+          Background(),
+          SingleChildScrollView(
+            child: Container(
+              margin: EdgeInsets.all(10),
+              child: Column(
+                children: <Widget>[
+                  Visibility(
+                    visible: isVisible,
+                    child: Container(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          SizedBox(
+                            height: 10,
                           ),
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Column(
-                          children: [
-                            Container(
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                border: Border.all(
-                                  color: Colors.brown,
-                                  width: 2,
+                          Text(
+                            'Número:',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Column(
+                            children: [
+                              Container(
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  border: Border.all(
+                                    color: Colors.brown,
+                                    width: 2,
+                                  ),
+                                ),
+                                child: InputText(
+                                  label: 'Introduzca el código útil',
+                                  fontSize: 17,
+                                  //Cargamos los datos haciendo uso del boton del teclado
+                                  onFieldSubmitted: (_) {
+                                    if (opcionSeleccionada == 'Cliche') {
+                                      cargarCliches();
+                                    } else {
+                                      cargarTroqueles();
+                                    }
+                                    isVisible = !isVisible;
+                                  },
+                                  keyboardType: TextInputType.number,
+                                  onChanged: (text) {
+                                    codigoUtil = text;
+                                  },
                                 ),
                               ),
-                              child: InputText(
-                                label: 'Introduzca el código útil',
-                                fontSize: 17,
-                                //Cargamos los datos haciendo uso del boton del teclado
-                                onFieldSubmitted: (_) {
-                                  if (opcionSeleccionada == 'Cliche') {
-                                    cargarCliches();
-                                  } else {
-                                    cargarTroqueles();
-                                  }
-                                  isVisible = !isVisible;
-                                },
-                                keyboardType: TextInputType.number,
-                                onChanged: (text) {
-                                  codigoUtil = text;
-                                },
-                              ),
-                            ),
-                          ],
-                        ),
-                        Divider(),
-                      ],
+                            ],
+                          ),
+                          Divider(),
+                        ],
+                      ),
                     ),
                   ),
-                ),
-                //Botón de nueva consulta
-                Visibility(
-                  visible: !isVisible,
-                  child: Container(
-                    decoration: BoxDecoration(),
-                    padding: EdgeInsets.symmetric(vertical: 10),
-                    alignment: Alignment.center,
-                    child: RaisedButton(
-                        shape: Border.all(
-                          color: Colors.black38,
-                          width: 2,
-                        ),
-                        color: Color.fromARGB(255, 194, 140, 78),
-                        onPressed: () {
-                          setState(() {
-                            _misCliches = null;
-                            _misTroqueles = null;
-                            isVisible = !isVisible;
-                          });
-                        },
-                        child: Text(
-                          'Nueva consulta',
-                          style: TextStyle(color: Colors.black87),
-                        )),
+                  //Botón de nueva consulta
+                  Visibility(
+                    visible: !isVisible,
+                    child: Container(
+                      decoration: BoxDecoration(),
+                      padding: EdgeInsets.symmetric(vertical: 10),
+                      alignment: Alignment.center,
+                      child: RaisedButton(
+                          shape: Border.all(
+                            color: Colors.black38,
+                            width: 2,
+                          ),
+                          color: Color.fromARGB(255, 194, 140, 78),
+                          onPressed: () {
+                            setState(() {
+                              _misCliches = null;
+                              _misTroqueles = null;
+                              isVisible = !isVisible;
+                            });
+                          },
+                          child: Text(
+                            'Nueva consulta',
+                            style: TextStyle(color: Colors.black87),
+                          )),
+                    ),
                   ),
-                ),
-                if (opcionSeleccionada == 'Cliche')
-                  DatosBusqueda(
-                    listaCliche: _misCliches ?? [],
-                    context: context,
-                  )
-                else
-                  DatosBusqueda(
-                    listaTroquel: _misTroqueles ?? [],
-                    context: context,
-                  )
-              ],
+                  if (opcionSeleccionada == 'Cliche')
+                    DatosBusqueda(
+                      listaCliche: _misCliches ?? [],
+                      context: context,
+                    )
+                  else
+                    DatosBusqueda(
+                      listaTroquel: _misTroqueles ?? [],
+                      context: context,
+                    )
+                ],
+              ),
             ),
           ),
-        ),
-      ]),
+        ]),
+      ),
     );
   }
 
