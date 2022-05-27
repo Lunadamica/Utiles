@@ -34,30 +34,35 @@ class _PaginaListadoState extends State<PaginaListado> {
     mapMin = parametros['mapMin'];
     mapMax = parametros['mapMax'];
 
-    return Scaffold(
-      drawer: MenuNavegacion(),
-      appBar: dameAppBar('Lista de datos', context),
-      body: Stack(
-        children: [
-          Background(),
-          Column(
-            children: [
-              Padding(
-                padding: EdgeInsets.all(15),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Container(
-                      padding: EdgeInsets.symmetric(horizontal: 5),
-                      width: size.width / 2.5,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        border: Border.all(
-                          color: Colors.brown,
-                          width: 2,
+    //Con gestureDetector hacemos que siempre se guarde el teclado cuando pinchemos fuera
+    return GestureDetector(
+      onTap: () {
+        FocusScope.of(context).unfocus();
+      },
+      child: Scaffold(
+        drawer: MenuNavegacion(),
+        appBar: dameAppBar('Lista de datos', context),
+        body: Stack(
+          children: [
+            Background(),
+            Column(
+              children: [
+                Padding(
+                  padding: EdgeInsets.all(15),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        padding: EdgeInsets.symmetric(horizontal: 5),
+                        width: size.width / 2.5,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          border: Border.all(
+                            color: Colors.brown,
+                            width: 2,
+                          ),
                         ),
-                      ),
-                      child: InputText(
+                        child: InputText(
                           keyboardType: TextInputType.number,
                           label: 'Casillero',
                           onChanged: (text) {
@@ -82,19 +87,20 @@ class _PaginaListadoState extends State<PaginaListado> {
                             if (miBusqueda!.isEmpty) {
                               _alerta(context);
                             }
-                          }),
-                    ),
-                    Container(
-                      padding: EdgeInsets.symmetric(horizontal: 5),
-                      width: size.width / 2.5,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        border: Border.all(
-                          color: Colors.brown,
-                          width: 2,
+                          },
                         ),
                       ),
-                      child: InputText(
+                      Container(
+                        padding: EdgeInsets.symmetric(horizontal: 5),
+                        width: size.width / 2.5,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          border: Border.all(
+                            color: Colors.brown,
+                            width: 2,
+                          ),
+                        ),
+                        child: InputText(
                           keyboardType: TextInputType.number,
                           label: 'Código útil',
                           onChanged: (text) {
@@ -120,45 +126,142 @@ class _PaginaListadoState extends State<PaginaListado> {
                             if (miBusqueda!.isEmpty) {
                               _alerta(context);
                             }
-                          }),
-                    ),
-                  ],
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              // Container(
-              //   padding: EdgeInsets.symmetric(horizontal: 15),
-              //   alignment: Alignment.topRight,
-              //   child: RaisedButton(
-              //       shape: Border.all(
-              //         color: Colors.black38,
-              //         width: 2,
-              //       ),
-              //       color: Color.fromARGB(255, 194, 140, 78),
-              //       onPressed: () {
-              //         print('Casillero: ' + casillero + ' util: ' + util);
-              //         for (int i = 0; i < miInventario!.length; i++) {
-              //           if (miInventario![i]
-              //                   .codigoUtil
-              //                   .toString()
-              //                   .contains(util) &&
-              //               miInventario![i].nombreZona == miZona!.nombreZona) {
-              //             miBusqueda!.add(miInventario![i]);
-              //           }
-              //         }
-              //         cargarDatos();
-              //         setState(() {});
-              //         miBusqueda!.clear();
-              //       },
-              //       child: Text(
-              //         'Buscar',
-              //         style: TextStyle(color: Colors.black87),
-              //       )),
-              // ),
-              Divider(),
-              cargarDatos(),
-            ],
-          ),
-        ],
+                // Container(
+                //   padding: EdgeInsets.symmetric(horizontal: 15),
+                //   alignment: Alignment.topRight,
+                //   child: RaisedButton(
+                //       shape: Border.all(
+                //         color: Colors.black38,
+                //         width: 2,
+                //       ),
+                //       color: Color.fromARGB(255, 194, 140, 78),
+                //       onPressed: () {
+                //         print('Casillero: ' + casillero + ' util: ' + util);
+                //         for (int i = 0; i < miInventario!.length; i++) {
+                //           if (miInventario![i]
+                //                   .codigoUtil
+                //                   .toString()
+                //                   .contains(util) &&
+                //               miInventario![i].nombreZona == miZona!.nombreZona) {
+                //             miBusqueda!.add(miInventario![i]);
+                //           }
+                //         }
+                //         cargarDatos();
+                //         setState(() {});
+                //         miBusqueda!.clear();
+                //       },
+                //       child: Text(
+                //         'Buscar',
+                //         style: TextStyle(color: Colors.black87),
+                //       )),
+                // ),
+                Divider(),
+                cargarDatos(),
+                SizedBox(
+                  height: size.hp(10),
+                  child: Stack(
+                    children: <Widget>[
+                      Padding(
+                        padding: EdgeInsets.all(size.dp(1)),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            FlatButton(
+                              onPressed: () {
+                                miBusqueda!.clear();
+                                for (int i = 0; i < miInventario!.length; i++) {
+                                  if (miInventario![i].estadoUtil.toString() ==
+                                          activoN &&
+                                      miInventario![i].nombreZona ==
+                                          miZona!.nombreZona) {
+                                    miBusqueda!.add(miInventario![i]);
+                                  }
+                                }
+                                if (miBusqueda!.isEmpty) {
+                                  _alerta(context);
+                                }
+                                ;
+                                setState(() {});
+                              },
+                              child: Text('Activo'),
+                              color: activo,
+                            ),
+                            FlatButton(
+                              onPressed: () {
+                                miBusqueda!.clear();
+                                for (int i = 0; i < miInventario!.length; i++) {
+                                  if (miInventario![i].estadoUtil.toString() ==
+                                          pendienteLlegarN &&
+                                      miInventario![i].nombreZona ==
+                                          miZona!.nombreZona) {
+                                    miBusqueda!.add(miInventario![i]);
+                                  }
+                                }
+                                if (miBusqueda!.isEmpty) {
+                                  _alerta(context);
+                                }
+                                ;
+                                setState(() {});
+                              },
+                              child: Text('Pendiente'),
+                              color: pendienteLlegar,
+                            ),
+                            FlatButton(
+                              onPressed: () {
+                                miBusqueda!.clear();
+                                for (int i = 0; i < miInventario!.length; i++) {
+                                  if (miInventario![i].estadoUtil.toString() ==
+                                          inactivoN &&
+                                      miInventario![i].nombreZona ==
+                                          miZona!.nombreZona) {
+                                    miBusqueda!.add(miInventario![i]);
+                                  }
+                                }
+                                if (miBusqueda!.isEmpty) {
+                                  _alerta(context);
+                                }
+                                ;
+                                setState(() {});
+                              },
+                              child: Text('Inactivo'),
+                              color: inactivo,
+                            ),
+                            FlatButton(
+                              onPressed: () {
+                                miBusqueda!.clear();
+                                for (int i = 0; i < miInventario!.length; i++) {
+                                  if (miInventario![i].estadoUtil.toString() ==
+                                          ningunoN &&
+                                      miInventario![i].nombreZona ==
+                                          miZona!.nombreZona) {
+                                    miBusqueda!.add(miInventario![i]);
+                                  }
+                                }
+                                if (miBusqueda!.isEmpty) {
+                                  _alerta(context);
+                                }
+                                ;
+                                setState(() {});
+                              },
+                              child: Text('Ninguno'),
+                              color: ninguno,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -193,8 +296,6 @@ class _PaginaListadoState extends State<PaginaListado> {
                                   miInventario![i - 1].codigoUtil.toString(),
                             });
                       }
-
-                      print('Soy el casillero ' + i.toString());
                     },
                     title: Text(
                       'Casillero: ' + i.toString(),
@@ -337,7 +438,9 @@ class _PaginaListadoState extends State<PaginaListado> {
           title: Text('Busqueda fallida'),
           content: Column(
             mainAxisSize: MainAxisSize.min,
-            children: <Widget>[Text('No existen datos a esa busqueda')],
+            children: <Widget>[
+              Text('En esta zona no existen datos para esa busqueda')
+            ],
           ),
           actions: <Widget>[
             FlatButton(

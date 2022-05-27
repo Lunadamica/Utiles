@@ -55,6 +55,12 @@ final String pendienteLlegarE = 'PendienteLlegar';
 final String activoE = 'Activo';
 final String inactivoE = 'Inactivo';
 
+//Estados
+final String ningunoN = '-1';
+final String pendienteLlegarN = '2';
+final String activoN = '1';
+final String inactivoN = '0';
+
 //Color estados
 final Color ninguno = Color.fromARGB(255, 211, 209, 209);
 final Color activo = Color.fromARGB(255, 151, 243, 154);
