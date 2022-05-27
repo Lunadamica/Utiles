@@ -50,8 +50,8 @@ final String tipoTroquel = '1';
 final String sinTipo = '';
 
 //Estados
-final String ningunoE = 'Ninguno';
-final String pendienteLlegarE = 'PendienteLlegar';
+final String ningunoE = 'Vacío';
+final String pendienteLlegarE = 'Pendiente';
 final String activoE = 'Activo';
 final String inactivoE = 'Inactivo';
 

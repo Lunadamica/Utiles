@@ -34,7 +34,7 @@ class _ImagenCompletaState extends State<ImagenCompleta> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: MenuNavegacion(),
+      // drawer: MenuNavegacion(),
       appBar: dameAppBar(widget.codigo, context),
       body: Center(
         child: _localFile != null

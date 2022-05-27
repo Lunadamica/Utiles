@@ -263,7 +263,7 @@ class DatosBusqueda extends StatelessWidget {
         barrierDismissible: false,
         builder: (context) {
           return Scaffold(
-            drawer: MenuNavegacion(),
+            // drawer: MenuNavegacion(),
             appBar: dameAppBar('Lista de datos', context),
             body: Stack(children: [
               Background(),

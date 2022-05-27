@@ -2,12 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:solucionutiles/src/api/BBDD.dart';
+import 'package:solucionutiles/src/modelos/almacen.dart';
 import 'package:solucionutiles/src/paginas/paginaUsuario.dart';
 
 import '../datos/autentificacionCliente.dart';
 
 class MenuNavegacion extends StatefulWidget {
-  MenuNavegacion({Key? key}) : super(key: key);
+  String? opcionSeleccionada;
+  List<Almacen>? misAlmacenes;
+  MenuNavegacion(
+      {Key? key, required this.opcionSeleccionada, required this.misAlmacenes})
+      : super(key: key);
 
   @override
   State<MenuNavegacion> createState() => _MenuNavegacionState();
@@ -138,24 +143,29 @@ class _MenuNavegacionState extends State<MenuNavegacion> {
         );
         break;
       case 1:
-        Navigator.pushNamedAndRemoveUntil(
-          context,
-          'buscador',
-          (_) => false,
+        Navigator.pushNamed(
+          context, 'buscador',
+          //argumentos que pasamos con los datos traidos del home
+          arguments: {
+            'opcionSeleccionada': widget.opcionSeleccionada ?? 'Cliche',
+          },
         );
         break;
       case 2:
-        Navigator.pushNamedAndRemoveUntil(
+        Navigator.pushNamed(
           context,
           'inventario',
-          (_) => false,
+          //argumentos que pasamos con los datos traidos del home
+          arguments: {
+            'opcionSeleccionada': widget.opcionSeleccionada ?? 'Cliche',
+            'misAlmacenes': widget.misAlmacenes ?? [],
+          },
         );
         break;
       case 3:
-        Navigator.pushNamedAndRemoveUntil(
+        Navigator.pushNamed(
           context,
           'visual',
-          (_) => false,
         );
         break;
       case 4:

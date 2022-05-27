@@ -50,7 +50,10 @@ class _PaginaInventarioState extends State<PaginaInventario> {
     }
 
     return Scaffold(
-      drawer: MenuNavegacion(),
+      drawer: MenuNavegacion(
+        opcionSeleccionada: opcionSeleccionada,
+        misAlmacenes: misAlmacenes,
+      ),
       appBar: dameAppBar('Inventario', context),
       body: Stack(children: [
         Background(),

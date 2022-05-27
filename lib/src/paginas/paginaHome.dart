@@ -29,7 +29,10 @@ class _PaginaHomeState extends State<PaginaHome> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: MenuNavegacion(),
+      drawer: MenuNavegacion(
+        opcionSeleccionada: opcionSeleccionada,
+        misAlmacenes: misAlmacenes,
+      ),
       appBar: dameAppBar('Ondupack', context),
       body: Stack(
         children: [

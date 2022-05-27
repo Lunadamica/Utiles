@@ -40,7 +40,7 @@ class _PaginaListadoState extends State<PaginaListado> {
         FocusScope.of(context).unfocus();
       },
       child: Scaffold(
-        drawer: MenuNavegacion(),
+        // drawer: MenuNavegacion(),
         appBar: dameAppBar('Lista de datos', context),
         body: Stack(
           children: [
@@ -189,7 +189,7 @@ class _PaginaListadoState extends State<PaginaListado> {
                                 ;
                                 setState(() {});
                               },
-                              child: Text('Activo'),
+                              child: Text(activoE),
                               color: activo,
                             ),
                             FlatButton(
@@ -209,7 +209,7 @@ class _PaginaListadoState extends State<PaginaListado> {
                                 ;
                                 setState(() {});
                               },
-                              child: Text('Pendiente'),
+                              child: Text(pendienteLlegarE),
                               color: pendienteLlegar,
                             ),
                             FlatButton(
@@ -229,7 +229,7 @@ class _PaginaListadoState extends State<PaginaListado> {
                                 ;
                                 setState(() {});
                               },
-                              child: Text('Inactivo'),
+                              child: Text(inactivoE),
                               color: inactivo,
                             ),
                             FlatButton(
@@ -249,7 +249,7 @@ class _PaginaListadoState extends State<PaginaListado> {
                                 ;
                                 setState(() {});
                               },
-                              child: Text('Ninguno'),
+                              child: Text(ningunoE),
                               color: ninguno,
                             ),
                           ],

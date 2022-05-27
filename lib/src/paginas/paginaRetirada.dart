@@ -32,7 +32,7 @@ class _PaginaRetiradaState extends State<PaginaRetirada> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: MenuNavegacion(),
+      // drawer: MenuNavegacion(),
       appBar: dameAppBar('Pediente de retirada', context),
       body: ListView(children: _crearItems()),
     );

@@ -59,7 +59,7 @@ class _PaginaBuscarUtilState extends State<PaginaBuscarUtil> {
         FocusScope.of(context).unfocus();
       },
       child: Scaffold(
-        drawer: MenuNavegacion(),
+        // drawer: MenuNavegacion(tipo: opcionSeleccionada),
         appBar: dameAppBar('Buscador ' + opcionSeleccionada, context),
         body: Stack(children: [
           Background(),

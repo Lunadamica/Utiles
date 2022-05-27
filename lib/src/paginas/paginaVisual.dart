@@ -27,7 +27,7 @@ class _PaginaVisualState extends State<PaginaVisual> {
   Widget build(BuildContext context) {
     Responsive size = Responsive(context);
     return Scaffold(
-      drawer: MenuNavegacion(),
+      // drawer: MenuNavegacion(),
       appBar: dameAppBar('Mapa inventario', context),
       body: Stack(
         children: [
