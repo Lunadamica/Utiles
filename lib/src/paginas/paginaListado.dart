@@ -58,12 +58,31 @@ class _PaginaListadoState extends State<PaginaListado> {
                         ),
                       ),
                       child: InputText(
-                        keyboardType: TextInputType.number,
-                        label: 'Casillero',
-                        onChanged: (text) {
-                          casillero = text;
-                        },
-                      ),
+                          keyboardType: TextInputType.number,
+                          label: 'Casillero',
+                          onChanged: (text) {
+                            casillero = text;
+                          },
+                          onFieldSubmitted: (_) {
+                            miBusqueda!.clear();
+                            for (int i = 0; i < miInventario!.length; i++) {
+                              if (miInventario![i]
+                                      .codigoCasillero
+                                      .toString()
+                                      .contains(casillero) &&
+                                  miInventario![i].nombreZona ==
+                                      miZona!.nombreZona &&
+                                  miInventario![i]
+                                      .codigoUtil
+                                      .toString()
+                                      .contains(util)) {
+                                miBusqueda!.add(miInventario![i]);
+                              }
+                            }
+                            if (miBusqueda!.isEmpty) {
+                              _alerta(context);
+                            }
+                          }),
                     ),
                     Container(
                       padding: EdgeInsets.symmetric(horizontal: 5),
@@ -81,19 +100,25 @@ class _PaginaListadoState extends State<PaginaListado> {
                           onChanged: (text) {
                             util = text;
                           },
-                          //Bunción de buscar con el enter
+                          //Función de buscar con el enter
                           onFieldSubmitted: (_) {
                             miBusqueda!.clear();
-                            print('Casillero: ' + casillero + ' util: ' + util);
                             for (int i = 0; i < miInventario!.length; i++) {
                               if (miInventario![i]
                                       .codigoUtil
                                       .toString()
                                       .contains(util) &&
                                   miInventario![i].nombreZona ==
-                                      miZona!.nombreZona) {
+                                      miZona!.nombreZona &&
+                                  miInventario![i]
+                                      .codigoCasillero
+                                      .toString()
+                                      .contains(casillero)) {
                                 miBusqueda!.add(miInventario![i]);
                               }
+                            }
+                            if (miBusqueda!.isEmpty) {
+                              _alerta(context);
                             }
                           }),
                     ),
@@ -297,5 +322,31 @@ class _PaginaListadoState extends State<PaginaListado> {
           return ningunoE;
       }
     }
+  }
+
+  void _alerta(BuildContext context) {
+    showDialog(
+      context: context,
+      //Si clickamos fuera del cuadro este no se cerrara
+      barrierDismissible: false,
+      builder: (context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+          title: Text('Busqueda fallida'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[Text('No existen datos a esa busqueda')],
+          ),
+          actions: <Widget>[
+            FlatButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: Text('Volver'),
+            ),
+          ],
+        );
+      },
+    );
   }
 }
