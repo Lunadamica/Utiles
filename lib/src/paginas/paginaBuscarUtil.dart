@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:solucionutiles/src/helpers/RespuestaHTTP.dart';
+import 'package:solucionutiles/src/modelos/almacen.dart';
 import 'package:solucionutiles/src/utils/utils.dart';
 import 'package:solucionutiles/src/widgets/background.dart';
 import 'package:solucionutiles/src/widgets/input_text.dart';
@@ -32,6 +33,7 @@ class _PaginaBuscarUtilState extends State<PaginaBuscarUtil> {
   String codigoUtil = '';
   List<Cliche>? _misCliches = <Cliche>[];
   List<Troquel>? _misTroqueles = <Troquel>[];
+  List<Almacen>? misAlmacenes;
 
   @override
   Widget build(BuildContext context) {
@@ -39,6 +41,7 @@ class _PaginaBuscarUtilState extends State<PaginaBuscarUtil> {
     Map<dynamic, dynamic>? parametros =
         ModalRoute.of(context)!.settings.arguments as Map?;
     opcionSeleccionada = parametros!['opcionSeleccionada'] ?? 'Cliche';
+    misAlmacenes = parametros['misAlmacenes'];
 
     //Controlamos que esto solo se ejecute una vez y si se cumplen las condiciones deseadas
     if (contador == 0) {
@@ -59,7 +62,8 @@ class _PaginaBuscarUtilState extends State<PaginaBuscarUtil> {
         FocusScope.of(context).unfocus();
       },
       child: Scaffold(
-        // drawer: MenuNavegacion(tipo: opcionSeleccionada),
+        drawer: MenuNavegacion(
+            opcionSeleccionada: opcionSeleccionada, misAlmacenes: misAlmacenes),
         appBar: dameAppBar('Buscador ' + opcionSeleccionada, context),
         body: Stack(children: [
           Background(),

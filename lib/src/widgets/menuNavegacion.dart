@@ -148,6 +148,7 @@ class _MenuNavegacionState extends State<MenuNavegacion> {
           //argumentos que pasamos con los datos traidos del home
           arguments: {
             'opcionSeleccionada': widget.opcionSeleccionada ?? 'Cliche',
+            'misAlmacenes': widget.misAlmacenes,
           },
         );
         break;
