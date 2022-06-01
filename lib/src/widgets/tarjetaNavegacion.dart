@@ -52,7 +52,12 @@ class TarjetaNavegacion extends StatelessWidget {
                 icon: Icons.map,
                 text: 'Visualizar Inventario',
                 onPressed: () {
-                  Navigator.pushNamed(context, 'visual');
+                  Navigator.pushNamed(context, 'visual',
+                      //argumentos que manda los datos desde el Home
+                      arguments: {
+                        'opcionSeleccionada': opcionSeleccionada,
+                        'misAlmacenes': misAlmacenes
+                      });
                 }),
             _SingleCard(
               color: Colors.white,

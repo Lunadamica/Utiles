@@ -6,7 +6,8 @@ import 'package:solucionutiles/src/paginas/paginaListado.dart';
 import 'package:solucionutiles/src/paginas/paginaLogin.dart';
 import 'package:solucionutiles/src/paginas/paginaRetirada.dart';
 import 'package:solucionutiles/src/paginas/paginaSplash.dart';
-import 'package:solucionutiles/src/paginas/paginaVisual.dart';
+
+import '../paginas/paginaVisual.dart';
 
 Map<String, WidgetBuilder> getApplicationRoutes() {
   return <String, WidgetBuilder>{

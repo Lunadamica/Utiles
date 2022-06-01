@@ -20,7 +20,7 @@ class _MapaPocoUsoState extends State<MapaPocoUso> {
       child: Row(
         children: <Widget>[
           //numero de secciones en una misma zona
-          for (int i = 0; i < 6; i++)
+          for (int i = 0; i < 5; i++)
             Container(
               margin: EdgeInsets.all(6),
               width: 50,
