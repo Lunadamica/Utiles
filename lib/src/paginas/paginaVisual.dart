@@ -101,11 +101,50 @@ class _PaginaVisualState extends State<PaginaVisual> {
                   margin: EdgeInsets.all(10),
                   child: Padding(
                     padding: EdgeInsets.all(10),
-                    child: Text(
-                      'DATOS:',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                      ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          'DATOS:',
+                          style: TextStyle(
+                            fontSize: 17,
+                            fontWeight: FontWeight.bold,
+                            decoration: TextDecoration.underline,
+                          ),
+                        ),
+                        SizedBox(height: 10),
+                        Text(
+                          'Capacidad Almacen:',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text('9236 casilleros'),
+                        SizedBox(height: 10),
+                        Text(
+                          'Porcentaje libre:',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text('57%'),
+                        SizedBox(height: 10),
+                        Text(
+                          'Porcentaje ocupado:',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text('43%'),
+                        SizedBox(height: 10),
+                        Text(
+                          'Total de zonas:',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text(misZonas!.length.toString()),
+                      ],
                     ),
                   ),
                 ),
