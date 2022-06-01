@@ -87,9 +87,8 @@ class _ListaInventarioState extends State<ListaInventario> {
   double? obtenerPorcentaje(int i) {
     double? porcentaje = 0;
     porcentaje = 100 -
-        ((widget.lista[i].numeroCasilleros! *
-                int.parse(widget.lista[i].totalUtiles.toString())) /
-            100);
+        ((widget.lista[i].totalUtiles! * 100) /
+            widget.lista[i].numeroCasilleros!);
     return porcentaje;
   }
 

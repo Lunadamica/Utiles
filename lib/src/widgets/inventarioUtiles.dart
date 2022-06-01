@@ -66,7 +66,7 @@ class InventarioUtiles extends StatelessWidget {
           top: 90,
           right: 5,
           child: Text(
-            porcentaje.toString() + '%',
+            porcentaje!.toStringAsFixed(2) + '%',
           ),
         ),
       ],

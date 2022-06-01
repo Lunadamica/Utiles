@@ -140,7 +140,9 @@ class _PaginaHomeState extends State<PaginaHome> {
       misAlmacenes = miRespuesta.data;
 
       setState(() {
-        opcionSeleccionadaAl = misAlmacenes![0].nombreAlmacen;
+        if (misAlmacenes!.isNotEmpty) {
+          opcionSeleccionadaAl = misAlmacenes![0].nombreAlmacen;
+        }
       });
     } else {
       mostrarMensaje(true, miRespuesta.error!.mensaje!);
