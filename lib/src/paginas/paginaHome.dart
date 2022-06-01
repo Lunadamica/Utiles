@@ -21,10 +21,16 @@ class _PaginaHomeState extends State<PaginaHome> {
   String? opcionSeleccionadaAl;
 
   //Asignamos un valor por defecto
-  String? opcionSeleccionada;
+  String? opcionSeleccionada = "Cliche";
 
   List<String> _tipo = ['Cliche', 'Troquel'];
   String? valorUtil;
+
+  @override
+  void initState() {
+    super.initState();
+    cargarAlmacenes();
+  }
 
   @override
   Widget build(BuildContext context) {

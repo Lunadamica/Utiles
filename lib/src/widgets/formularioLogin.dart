@@ -185,7 +185,9 @@ class _FormularioLoginState extends State<FormularioLogin> {
                 Container(
                   alignment: Alignment.topRight,
                   child: FlatButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      _alerta(context);
+                    },
                     child: Text(
                       'Recordar contraseña',
                       style: TextStyle(
@@ -236,5 +238,63 @@ class _FormularioLoginState extends State<FormularioLogin> {
         ]),
       ),
     );
+  }
+
+  void _alerta(BuildContext context) {
+    if (_sUsuario.isEmpty) {
+      showDialog(
+        context: context,
+        //Si clickamos fuera del cuadro este no se cerrara
+        barrierDismissible: false,
+        builder: (context) {
+          return AlertDialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
+            title: Text('Envio de credenciales'),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Text(
+                    'Introduzca el nombre de usuario para solicitar nuevas credenciales')
+              ],
+            ),
+            actions: <Widget>[
+              FlatButton(
+                onPressed: () => Navigator.of(context).pop(),
+                child: Text('Aceptar'),
+              ),
+            ],
+          );
+        },
+      );
+    } else {
+      showDialog(
+        context: context,
+        //Si clickamos fuera del cuadro este no se cerrara
+        barrierDismissible: false,
+        builder: (context) {
+          return AlertDialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
+            title: Text('Envio de credenciales'),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Text(
+                    'Hemos enviado una solicitud de recuperación de credenciales.')
+              ],
+            ),
+            actions: <Widget>[
+              FlatButton(
+                onPressed: () => Navigator.of(context).pop(),
+                child: Text('Aceptar'),
+              ),
+            ],
+          );
+        },
+      );
+    }
   }
 }

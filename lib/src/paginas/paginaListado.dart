@@ -343,8 +343,6 @@ class _PaginaListadoState extends State<PaginaListado> {
                               'codUtil': miBusqueda![i].codigoUtil.toString(),
                             });
                       }
-
-                      print('Soy el casillero ' + i.toString());
                     },
                     title: Text(
                       'Casillero: ' + miBusqueda![i].codigoCasillero.toString(),
