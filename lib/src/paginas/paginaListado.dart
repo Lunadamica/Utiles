@@ -395,9 +395,9 @@ class _PaginaListadoState extends State<PaginaListado> {
     }
   }
 
-  String obtenerEstado(int i) {
+  String obtenerEstado(int? i) {
     if (miBusqueda!.isEmpty) {
-      switch (miInventario![i - 1].estadoUtil) {
+      switch (miInventario![i! - 1].estadoUtil) {
         case 1:
           return activoE;
         case 2:
@@ -410,7 +410,7 @@ class _PaginaListadoState extends State<PaginaListado> {
           return ningunoE;
       }
     } else {
-      switch (miBusqueda![i].estadoUtil) {
+      switch (miBusqueda![i!].estadoUtil) {
         case 1:
           return activoE;
         case 2:
