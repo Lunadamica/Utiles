@@ -144,6 +144,7 @@ class BBDD {
 
     codigoAlmacen = encryptar(codigoAlmacen!);
     ancho = encryptar(ancho!);
+    tipo = encryptar(tipo!);
 
     return _http.respuesta<List<Zona>>(
         "/DameZonasUtilesAPP/Token/$token/Tipo/$tipo/CodigoAlmacen/$codigoAlmacen/AnchoMinimo/$ancho",
