@@ -15,7 +15,7 @@ abstract class Dialogs {
                     onPressed: () {
                       Navigator.pop(_);
                     },
-                    child: Text("OK")),
+                    child: const Text("OK")),
               ],
             ));
   }
@@ -31,7 +31,7 @@ abstract class ProgressDialog {
               width: double.infinity,
               height: double.infinity,
               color: Colors.white.withOpacity(0.7),
-              child: Center(
+              child: const Center(
                 child: CircularProgressIndicator(),
               ),
             ),

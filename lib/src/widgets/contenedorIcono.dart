@@ -14,8 +14,8 @@ class ContenedorIcono extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       //Tamaño de la caja
-      width: this.size,
-      height: this.size,
+      width: size,
+      height: size,
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(this.size * 0.15),
@@ -24,8 +24,8 @@ class ContenedorIcono extends StatelessWidget {
         child: SvgPicture.asset(
           imagen,
           //Tamaño del icono
-          height: this.size * 0.8,
-          width: this.size * 0.8,
+          height: size * 0.8,
+          width: size * 0.8,
         ),
       ),
     );

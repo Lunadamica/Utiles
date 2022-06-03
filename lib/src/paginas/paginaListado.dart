@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:solucionutiles/src/modelos/zona.dart';
 import 'package:solucionutiles/src/utils/responsive.dart';
@@ -49,12 +51,12 @@ class _PaginaListadoState extends State<PaginaListado> {
             Column(
               children: [
                 Padding(
-                  padding: EdgeInsets.all(15),
+                  padding: const EdgeInsets.all(15),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Container(
-                        padding: EdgeInsets.symmetric(horizontal: 5),
+                        padding: const EdgeInsets.symmetric(horizontal: 5),
                         width: size.width / 2.5,
                         decoration: BoxDecoration(
                           color: Colors.white,
@@ -92,7 +94,7 @@ class _PaginaListadoState extends State<PaginaListado> {
                         ),
                       ),
                       Container(
-                        padding: EdgeInsets.symmetric(horizontal: 5),
+                        padding: const EdgeInsets.symmetric(horizontal: 5),
                         width: size.width / 2.5,
                         decoration: BoxDecoration(
                           color: Colors.white,
@@ -133,36 +135,7 @@ class _PaginaListadoState extends State<PaginaListado> {
                     ],
                   ),
                 ),
-                // Container(
-                //   padding: EdgeInsets.symmetric(horizontal: 15),
-                //   alignment: Alignment.topRight,
-                //   child: RaisedButton(
-                //       shape: Border.all(
-                //         color: Colors.black38,
-                //         width: 2,
-                //       ),
-                //       color: Color.fromARGB(255, 194, 140, 78),
-                //       onPressed: () {
-                //         print('Casillero: ' + casillero + ' util: ' + util);
-                //         for (int i = 0; i < miInventario!.length; i++) {
-                //           if (miInventario![i]
-                //                   .codigoUtil
-                //                   .toString()
-                //                   .contains(util) &&
-                //               miInventario![i].nombreZona == miZona!.nombreZona) {
-                //             miBusqueda!.add(miInventario![i]);
-                //           }
-                //         }
-                //         cargarDatos();
-                //         setState(() {});
-                //         miBusqueda!.clear();
-                //       },
-                //       child: Text(
-                //         'Buscar',
-                //         style: TextStyle(color: Colors.black87),
-                //       )),
-                // ),
-                Divider(),
+                const Divider(),
                 cargarDatos(),
                 SizedBox(
                   height: size.hp(10),
@@ -284,7 +257,7 @@ class _PaginaListadoState extends State<PaginaListado> {
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20.0)),
                 child: Column(children: <Widget>[
-                  Padding(
+                  const Padding(
                     padding: EdgeInsets.all(5),
                   ),
                   ListTile(
@@ -301,10 +274,10 @@ class _PaginaListadoState extends State<PaginaListado> {
                     },
                     title: Text(
                       'Casillero: ' + i.toString(),
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                      style: const TextStyle(fontWeight: FontWeight.bold),
                     ),
                     subtitle: Padding(
-                      padding: EdgeInsets.symmetric(vertical: 10),
+                      padding: const EdgeInsets.symmetric(vertical: 10),
                       child: Text('Código Cliché: ' +
                           miInventario![i - 1].codigoUtil.toString() +
                           '\n\nParte: ' +
@@ -331,7 +304,7 @@ class _PaginaListadoState extends State<PaginaListado> {
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20.0)),
                 child: Column(children: <Widget>[
-                  Padding(
+                  const Padding(
                     padding: EdgeInsets.all(5),
                   ),
                   ListTile(
@@ -346,10 +319,10 @@ class _PaginaListadoState extends State<PaginaListado> {
                     },
                     title: Text(
                       'Casillero: ' + miBusqueda![i].codigoCasillero.toString(),
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                      style: const TextStyle(fontWeight: FontWeight.bold),
                     ),
                     subtitle: Padding(
-                      padding: EdgeInsets.symmetric(vertical: 10),
+                      padding: const EdgeInsets.symmetric(vertical: 10),
                       child: Text('Código útil: ' +
                           miBusqueda![i].codigoUtil.toString() +
                           '\n\nParte: ' +
@@ -435,17 +408,13 @@ class _PaginaListadoState extends State<PaginaListado> {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20),
           ),
-          title: Text('Busqueda fallida'),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              Text('En esta zona no existen datos para esa busqueda')
-            ],
-          ),
+          title: const Text('Busqueda fallida'),
+          content:
+              const Text('En esta zona no existen datos para esa busqueda'),
           actions: <Widget>[
             FlatButton(
               onPressed: () => Navigator.of(context).pop(),
-              child: Text('Volver'),
+              child: const Text('Volver'),
             ),
           ],
         );

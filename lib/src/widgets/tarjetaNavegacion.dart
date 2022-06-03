@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
@@ -92,7 +94,7 @@ class _SingleCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
-      margin: EdgeInsets.all(10),
+      margin: const EdgeInsets.all(10),
       child: ClipRRect(
         //Difuminamos el fondo de la caja
         borderRadius: BorderRadius.circular(20),
@@ -101,28 +103,28 @@ class _SingleCard extends StatelessWidget {
           child: Container(
             height: 180,
             decoration: BoxDecoration(
-              color: Color.fromARGB(175, 65, 34, 22),
+              color: const Color.fromARGB(175, 65, 34, 22),
               borderRadius: BorderRadius.circular(20),
             ),
             child: FlatButton(
-              onPressed: this.onPressed,
+              onPressed: onPressed,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   CircleAvatar(
-                    backgroundColor: this.color,
+                    backgroundColor: color,
                     child: Icon(
-                      this.icon,
+                      icon,
                       size: 40,
                     ),
                     radius: 30,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
-                  Text(this.text,
+                  Text(text,
                       textAlign: TextAlign.center,
-                      style: TextStyle(color: this.color, fontSize: 18))
+                      style: TextStyle(color: color, fontSize: 18))
                 ],
               ),
             ),

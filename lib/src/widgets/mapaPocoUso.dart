@@ -1,9 +1,10 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
-import 'dart:math' as math;
 import '../utils/responsive.dart';
 
 class MapaPocoUso extends StatefulWidget {
-  MapaPocoUso({Key? key}) : super(key: key);
+  const MapaPocoUso({Key? key}) : super(key: key);
 
   @override
   State<MapaPocoUso> createState() => _MapaPocoUsoState();
@@ -16,13 +17,13 @@ class _MapaPocoUsoState extends State<MapaPocoUso> {
     return Container(
       color: Colors.white,
       height: size.height * 3,
-      margin: EdgeInsets.all(10),
+      margin: const EdgeInsets.all(10),
       child: Row(
         children: <Widget>[
           //numero de secciones en una misma zona
           for (int i = 0; i < 5; i++)
             Container(
-              margin: EdgeInsets.all(6),
+              margin: const EdgeInsets.all(6),
               width: 50,
               child: SafeArea(
                 child: GridView.count(
@@ -43,7 +44,7 @@ class _MapaPocoUsoState extends State<MapaPocoUso> {
                                 ' Posición:' +
                                 j.toString());
                           },
-                          child: Text(
+                          child: const Text(
                             'num',
                             style: TextStyle(fontSize: 6),
                           ),

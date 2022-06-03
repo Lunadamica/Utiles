@@ -27,8 +27,8 @@ class _ListaInventarioState extends State<ListaInventario> {
   String? codigoZona;
   int? rangoMax = 0;
   int? rangoIni = 0;
-  Map<String?, int?> mapMin = Map<String?, int?>();
-  Map<String?, int?> mapMax = Map<String?, int?>();
+  Map<String?, int?> mapMin = <String?, int?>{};
+  Map<String?, int?> mapMax = <String?, int?>{};
 
   @override
   Widget build(BuildContext context) {
@@ -52,9 +52,9 @@ class _ListaInventarioState extends State<ListaInventario> {
         children: <Widget>[
           for (int i = 0; i < widget.lista.length; i++)
             Card(
-              color: Color.fromARGB(255, 212, 171, 110),
+              color: miColorCamel,
               child: Padding(
-                padding: EdgeInsets.all(10),
+                padding: const EdgeInsets.all(10),
                 //inkwell es el botón para seleccionar
                 child: InkWell(
                   splashColor: Colors.blue.withAlpha(30),

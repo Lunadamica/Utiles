@@ -31,8 +31,7 @@ class _PaginaVisualState extends State<PaginaVisual> {
   String codAlmacen = '0';
 
   final BBDD _miBBDD = GetIt.instance<BBDD>();
-  GlobalKey<FormState> _formKey = new GlobalKey();
-  final scaffoldKey = new GlobalKey<ScaffoldState>();
+  final scaffoldKey = GlobalKey<ScaffoldState>();
 
   String casillero = '', piso = '';
   List<Zona>? misZonas = <Zona>[];
@@ -62,17 +61,17 @@ class _PaginaVisualState extends State<PaginaVisual> {
         Background(),
         SingleChildScrollView(
           child: Container(
-            margin: EdgeInsets.all(10),
+            margin: const EdgeInsets.all(10),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text(
+                const Text(
                   'Almacén:',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 Container(
@@ -86,25 +85,26 @@ class _PaginaVisualState extends State<PaginaVisual> {
                   ),
                   child: _crearDropdown(),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
-                if (opcionSeleccionadaAl == 'Almacen Poco Uso') MapaPocoUso(),
+                if (opcionSeleccionadaAl == 'Almacen Cliche')
+                  const MapaPocoUso(),
                 Container(
                   //contenedor de datos del hueco elegido
                   color: Colors.white,
                   height: size.height / 3,
                   width: size.width,
-                  margin: EdgeInsets.all(10),
+                  margin: const EdgeInsets.all(10),
                   child: Padding(
-                    padding: EdgeInsets.all(10),
+                    padding: const EdgeInsets.all(10),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: <Widget>[
-                        Text(
+                        const Text(
                           'DATOS:',
                           style: TextStyle(
                             fontSize: 17,
@@ -112,32 +112,32 @@ class _PaginaVisualState extends State<PaginaVisual> {
                             decoration: TextDecoration.underline,
                           ),
                         ),
-                        SizedBox(height: 10),
-                        Text(
+                        const SizedBox(height: 10),
+                        const Text(
                           'Capacidad Almacen:',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        Text('9236 casilleros'),
-                        SizedBox(height: 10),
-                        Text(
+                        const Text('9236 casilleros'),
+                        const SizedBox(height: 10),
+                        const Text(
                           'Porcentaje libre:',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        Text('57%'),
-                        SizedBox(height: 10),
-                        Text(
+                        const Text('57%'),
+                        const SizedBox(height: 10),
+                        const Text(
                           'Porcentaje ocupado:',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        Text('43%'),
-                        SizedBox(height: 10),
-                        Text(
+                        const Text('43%'),
+                        const SizedBox(height: 10),
+                        const Text(
                           'Total de zonas:',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
@@ -175,7 +175,7 @@ class _PaginaVisualState extends State<PaginaVisual> {
   Widget _crearDropdown() {
     return Row(
       children: <Widget>[
-        SizedBox(
+        const SizedBox(
           width: 20,
         ),
         //Si no queremos que nuestro dropdown se expanda ocupando todo el espacio
@@ -183,10 +183,10 @@ class _PaginaVisualState extends State<PaginaVisual> {
         Expanded(
           child: DropdownButtonHideUnderline(
             child: DropdownButton(
-                hint: Text('Selecciona un Almacén'),
+                hint: const Text('Selecciona un Almacén'),
                 value: opcionSeleccionadaAl,
                 iconSize: 36,
-                icon: Icon(
+                icon: const Icon(
                   Icons.arrow_drop_down,
                   color: Colors.black,
                 ),

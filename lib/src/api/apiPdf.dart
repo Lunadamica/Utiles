@@ -9,7 +9,7 @@ class ApiService {
     var response = await http.get(Uri.parse(pdfUrl!));
 
     var dir = await getTemporaryDirectory();
-    File file = new File(dir.path + "/data.pdf");
+    File file = File(dir.path + "/data.pdf");
 
     await file.writeAsBytes(response.bodyBytes, flush: true);
     return file.path;

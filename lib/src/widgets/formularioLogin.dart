@@ -1,8 +1,9 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:solucionutiles/src/api/BBDD.dart';
-import 'package:solucionutiles/src/datos/autentificacionCliente.dart';
 import 'package:solucionutiles/src/modelos/usuario.dart';
 import 'package:solucionutiles/src/utils/responsive.dart';
 import 'package:solucionutiles/src/widgets/dialogos.dart';
@@ -20,10 +21,9 @@ class FormularioLogin extends StatefulWidget {
 }
 
 class _FormularioLoginState extends State<FormularioLogin> {
-  GlobalKey<FormState> _formKey = new GlobalKey();
+  final GlobalKey<FormState> _formKey = GlobalKey();
   String _sUsuario = '', _sclave = '';
   final BBDD _miBBDD = GetIt.instance<BBDD>();
-  final _autentificacionCliente = GetIt.instance<AutentificacionCliente>();
   String sCodigoVersion = "";
   bool bDescargaFichero = false;
   bool _ocultarClave = true;
@@ -34,12 +34,13 @@ class _FormularioLoginState extends State<FormularioLogin> {
   }
 
   void comprobarUsuario() async {
+    //Guardamos el último usuario que haya iniciado sesión
     SharedPreferences miConfiguracion = await SharedPreferences.getInstance();
 
     String? sUsuario = miConfiguracion.getString("Usuario");
 
     if (sUsuario != null) {
-      if (sUsuario.trim().length > 0) {
+      if (sUsuario.trim().isNotEmpty) {
         setState(() {
           _sUsuario = sUsuario;
         });
@@ -52,6 +53,7 @@ class _FormularioLoginState extends State<FormularioLogin> {
   }
 
   void _toggle() {
+    //Cambio de icono segun la visibilidad de la contraseña
     setState(() {
       _ocultarClave = !_ocultarClave;
       if (_ocultarClave) {
@@ -63,10 +65,11 @@ class _FormularioLoginState extends State<FormularioLogin> {
   }
 
   Future<void> _validar() async {
+    //Validamos el usuario
     final isOK = _formKey.currentState!.validate();
 
     if (isOK) {
-      if (_sUsuario.trim().length == 0 || _sclave.trim().length == 0) {
+      if (_sUsuario.trim().isEmpty || _sclave.trim().isEmpty) {
         Dialogs.alert(
             context: context,
             titulo: "ERROR",
@@ -91,11 +94,11 @@ class _FormularioLoginState extends State<FormularioLogin> {
           miSesion.token = miRespuesta.data.token;
           miSesion.saveSession();
 
+          //Obtenemos información del usuario
           final RespuestaHTTP miUsuario =
               await _miBBDD.dameInformacionUsuario();
 
           if (miUsuario.data != null) {
-            // await _autentificacionCliente.saveSession(miRespuesta.data);
             if (bDescargaFichero == false) {
               if (!GetIt.instance.isRegistered<Usuario>()) {
                 //hacemos de la sesion que sea singleton
@@ -108,9 +111,10 @@ class _FormularioLoginState extends State<FormularioLogin> {
               miConfiguracion.setString("Usuario", _sUsuario);
             }
           }
-
+          //Navegamos al home si todos los datos son correctos
           Navigator.pushNamedAndRemoveUntil(context, "home", (_) => false);
         } else {
+          //Nos muestra un mensaje si los datos del registro no son correctos
           Dialogs.alert(
               context: context,
               titulo: "ERROR",
@@ -138,49 +142,44 @@ class _FormularioLoginState extends State<FormularioLogin> {
                 InputText(
                   label: 'Usuario',
                   fontSize: responsive.dp(1.7),
-                  controlador: TextEditingController(text: '$_sUsuario'),
+                  controlador: TextEditingController(text: _sUsuario),
                   onChanged: (text) {
                     _sUsuario = text;
                   },
                   validator: (text) {
-                    if (text?.trim().length == 0) {
+                    if (text!.trim().isEmpty) {
                       return 'Usuario incorrecto';
                     }
                     return null;
                   },
                 ),
-                Container(
-                  decoration: BoxDecoration(
-                    border: Border(),
-                  ),
-                  child: Row(
-                    children: <Widget>[
-                      Expanded(
-                        child: InputText(
-                          suffixIcon: IconButton(
-                            icon: Icon(icono),
-                            onPressed: () {
-                              //cambiamos el icono de visibilidad de la contraseña
-                              _toggle();
-                            },
-                          ),
-                          label: 'Contraseña',
-                          //segun lo marcado en el icono ocultamos la contraseña o no
-                          obscureText: _ocultarClave,
-                          fontSize: responsive.dp(1.7),
-                          onChanged: (text) {
-                            _sclave = text;
-                          },
-                          validator: (text) {
-                            if (text?.trim().length == 0) {
-                              return 'Contraseña incorrecta';
-                            }
-                            return null;
+                Row(
+                  children: <Widget>[
+                    Expanded(
+                      child: InputText(
+                        suffixIcon: IconButton(
+                          icon: Icon(icono),
+                          onPressed: () {
+                            //cambiamos el icono de visibilidad de la contraseña
+                            _toggle();
                           },
                         ),
+                        label: 'Contraseña',
+                        //segun lo marcado en el icono ocultamos la contraseña o no
+                        obscureText: _ocultarClave,
+                        fontSize: responsive.dp(1.7),
+                        onChanged: (text) {
+                          _sclave = text;
+                        },
+                        validator: (text) {
+                          if (text!.trim().isEmpty) {
+                            return 'Contraseña incorrecta';
+                          }
+                          return null;
+                        },
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
                 Container(
                   alignment: Alignment.topRight,
@@ -195,7 +194,7 @@ class _FormularioLoginState extends State<FormularioLogin> {
                         fontSize: responsive.dp(1.5),
                       ),
                     ),
-                    padding: EdgeInsets.symmetric(vertical: 10),
+                    padding: const EdgeInsets.symmetric(vertical: 10),
                   ),
                 ),
                 SizedBox(
@@ -204,8 +203,8 @@ class _FormularioLoginState extends State<FormularioLogin> {
                 SizedBox(
                   width: double.infinity,
                   child: FlatButton(
-                    padding: EdgeInsets.symmetric(vertical: 15),
-                    onPressed: this._validar,
+                    padding: const EdgeInsets.symmetric(vertical: 15),
+                    onPressed: _validar,
                     child: Text(
                       'Iniciar Sesión',
                       style: TextStyle(
@@ -251,18 +250,13 @@ class _FormularioLoginState extends State<FormularioLogin> {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(20),
             ),
-            title: Text('Envio de credenciales'),
-            content: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                Text(
-                    'Introduzca el nombre de usuario para solicitar nuevas credenciales')
-              ],
-            ),
+            title: const Text('Envio de credenciales'),
+            content: const Text(
+                'Introduzca el nombre de usuario para solicitar nuevas credenciales'),
             actions: <Widget>[
               FlatButton(
                 onPressed: () => Navigator.of(context).pop(),
-                child: Text('Aceptar'),
+                child: const Text('Aceptar'),
               ),
             ],
           );
@@ -278,18 +272,13 @@ class _FormularioLoginState extends State<FormularioLogin> {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(20),
             ),
-            title: Text('Envio de credenciales'),
-            content: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                Text(
-                    'Hemos enviado una solicitud de recuperación de credenciales.')
-              ],
-            ),
+            title: const Text('Envio de credenciales'),
+            content: const Text(
+                'Hemos enviado una solicitud de recuperación de credenciales.'),
             actions: <Widget>[
               FlatButton(
                 onPressed: () => Navigator.of(context).pop(),
-                child: Text('Aceptar'),
+                child: const Text('Aceptar'),
               ),
             ],
           );

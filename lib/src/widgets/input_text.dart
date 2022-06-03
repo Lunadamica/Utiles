@@ -31,27 +31,29 @@ class InputText extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       controller: controlador,
-      onFieldSubmitted: this.onFieldSubmitted,
+      onFieldSubmitted: onFieldSubmitted,
       //define de que tipo es el texto
-      keyboardType: this.keyboardType,
+      keyboardType: keyboardType,
       //ocultamos la contraseña
-      obscureText: this.obscureText,
+      obscureText: obscureText,
       //cogemos el valor que se inserta en el campo
-      onChanged: this.onChanged,
-      validator: this.validator,
-      style: TextStyle(fontSize: this.fontSize),
+      onChanged: onChanged,
+      //Mensaje de validación
+      validator: validator,
+      style: TextStyle(fontSize: fontSize),
       decoration: InputDecoration(
-          suffixIcon: this.suffixIcon,
-          labelText: this.label,
-          contentPadding: EdgeInsets.symmetric(vertical: 5),
-          enabledBorder: this.borderEnabled
-              ? UnderlineInputBorder(
-                  borderSide: BorderSide(color: Colors.black12))
-              : InputBorder.none,
-          labelStyle: TextStyle(
-            color: Colors.black45,
-            fontWeight: FontWeight.w500,
-          )),
+        suffixIcon: suffixIcon,
+        labelText: label,
+        contentPadding: const EdgeInsets.symmetric(vertical: 5),
+        enabledBorder: borderEnabled
+            ? const UnderlineInputBorder(
+                borderSide: BorderSide(color: Colors.black12))
+            : InputBorder.none,
+        labelStyle: const TextStyle(
+          color: Colors.black45,
+          fontWeight: FontWeight.w500,
+        ),
+      ),
     );
   }
 }

@@ -35,12 +35,12 @@ class Usuario {
     sNombreCliente = "";
     sNombreComercial = "";
     sNombreCentroMontaje = "";
-    this.iVersionAPP = 0;
-    miSociedadSeleccionada = new SociedadUsuario();
+    iVersionAPP = 0;
+    miSociedadSeleccionada = SociedadUsuario();
     misSociedades = <SociedadUsuario>[];
     misImpresoras = <String>[];
     sImpresoraSeleccionada = "";
-    this.sRutaActualizacionAPP = "";
+    sRutaActualizacionAPP = "";
     bCreado = false;
   }
 
@@ -64,32 +64,32 @@ class Usuario {
       this.sRutaActualizacionAPP,
       this.bCreado});
 
-  void setImpresoraSeleccionada(String impresora) async {
-    if (misImpresoras!.where((imp) => imp == impresora).toList().length > 0) {
-      sImpresoraSeleccionada =
-          misImpresoras!.where((imp) => imp == impresora).toList().first;
+  // void setImpresoraSeleccionada(String impresora) async {
+  //   if (misImpresoras!.where((imp) => imp == impresora).toList().isNotEmpty) {
+  //     sImpresoraSeleccionada =
+  //         misImpresoras!.where((imp) => imp == impresora).toList().first;
 
-      SharedPreferences miConfiguracion = await SharedPreferences.getInstance();
-      miConfiguracion.setString("Impresora", sImpresoraSeleccionada!);
-    } else {
-      sImpresoraSeleccionada = "";
-    }
-  }
+  //     SharedPreferences miConfiguracion = await SharedPreferences.getInstance();
+  //     miConfiguracion.setString("Impresora", sImpresoraSeleccionada!);
+  //   } else {
+  //     sImpresoraSeleccionada = "";
+  //   }
+  // }
 
   void setSociedadSeleccionada(int sociedad) {
-    if (misSociedades!.where((soc) => soc.codigo == sociedad).toList().length >
-        0) {
+    if (misSociedades!
+        .where((soc) => soc.codigo == sociedad)
+        .toList()
+        .isNotEmpty) {
       miSociedadSeleccionada =
           misSociedades!.where((soc) => soc.codigo == sociedad).toList().first;
     } else {
-      miSociedadSeleccionada = new SociedadUsuario();
+      miSociedadSeleccionada = SociedadUsuario();
     }
   }
 
   bool get usuarioNormal {
-    if (this.iCodigoCliente == 0 &&
-        this.iCodigoComercial == 0 &&
-        this.iCodigoAlmacen == 0) {
+    if (iCodigoCliente == 0 && iCodigoComercial == 0 && iCodigoAlmacen == 0) {
       return true;
     } else {
       return false;
@@ -134,33 +134,33 @@ class Usuario {
 
   Map<String, dynamic> toJson() {
     return {
-      "Usuario": this.sUsuario,
-      "Codigo": this.iCodigo,
-      "Nombre": this.sNombre,
-      "CodigoComercial": this.iCodigoComercial,
-      "CodigoCliente": this.iCodigoCliente,
-      "CodigoCentroMontaje": this.iCodigoAlmacen,
+      "Usuario": sUsuario,
+      "Codigo": iCodigo,
+      "Nombre": sNombre,
+      "CodigoComercial": iCodigoComercial,
+      "CodigoCliente": iCodigoCliente,
+      "CodigoCentroMontaje": iCodigoAlmacen,
       "Sociedades": misSociedades,
-      "NombreCliente": this.sNombreCliente,
-      "NombreComercial": this.sNombreComercial,
-      "NombreCentroMontaje": this.sNombreCentroMontaje,
-      "Email": this.sEmail,
-      "ImpresoraSeleccionada": this.sImpresoraSeleccionada,
-      "VersionAPP": this.iVersionAPP,
-      "RutaActualizacion": this.sRutaActualizacionAPP
+      "NombreCliente": sNombreCliente,
+      "NombreComercial": sNombreComercial,
+      "NombreCentroMontaje": sNombreCentroMontaje,
+      "Email": sEmail,
+      "ImpresoraSeleccionada": sImpresoraSeleccionada,
+      "VersionAPP": iVersionAPP,
+      "RutaActualizacion": sRutaActualizacionAPP
     };
   }
 
-  int? get codigo => this.iCodigo;
+  int? get codigo => iCodigo;
   String? get username => sUsuario;
-  String? get nombre => this.sNombre;
-  int? get codigoComercial => this.iCodigoComercial;
-  int? get codigoCliente => this.iCodigoCliente;
-  int? get codigoCentroMontaje => this.iCodigoAlmacen;
-  String? get nombreCliente => this.sNombreCliente;
-  String? get nombreComercial => this.sNombreComercial;
-  String? get nombreCentroMontaje => this.sNombreCentroMontaje;
-  String? get email => this.sEmail?.trim();
+  String? get nombre => sNombre;
+  int? get codigoComercial => iCodigoComercial;
+  int? get codigoCliente => iCodigoCliente;
+  int? get codigoCentroMontaje => iCodigoAlmacen;
+  String? get nombreCliente => sNombreCliente;
+  String? get nombreComercial => sNombreComercial;
+  String? get nombreCentroMontaje => sNombreCentroMontaje;
+  String? get email => sEmail?.trim();
   String? get mensajeError => sMensajeError;
 
   SociedadUsuario? get sociedadSeleccionada {
@@ -175,8 +175,8 @@ class Usuario {
     }
   }
 
-  int? get versionAPPActual => this.iVersionAPP;
-  String? get rutaActualizacionAPP => this.sRutaActualizacionAPP;
+  int? get versionAPPActual => iVersionAPP;
+  String? get rutaActualizacionAPP => sRutaActualizacionAPP;
 
   List<String>? get getImpresoras {
     if (misImpresoras == null) {

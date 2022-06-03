@@ -8,7 +8,7 @@ import '../api/BBDD.dart';
 
 abstract class Dependencia {
   static void inicializar() {
-    final FlutterSecureStorage _secureStorage = FlutterSecureStorage();
+    const FlutterSecureStorage _secureStorage = FlutterSecureStorage();
     GetIt.instance.registerSingleton<FlutterSecureStorage>(_secureStorage);
 
     // String sUrl = "http://10.0.2.2:8091/Service1.svc";

@@ -13,7 +13,7 @@ class VisorPdf extends StatefulWidget {
   final String codigo;
   final String tipo;
 
-  VisorPdf({
+  const VisorPdf({
     Key? key,
     required this.codigo,
     required this.tipo,
@@ -25,13 +25,12 @@ class VisorPdf extends StatefulWidget {
 
 class _VisorPdfState extends State<VisorPdf> {
   final BBDD _miBBDD = GetIt.instance<BBDD>();
-  ApiService _apiService = new ApiService();
+  final ApiService _apiService = ApiService();
   String? url;
   String? localFile;
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     obtenerUri();
   }
@@ -40,28 +39,26 @@ class _VisorPdfState extends State<VisorPdf> {
   Widget build(BuildContext context) {
     Responsive size = Responsive(context);
     return SizedBox(
-      height: size.height / 3,
+      height: size.isTablet ? size.height / 2 : size.height / 3,
       child: GestureDetector(
         child: Center(
           child: localFile != null
-              ? Container(
-                  child: GestureDetector(
-                    onDoubleTap: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => ImagenCompleta(
-                            url: url ?? "",
-                            codigo: widget.codigo,
-                          ),
+              ? GestureDetector(
+                  onDoubleTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => ImagenCompleta(
+                          url: url ?? "",
+                          codigo: widget.codigo,
                         ),
-                      );
-                    },
-                    child: PDFView(
-                      filePath: localFile,
-                    ),
+                      ),
+                    );
+                  },
+                  child: PDFView(
+                    filePath: localFile,
                   ),
                 )
-              : CircularProgressIndicator(),
+              : const CircularProgressIndicator(),
         ),
       ),
     );

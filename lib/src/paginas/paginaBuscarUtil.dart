@@ -1,7 +1,10 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:solucionutiles/src/helpers/RespuestaHTTP.dart';
 import 'package:solucionutiles/src/modelos/almacen.dart';
+import 'package:solucionutiles/src/utils/responsive.dart';
 import 'package:solucionutiles/src/utils/utils.dart';
 import 'package:solucionutiles/src/widgets/background.dart';
 import 'package:solucionutiles/src/widgets/input_text.dart';
@@ -13,7 +16,7 @@ import '../widgets/datosBusqueda.dart';
 import '../widgets/menuNavegacion.dart';
 
 class PaginaBuscarUtil extends StatefulWidget {
-  PaginaBuscarUtil({Key? key}) : super(key: key);
+  const PaginaBuscarUtil({Key? key}) : super(key: key);
 
   @override
   State<PaginaBuscarUtil> createState() => _PaginaBuscarUtilState();
@@ -37,6 +40,7 @@ class _PaginaBuscarUtilState extends State<PaginaBuscarUtil> {
 
   @override
   Widget build(BuildContext context) {
+    Responsive responsive = Responsive(context);
     //Recibo el tipo de util desde el home
     Map<dynamic, dynamic>? parametros =
         ModalRoute.of(context)!.settings.arguments as Map?;
@@ -69,75 +73,73 @@ class _PaginaBuscarUtilState extends State<PaginaBuscarUtil> {
           Background(),
           SingleChildScrollView(
             child: Container(
-              margin: EdgeInsets.all(10),
+              margin: const EdgeInsets.all(10),
               child: Column(
                 children: <Widget>[
                   Visibility(
                     visible: isVisible,
-                    child: Container(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          SizedBox(
-                            height: 10,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        const Text(
+                          'Número:',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
                           ),
-                          Text(
-                            'Número:',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Column(
-                            children: [
-                              Container(
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  border: Border.all(
-                                    color: Colors.brown,
-                                    width: 2,
-                                  ),
-                                ),
-                                child: InputText(
-                                  label: 'Introduzca el código útil',
-                                  fontSize: 17,
-                                  //Cargamos los datos haciendo uso del boton del teclado
-                                  onFieldSubmitted: (_) {
-                                    if (opcionSeleccionada == 'Cliche') {
-                                      cargarCliches();
-                                    } else {
-                                      cargarTroqueles();
-                                    }
-                                    isVisible = !isVisible;
-                                  },
-                                  keyboardType: TextInputType.number,
-                                  onChanged: (text) {
-                                    codigoUtil = text;
-                                  },
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Column(
+                          children: [
+                            Container(
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                border: Border.all(
+                                  color: Colors.brown,
+                                  width: 2,
                                 ),
                               ),
-                            ],
-                          ),
-                          Divider(),
-                        ],
-                      ),
+                              child: InputText(
+                                label: 'Introduzca el código útil',
+                                fontSize: 17,
+                                //Cargamos los datos haciendo uso del boton del teclado
+                                onFieldSubmitted: (_) {
+                                  if (opcionSeleccionada == 'Cliche') {
+                                    cargarCliches();
+                                  } else {
+                                    cargarTroqueles();
+                                  }
+                                  isVisible = !isVisible;
+                                },
+                                keyboardType: TextInputType.number,
+                                onChanged: (text) {
+                                  codigoUtil = text;
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
+                        const Divider(),
+                      ],
                     ),
                   ),
                   //Botón de nueva consulta
                   Visibility(
                     visible: !isVisible,
                     child: Container(
-                      decoration: BoxDecoration(),
-                      padding: EdgeInsets.symmetric(vertical: 10),
+                      decoration: const BoxDecoration(),
+                      padding: const EdgeInsets.symmetric(vertical: 10),
                       alignment: Alignment.center,
                       child: RaisedButton(
                           shape: Border.all(
                             color: Colors.black38,
                             width: 2,
                           ),
-                          color: Color.fromARGB(255, 194, 140, 78),
+                          color: const Color.fromARGB(255, 194, 140, 78),
                           onPressed: () {
                             setState(() {
                               _misCliches = null;
@@ -147,7 +149,9 @@ class _PaginaBuscarUtilState extends State<PaginaBuscarUtil> {
                           },
                           child: Text(
                             'Nueva consulta',
-                            style: TextStyle(color: Colors.black87),
+                            style: TextStyle(
+                                color: Colors.black87,
+                                fontSize: responsive.hp(1.7)),
                           )),
                     ),
                   ),

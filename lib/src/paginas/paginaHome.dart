@@ -45,18 +45,18 @@ class _PaginaHomeState extends State<PaginaHome> {
           Background(),
           SingleChildScrollView(
             child: Column(children: [
-              Padding(
+              const Padding(
                 padding: EdgeInsets.all(10),
                 child: Text(
                   'Tipo:',
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 15),
+                padding: const EdgeInsets.symmetric(horizontal: 15),
                 child: Container(
                   decoration: BoxDecoration(
                     color: Colors.white,
@@ -69,7 +69,7 @@ class _PaginaHomeState extends State<PaginaHome> {
                   child: _crearDropdown(),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               TarjetaNavegacion(
@@ -96,7 +96,7 @@ class _PaginaHomeState extends State<PaginaHome> {
   Widget _crearDropdown() {
     return Row(
       children: <Widget>[
-        SizedBox(
+        const SizedBox(
           width: 20,
         ),
         //Si no queremos que nuestro dropdown se expanda ocupando todo el espacio
@@ -104,10 +104,10 @@ class _PaginaHomeState extends State<PaginaHome> {
         Expanded(
           child: DropdownButtonHideUnderline(
             child: DropdownButton(
-                hint: Text('Elige un tipo de útil'),
+                hint: const Text('Elige un tipo de útil'),
                 value: opcionSeleccionada,
                 iconSize: 36,
-                icon: Icon(
+                icon: const Icon(
                   Icons.arrow_drop_down,
                   color: Colors.black,
                 ),

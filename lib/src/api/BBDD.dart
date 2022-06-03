@@ -2,7 +2,6 @@ import 'package:get_it/get_it.dart';
 import 'package:solucionutiles/src/modelos/almacen.dart';
 import 'package:solucionutiles/src/modelos/zona.dart';
 
-import '../datos/autentificacionCliente.dart';
 import '../helpers/Http.dart';
 import '../helpers/RespuestaHTTP.dart';
 import '../modelos/cliche.dart';
@@ -14,7 +13,6 @@ import '../utils/utils.dart';
 
 class BBDD {
   final Http _http;
-  late AutentificacionCliente _autentificacionCliente;
 
   BBDD(this._http);
 

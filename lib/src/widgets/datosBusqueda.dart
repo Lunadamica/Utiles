@@ -4,7 +4,6 @@ import 'package:intl/intl.dart';
 import 'package:solucionutiles/src/utils/responsive.dart';
 import 'package:solucionutiles/src/utils/utils.dart';
 import 'package:solucionutiles/src/widgets/background.dart';
-import 'package:solucionutiles/src/widgets/menuNavegacion.dart';
 import 'package:solucionutiles/src/widgets/mostrarDatosCliche.dart';
 
 import '../modelos/cliche.dart';
@@ -30,7 +29,7 @@ class DatosBusqueda extends StatelessWidget {
 
   Widget datos() {
     Responsive size = Responsive(context);
-    final f = new DateFormat('dd-MM-yyyy');
+    final f = DateFormat('dd-MM-yyyy');
 
     if (listaCliche != null && listaCliche!.isNotEmpty) {
       return MostrarDatosCliche(
@@ -45,26 +44,26 @@ class DatosBusqueda extends StatelessWidget {
         child: Container(
           decoration: BoxDecoration(
               color: Colors.white, borderRadius: BorderRadius.circular(20)),
-          padding: EdgeInsets.all(10),
+          padding: const EdgeInsets.all(10),
           width: size.width,
           child: Column(
             children: <Widget>[
               Row(
                 children: [
-                  Text(
+                  const Text(
                     'Código troquel: ',
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
                   ),
                   Text(
-                    '${listaTroquel![0].codUtil.toString()}',
-                    style: TextStyle(fontSize: 15),
+                    listaTroquel![0].codUtil.toString(),
+                    style: const TextStyle(fontSize: 15),
                   ),
                 ],
               ),
-              Divider(),
+              const Divider(),
               Row(
                 children: [
-                  Text(
+                  const Text(
                     'Número de tejas: ',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
@@ -72,15 +71,15 @@ class DatosBusqueda extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    '${listaTroquel!.length.toString()}',
-                    style: TextStyle(fontSize: 15),
+                    listaTroquel!.length.toString(),
+                    style: const TextStyle(fontSize: 15),
                   ),
                 ],
               ),
-              Divider(),
+              const Divider(),
               Row(
                 children: [
-                  Text(
+                  const Text(
                     'Ancho bruto: ',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
@@ -88,15 +87,15 @@ class DatosBusqueda extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    '${listaTroquel![0].anchoUtil.toString()}',
-                    style: TextStyle(fontSize: 15),
+                    listaTroquel![0].anchoUtil.toString(),
+                    style: const TextStyle(fontSize: 15),
                   ),
                 ],
               ),
-              Divider(),
+              const Divider(),
               Row(
                 children: [
-                  Text(
+                  const Text(
                     'Estado: ',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
@@ -105,18 +104,18 @@ class DatosBusqueda extends StatelessWidget {
                   ),
                   Text(
                     '${listaTroquel![0].codEstado}',
-                    style: TextStyle(fontSize: 15),
+                    style: const TextStyle(fontSize: 15),
                   ),
                   Text(
                     ' - ${listaTroquel![0].nomEstado}',
-                    style: TextStyle(fontSize: 15),
+                    style: const TextStyle(fontSize: 15),
                   ),
                 ],
               ),
-              Divider(),
+              const Divider(),
               Row(
                 children: [
-                  Text(
+                  const Text(
                     'Código pieza: ',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
@@ -125,14 +124,14 @@ class DatosBusqueda extends StatelessWidget {
                   ),
                   Text(
                     '${listaTroquel![0].codPieza}',
-                    style: TextStyle(fontSize: 15),
+                    style: const TextStyle(fontSize: 15),
                   ),
                 ],
               ),
-              Divider(),
+              const Divider(),
               Row(
                 children: [
-                  Text(
+                  const Text(
                     'Código subpieza: ',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
@@ -141,14 +140,14 @@ class DatosBusqueda extends StatelessWidget {
                   ),
                   Text(
                     '${listaTroquel![0].codSubpieza}',
-                    style: TextStyle(fontSize: 15),
+                    style: const TextStyle(fontSize: 15),
                   ),
                 ],
               ),
-              Divider(),
+              const Divider(),
               Row(
                 children: [
-                  Text(
+                  const Text(
                     'Fecha cambio: ',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
@@ -158,7 +157,7 @@ class DatosBusqueda extends StatelessWidget {
                   Text(
                     f.format(
                         DateTime.parse('${listaTroquel![0].fechaCambioUtil}')),
-                    style: TextStyle(fontSize: 15),
+                    style: const TextStyle(fontSize: 15),
                   ),
                 ],
               ),
@@ -166,10 +165,10 @@ class DatosBusqueda extends StatelessWidget {
                 visible: conLlegada,
                 child: Column(
                   children: [
-                    Divider(),
+                    const Divider(),
                     Row(
                       children: [
-                        Text(
+                        const Text(
                           'Fecha prevista de llegada: ',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
@@ -179,12 +178,12 @@ class DatosBusqueda extends StatelessWidget {
                         Text(
                           f.format(DateTime.parse(
                               '${listaTroquel![0].fechaPrLlegada}')),
-                          style: TextStyle(fontSize: 15),
+                          style: const TextStyle(fontSize: 15),
                         ),
                       ],
                     ),
-                    Divider(),
-                    Text(
+                    const Divider(),
+                    const Text(
                       'Causa: ',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
@@ -193,13 +192,13 @@ class DatosBusqueda extends StatelessWidget {
                     ),
                     Text(
                       '${listaTroquel![0].causa}',
-                      style: TextStyle(fontSize: 15),
+                      style: const TextStyle(fontSize: 15),
                     ),
                   ],
                 ),
               ),
-              Divider(),
-              Text(
+              const Divider(),
+              const Text(
                 'Nombre del cliente: ',
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
@@ -208,10 +207,10 @@ class DatosBusqueda extends StatelessWidget {
               ),
               Text(
                 '${listaTroquel![0].nomCliente}',
-                style: TextStyle(fontSize: 15),
+                style: const TextStyle(fontSize: 15),
               ),
-              Divider(),
-              Text(
+              const Divider(),
+              const Text(
                 'Referencia: ',
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
@@ -220,10 +219,10 @@ class DatosBusqueda extends StatelessWidget {
               ),
               Text(
                 '${listaTroquel![0].referencia}',
-                style: TextStyle(fontSize: 15),
+                style: const TextStyle(fontSize: 15),
               ),
-              Divider(),
-              Text(
+              const Divider(),
+              const Text(
                 'Observaciones: ',
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
@@ -232,9 +231,9 @@ class DatosBusqueda extends StatelessWidget {
               ),
               Text(
                 '${listaTroquel![0].observaciones}',
-                style: TextStyle(fontSize: 15),
+                style: const TextStyle(fontSize: 15),
               ),
-              Divider(),
+              const Divider(),
               //Mostramos un PDF
               VisorPdf(
                 codigo: listaTroquel![0].codUtil.toString(),
@@ -245,7 +244,7 @@ class DatosBusqueda extends StatelessWidget {
         ),
       );
     }
-    return Text('No se encuentran datos');
+    return const Text('No se encuentran datos');
   }
 
   bool preLlegada(int estado) {
@@ -276,14 +275,14 @@ class DatosBusqueda extends StatelessWidget {
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20.0)),
                       child: Column(children: <Widget>[
-                        Padding(padding: EdgeInsets.all(5)),
+                        const Padding(padding: EdgeInsets.all(5)),
                         ListTile(
                           title: Text(
                             'Datos ${lista[i].codUtil.toString()}:',
-                            style: TextStyle(fontWeight: FontWeight.bold),
+                            style: const TextStyle(fontWeight: FontWeight.bold),
                           ),
                           subtitle: Padding(
-                            padding: EdgeInsets.all(10),
+                            padding: const EdgeInsets.all(10),
                             child: Text(
                                 'Código físico: ${lista[i].codFisico}\nCódigo parte: ${lista[i].codParte}\nLargo parte: ${lista[i].largo}\n\nCódigo Almacén: ${lista[i].codAlmacen}\nNombre almacén: ${lista[i].nombreAl}\nTipo almacén: ${lista[i].tipoAl}\n\nCódigo zona: ${lista[i].codZona}\nNombre zona: ${lista[i].codZona}\nAncho zona: ${lista[i].anchoZo}\n\nCódigo casillero: ${lista[i].codCasillero}\nNombre casillero: ${lista[i].nombreCa}\nAncho casillero: ${lista[i].anchoCa}\nTipo casillero: ${lista[i].tipoCa}\n\nCódigo máquina: ${lista[i].codMaquina}'),
                           ),

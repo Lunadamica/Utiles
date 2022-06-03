@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:solucionutiles/src/utils/utils.dart';
 
@@ -44,14 +46,14 @@ class _PaginaRetiradaState extends State<PaginaRetirada> {
         children: <Widget>[
           ListTile(
             title: Text(item),
-            subtitle: Text('Subtitulos'),
-            trailing: Text('P: 4 C:330'),
+            subtitle: const Text('Subtitulos'),
+            trailing: const Text('P: 4 C:330'),
             //Al hacer click que salga un dialogo que nos pregunte si deseamos eliminar de la lista el elemento
             onTap: () {
               _alerta(context);
             },
           ),
-          Divider()
+          const Divider()
         ],
       );
     }).toList();
@@ -68,22 +70,17 @@ void _alerta(BuildContext context) {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
         ),
-        title: Text('Eliminar elemento'),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            Text(
-                '¿Esta seguro de que desea eliminar este elemento de la lista?')
-          ],
-        ),
+        title: const Text('Eliminar elemento'),
+        content: const Text(
+            '¿Esta seguro de que desea eliminar este elemento de la lista?'),
         actions: <Widget>[
           FlatButton(
             onPressed: () {},
-            child: Text('Borrar'),
+            child: const Text('Borrar'),
           ),
           FlatButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: Text('Cancelar'),
+            child: const Text('Cancelar'),
           ),
         ],
       );

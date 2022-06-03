@@ -20,14 +20,14 @@ class InventarioUtiles extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: <Widget>[
-        Text('Zona:', style: TextStyle(fontWeight: FontWeight.bold)),
+        const Text('Zona:', style: TextStyle(fontWeight: FontWeight.bold)),
         Positioned(
           right: 5,
           child: Text(
             zona!,
           ),
         ),
-        Positioned(
+        const Positioned(
           top: 30,
           child: Text(
             'Rango:',
@@ -41,7 +41,7 @@ class InventarioUtiles extends StatelessWidget {
             rango!,
           ),
         ),
-        Positioned(
+        const Positioned(
           top: 60,
           child: Text(
             'T. útiles:',
@@ -55,7 +55,7 @@ class InventarioUtiles extends StatelessWidget {
             totalUtiles!,
           ),
         ),
-        Positioned(
+        const Positioned(
           top: 90,
           child: Text(
             'P. libre:',

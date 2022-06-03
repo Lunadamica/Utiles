@@ -1,11 +1,12 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:solucionutiles/src/utils/utils.dart';
 
 import '../utils/responsive.dart';
 
 class Background extends StatelessWidget {
-  final boxDecoration = BoxDecoration(
+  final boxDecoration = const BoxDecoration(
       gradient: LinearGradient(
           //Cambiamos la dirección de nuestro lineargradient
           begin: Alignment.topCenter,
@@ -51,10 +52,8 @@ class _Forma extends StatelessWidget {
         height: responsive.wp(90),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(80),
-            gradient: LinearGradient(colors: [
-              Color.fromARGB(255, 238, 161, 74),
-              Color.fromARGB(255, 243, 222, 194)
-            ])),
+            gradient:
+                LinearGradient(colors: [miColorGradient1, miColorGradient2])),
       ),
     );
   }

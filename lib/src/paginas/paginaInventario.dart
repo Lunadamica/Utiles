@@ -12,7 +12,7 @@ import '../widgets/listaInventario.dart';
 import '../widgets/menuNavegacion.dart';
 
 class PaginaInventario extends StatefulWidget {
-  PaginaInventario({Key? key}) : super(key: key);
+  const PaginaInventario({Key? key}) : super(key: key);
 
   @override
   State<PaginaInventario> createState() => _PaginaInventarioState();
@@ -29,8 +29,7 @@ class _PaginaInventarioState extends State<PaginaInventario> {
   String codAlmacen = '0';
 
   final BBDD _miBBDD = GetIt.instance<BBDD>();
-  GlobalKey<FormState> _formKey = new GlobalKey();
-  final scaffoldKey = new GlobalKey<ScaffoldState>();
+  final scaffoldKey = GlobalKey<ScaffoldState>();
 
   String casillero = '', piso = '';
   List<Zona>? misZonas = <Zona>[];
@@ -59,17 +58,17 @@ class _PaginaInventarioState extends State<PaginaInventario> {
         Background(),
         SingleChildScrollView(
           child: Container(
-            margin: EdgeInsets.all(10),
+            margin: const EdgeInsets.all(10),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text(
+                const Text(
                   'Almacén:',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 Container(
@@ -83,10 +82,10 @@ class _PaginaInventarioState extends State<PaginaInventario> {
                   ),
                   child: _crearDropdown(),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 Visibility(
@@ -129,7 +128,7 @@ class _PaginaInventarioState extends State<PaginaInventario> {
   Widget _crearDropdown() {
     return Row(
       children: <Widget>[
-        SizedBox(
+        const SizedBox(
           width: 20,
         ),
         //Si no queremos que nuestro dropdown se expanda ocupando todo el espacio
@@ -137,10 +136,10 @@ class _PaginaInventarioState extends State<PaginaInventario> {
         Expanded(
           child: DropdownButtonHideUnderline(
             child: DropdownButton(
-                hint: Text('Selecciona un Almacén'),
+                hint: const Text('Selecciona un Almacén'),
                 value: opcionSeleccionadaAl,
                 iconSize: 36,
-                icon: Icon(
+                icon: const Icon(
                   Icons.arrow_drop_down,
                   color: Colors.black,
                 ),

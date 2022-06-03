@@ -1,5 +1,3 @@
-import 'package:meta/meta.dart';
-
 // T hace que sea generico
 class RespuestaHTTP<T> {
   //Variable en la que guardamos los datos si el registro ha sido existoso

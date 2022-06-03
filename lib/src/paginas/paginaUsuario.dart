@@ -4,8 +4,8 @@ import '../utils/utils.dart';
 
 class PaginaUsuario extends StatelessWidget {
   final String name;
-  final String urlImage;
-  const PaginaUsuario({Key? key, required this.name, required this.urlImage})
+  String urlImage;
+  PaginaUsuario({Key? key, required this.name, required this.urlImage})
       : super(key: key);
 
   @override

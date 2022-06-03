@@ -11,11 +11,11 @@ import '../paginas/paginaVisual.dart';
 
 Map<String, WidgetBuilder> getApplicationRoutes() {
   return <String, WidgetBuilder>{
-    '/': (BuildContext context) => PaginaSplash(),
-    'login': (BuildContext context) => PaginaLogin(),
+    '/': (BuildContext context) => const PaginaSplash(),
+    'login': (BuildContext context) => const PaginaLogin(),
     'home': (BuildContext context) => PaginaHome(),
-    'buscador': (BuildContext context) => PaginaBuscarUtil(),
-    'inventario': (BuildContext context) => PaginaInventario(),
+    'buscador': (BuildContext context) => const PaginaBuscarUtil(),
+    'inventario': (BuildContext context) => const PaginaInventario(),
     'retirada': (BuildContext context) => PaginaRetirada(),
     'visual': (BuildContext context) => PaginaVisual(),
     'listado': (BuildContext context) => PaginaListado()

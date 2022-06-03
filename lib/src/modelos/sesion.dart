@@ -3,7 +3,6 @@ import 'dart:convert';
 
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get_it/get_it.dart';
-import 'package:meta/meta.dart';
 import 'package:solucionutiles/src/api/BBDD.dart';
 import 'package:solucionutiles/src/utils/utils.dart';
 
@@ -37,10 +36,10 @@ class Sesion {
 
   Map<String, dynamic> toJson() {
     return {
-      "Token": this.token,
-      "SegundosExpiracion": this.segundosExpiracion,
-      "Fecha": this.fecha.toIso8601String(),
-      "Usuario": this.usuario
+      "Token": token,
+      "SegundosExpiracion": segundosExpiracion,
+      "Fecha": fecha.toIso8601String(),
+      "Usuario": usuario
     };
   }
 
@@ -74,25 +73,25 @@ class Sesion {
       fromJson(jsonDecode(data));
 
       final DateTime fechaActual = DateTime.now();
-      final DateTime fechaSesion = this.fecha;
+      final DateTime fechaSesion = fecha;
 
       final diff = fechaActual.difference(fechaSesion).inSeconds;
 
       //  Logs.log.i("Segundos sesion: ${this.segundosExpiracion - diff}");
 
-      if (this.segundosExpiracion - diff > segundosMinimosConexion) {
+      if (segundosExpiracion - diff > segundosMinimosConexion) {
         _completo();
-        return this.token;
+        return token;
       } else {
         final _miBBDD = GetIt.instance<BBDD>();
-        final response = await _miBBDD.refreshToken(tokenExpirado: this.token);
+        final response = await _miBBDD.refreshToken(tokenExpirado: token);
         if (response.data != null) {
-          this.token = response.data!.token;
-          this.segundosExpiracion = response.data!.segundosExpiracion;
-          this.fecha = response.data!.fecha;
-          this.usuario = response.data!.usuario;
+          token = response.data!.token;
+          segundosExpiracion = response.data!.segundosExpiracion;
+          fecha = response.data!.fecha;
+          usuario = response.data!.usuario;
 
-          await this.saveSession();
+          await saveSession();
           _completo();
           return response.data!.token;
         } else {

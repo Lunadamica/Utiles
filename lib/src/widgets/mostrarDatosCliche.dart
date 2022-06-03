@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:solucionutiles/src/widgets/VisorPdf.dart';
 import 'package:solucionutiles/src/widgets/background.dart';
-import 'package:solucionutiles/src/widgets/menuNavegacion.dart';
 
 import '../modelos/cliche.dart';
 import '../utils/responsive.dart';
@@ -18,7 +17,7 @@ class MostrarDatosCliche extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Responsive size = Responsive(context);
-    final f = new DateFormat('dd-MM-yyyy');
+    final f = DateFormat('dd-MM-yyyy');
     bool conLlegada = preLlegada(listaCliche![0].codEstado!);
     return GestureDetector(
       onTap: () {
@@ -33,20 +32,20 @@ class MostrarDatosCliche extends StatelessWidget {
           children: <Widget>[
             Row(
               children: [
-                Text(
+                const Text(
                   'Código cliché: ',
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
                 ),
                 Text(
-                  '${listaCliche![0].codUtil.toString()}',
-                  style: TextStyle(fontSize: 15),
+                  listaCliche![0].codUtil.toString(),
+                  style: const TextStyle(fontSize: 15),
                 ),
               ],
             ),
-            Divider(),
+            const Divider(),
             Row(
               children: [
-                Text(
+                const Text(
                   'Número de partes: ',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
@@ -54,15 +53,15 @@ class MostrarDatosCliche extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  '${listaCliche!.length.toString()}',
-                  style: TextStyle(fontSize: 15),
+                  listaCliche!.length.toString(),
+                  style: const TextStyle(fontSize: 15),
                 ),
               ],
             ),
-            Divider(),
+            const Divider(),
             Row(
               children: [
-                Text(
+                const Text(
                   'Ancho cliché: ',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
@@ -70,15 +69,15 @@ class MostrarDatosCliche extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  '${listaCliche![0].anchoUtil.toString()}',
-                  style: TextStyle(fontSize: 15),
+                  listaCliche![0].anchoUtil.toString(),
+                  style: const TextStyle(fontSize: 15),
                 ),
               ],
             ),
-            Divider(),
+            const Divider(),
             Row(
               children: [
-                Text(
+                const Text(
                   'Número color: ',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
@@ -86,15 +85,15 @@ class MostrarDatosCliche extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  '${listaCliche![0].color.toString()}',
-                  style: TextStyle(fontSize: 15),
+                  listaCliche![0].color.toString(),
+                  style: const TextStyle(fontSize: 15),
                 ),
               ],
             ),
-            Divider(),
+            const Divider(),
             Row(
               children: [
-                Text(
+                const Text(
                   'Estado: ',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
@@ -111,10 +110,10 @@ class MostrarDatosCliche extends StatelessWidget {
                 ),
               ],
             ),
-            Divider(),
+            const Divider(),
             Row(
               children: [
-                Text(
+                const Text(
                   'Código pieza: ',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
@@ -123,14 +122,14 @@ class MostrarDatosCliche extends StatelessWidget {
                 ),
                 Text(
                   '${listaCliche![0].codPieza}',
-                  style: TextStyle(fontSize: 15),
+                  style: const TextStyle(fontSize: 15),
                 ),
               ],
             ),
-            Divider(),
+            const Divider(),
             Row(
               children: [
-                Text(
+                const Text(
                   'Código subpieza: ',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
@@ -139,14 +138,14 @@ class MostrarDatosCliche extends StatelessWidget {
                 ),
                 Text(
                   '${listaCliche![0].codSubpieza}',
-                  style: TextStyle(fontSize: 15),
+                  style: const TextStyle(fontSize: 15),
                 ),
               ],
             ),
-            Divider(),
+            const Divider(),
             Row(
               children: [
-                Text(
+                const Text(
                   'Fecha cambio: ',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
@@ -156,7 +155,7 @@ class MostrarDatosCliche extends StatelessWidget {
                 Text(
                   f.format(
                       DateTime.parse('${listaCliche![0].fechaCambioUtil}')),
-                  style: TextStyle(fontSize: 15),
+                  style: const TextStyle(fontSize: 15),
                 ),
               ],
             ),
@@ -164,10 +163,10 @@ class MostrarDatosCliche extends StatelessWidget {
               visible: conLlegada,
               child: Column(
                 children: [
-                  Divider(),
+                  const Divider(),
                   Row(
                     children: [
-                      Text(
+                      const Text(
                         'Fecha prevista de llegada: ',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
@@ -177,12 +176,12 @@ class MostrarDatosCliche extends StatelessWidget {
                       Text(
                         f.format(DateTime.parse(
                             '${listaCliche![0].fechaPrLlegada}')),
-                        style: TextStyle(fontSize: 15),
+                        style: const TextStyle(fontSize: 15),
                       ),
                     ],
                   ),
-                  Divider(),
-                  Text(
+                  const Divider(),
+                  const Text(
                     'Causa: ',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
@@ -191,13 +190,13 @@ class MostrarDatosCliche extends StatelessWidget {
                   ),
                   Text(
                     '${listaCliche![0].causa}',
-                    style: TextStyle(fontSize: 15),
+                    style: const TextStyle(fontSize: 15),
                   ),
                 ],
               ),
             ),
-            Divider(),
-            Text(
+            const Divider(),
+            const Text(
               'Nombre del cliente: ',
               style: TextStyle(
                 fontWeight: FontWeight.bold,
@@ -208,8 +207,8 @@ class MostrarDatosCliche extends StatelessWidget {
               '${listaCliche![0].nomCliente}',
               style: TextStyle(fontSize: 15),
             ),
-            Divider(),
-            Text(
+            const Divider(),
+            const Text(
               'Referencia: ',
               style: TextStyle(
                 fontWeight: FontWeight.bold,
@@ -220,8 +219,8 @@ class MostrarDatosCliche extends StatelessWidget {
               '${listaCliche![0].referencia}',
               style: TextStyle(fontSize: 15),
             ),
-            Divider(),
-            Text(
+            const Divider(),
+            const Text(
               'Observaciones: ',
               style: TextStyle(
                 fontWeight: FontWeight.bold,
@@ -230,9 +229,9 @@ class MostrarDatosCliche extends StatelessWidget {
             ),
             Text(
               '${listaCliche![0].observaciones}',
-              style: TextStyle(fontSize: 15),
+              style: const TextStyle(fontSize: 15),
             ),
-            Divider(),
+            const Divider(),
             //Mostramos un PDF
             VisorPdf(
               codigo: listaCliche![0].codUtil.toString(),
@@ -272,14 +271,14 @@ class MostrarDatosCliche extends StatelessWidget {
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20.0)),
                       child: Column(children: <Widget>[
-                        Padding(padding: EdgeInsets.all(5)),
+                        const Padding(padding: EdgeInsets.all(5)),
                         ListTile(
                           title: Text(
                             'Datos ${lista[i].codUtil.toString()}:',
-                            style: TextStyle(fontWeight: FontWeight.bold),
+                            style: const TextStyle(fontWeight: FontWeight.bold),
                           ),
                           subtitle: Padding(
-                            padding: EdgeInsets.all(10),
+                            padding: const EdgeInsets.all(10),
                             child: Text(
                                 'Código físico: ${lista[i].codFisico}\nCódigo parte: ${lista[i].codParte}\nLargo parte: ${lista[i].largo}\n\nCódigo Almacén: ${lista[i].codAlmacen}\nNombre almacén: ${lista[i].nombreAl}\nTipo almacén: ${lista[i].tipoAl}\n\nCódigo zona: ${lista[i].codZona}\nNombre zona: ${lista[i].codZona}\nAncho zona: ${lista[i].anchoZo}\n\nCódigo casillero: ${lista[i].codCasillero}\nNombre casillero: ${lista[i].nombreCa}\nAncho casillero: ${lista[i].anchoCa}\nTipo casillero: ${lista[i].tipoCa}\n\nCódigo máquina: ${lista[i].codMaquina}'),
                           ),

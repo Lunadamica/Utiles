@@ -3,11 +3,9 @@ import 'package:solucionutiles/src/utils/responsive.dart';
 import 'package:solucionutiles/src/utils/utils.dart';
 import 'package:solucionutiles/src/widgets/background.dart';
 import 'package:solucionutiles/src/widgets/mapaPocoUso.dart';
-import 'package:solucionutiles/src/widgets/menuNavegacion.dart';
-import 'dart:math' as math;
 
 class PaginaVisualP extends StatefulWidget {
-  PaginaVisualP({Key? key}) : super(key: key);
+  const PaginaVisualP({Key? key}) : super(key: key);
 
   @override
   State<PaginaVisualP> createState() => _PaginaVisualPState();
@@ -17,7 +15,7 @@ class _PaginaVisualPState extends State<PaginaVisualP> {
   //Asignamos un valor por defecto
   String _opcionSeleccionada = 'Almacén Cliche';
 
-  List<String> _tipo = [
+  final List<String> _tipo = [
     'Almacén Cliche',
     'Al. Mayor Uso',
     'Al. Poco Uso',
@@ -36,7 +34,7 @@ class _PaginaVisualPState extends State<PaginaVisualP> {
             child: Column(
               children: [
                 Container(
-                  margin: EdgeInsets.all(10),
+                  margin: const EdgeInsets.all(10),
                   decoration: BoxDecoration(
                     color: Colors.white,
                     border: Border.all(
@@ -47,14 +45,14 @@ class _PaginaVisualPState extends State<PaginaVisualP> {
                   ),
                   child: _crearDropdown(),
                 ),
-                if (_opcionSeleccionada == 'Al. Poco Uso') MapaPocoUso(),
+                if (_opcionSeleccionada == 'Al. Poco Uso') const MapaPocoUso(),
                 Container(
                   //contenedor de datos del hueco elegido
                   color: Colors.white,
                   height: size.height / 3,
                   width: size.width,
-                  margin: EdgeInsets.all(10),
-                  child: Text(
+                  margin: const EdgeInsets.all(10),
+                  child: const Text(
                     'DATOS:',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
@@ -71,19 +69,19 @@ class _PaginaVisualPState extends State<PaginaVisualP> {
 
   List<DropdownMenuItem<String>> getOpcionesDropdown() {
     List<DropdownMenuItem<String>> lista = <DropdownMenuItem<String>>[];
-    _tipo.forEach((poder) {
+    for (var poder in _tipo) {
       lista.add(DropdownMenuItem(
         child: Text(poder),
         value: poder,
       ));
-    });
+    }
     return lista;
   }
 
   Widget _crearDropdown() {
     return Row(
       children: <Widget>[
-        SizedBox(
+        const SizedBox(
           width: 20,
         ),
         //Si no queremos que nuestro dropdawn se expanda ocupando todo el espacio
@@ -93,7 +91,7 @@ class _PaginaVisualPState extends State<PaginaVisualP> {
             child: DropdownButton(
                 value: _opcionSeleccionada,
                 iconSize: 36,
-                icon: Icon(
+                icon: const Icon(
                   Icons.arrow_drop_down,
                   color: Colors.black,
                 ),

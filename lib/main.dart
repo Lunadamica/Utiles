@@ -5,6 +5,8 @@ import 'package:solucionutiles/src/helpers/depencidencias.dart';
 import 'package:solucionutiles/src/paginas/paginaSplash.dart';
 import 'package:solucionutiles/src/rutas/rutas.dart';
 
+import 'src/utils/utils.dart';
+
 void main() {
   Dependencia.inicializar();
   runApp(const MyApp());
@@ -22,7 +24,7 @@ class MyApp extends StatelessWidget {
     ]);
 
     return MaterialApp(
-      title: 'App Utiles',
+      title: sNombreAPP,
       debugShowCheckedModeBanner: false, //quita el banner de debug
       localizationsDelegates: [
         GlobalMaterialLocalizations.delegate,
@@ -34,7 +36,7 @@ class MyApp extends StatelessWidget {
         const Locale('es', 'ES')
       ],
       theme: ThemeData(
-        primarySwatch: Colors.brown,
+        primarySwatch: miColorTema,
       ),
       initialRoute: '/',
       routes: getApplicationRoutes(),

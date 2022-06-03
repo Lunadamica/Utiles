@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:solucionutiles/src/api/BBDD.dart';
 import 'package:solucionutiles/src/modelos/almacen.dart';
 import 'package:solucionutiles/src/paginas/paginaUsuario.dart';
 
@@ -20,9 +19,8 @@ class MenuNavegacion extends StatefulWidget {
 
 class _MenuNavegacionState extends State<MenuNavegacion> {
   final _autentificacionCliente = GetIt.instance<AutentificacionCliente>();
-  final BBDD _miBBDD = GetIt.instance<BBDD>();
   String _sUsuario = '';
-  final padding = EdgeInsets.symmetric(horizontal: 20);
+  final padding = const EdgeInsets.symmetric(horizontal: 20);
 
   @override
   void initState() {
@@ -36,7 +34,7 @@ class _MenuNavegacionState extends State<MenuNavegacion> {
     String? sUsuario = miConfiguracion.getString("Usuario");
 
     if (sUsuario != null) {
-      if (sUsuario.trim().length > 0) {
+      if (sUsuario.trim().isNotEmpty) {
         setState(() {
           _sUsuario = sUsuario;
         });
@@ -51,7 +49,8 @@ class _MenuNavegacionState extends State<MenuNavegacion> {
   @override
   Widget build(BuildContext context) {
     final nombre = _sUsuario;
-    final urlImage =
+    //La imagen del usuario la estoy cogiendo directamente desde internet
+    const urlImage =
         'https://d500.epimg.net/cincodias/imagenes/2016/07/04/lifestyle/1467646262_522853_1467646344_noticia_normal.jpg';
     return Drawer(
       child: Material(
@@ -101,7 +100,7 @@ class _MenuNavegacionState extends State<MenuNavegacion> {
             const SizedBox(
               height: 24,
             ),
-            Divider(
+            const Divider(
               color: Colors.white70,
             ),
             const SizedBox(
@@ -120,12 +119,12 @@ class _MenuNavegacionState extends State<MenuNavegacion> {
 
   Widget buildMenuItem(
       {required String text, required IconData icon, VoidCallback? onClicked}) {
-    final color = Colors.white;
-    final hoverColor = Colors.white70;
+    const color = Colors.white;
+    const hoverColor = Colors.white70;
 
     return ListTile(
       leading: Icon(icon, color: color),
-      title: Text(text, style: TextStyle(color: color)),
+      title: Text(text, style: const TextStyle(color: color)),
       hoverColor: hoverColor,
       onTap: onClicked,
     );
@@ -191,20 +190,20 @@ class _MenuNavegacionState extends State<MenuNavegacion> {
       InkWell(
         onTap: onClicked,
         child: Container(
-          padding: padding.add(EdgeInsets.symmetric(vertical: 40)),
+          padding: padding.add(const EdgeInsets.symmetric(vertical: 40)),
           child: Row(
             children: [
               CircleAvatar(
                 radius: 30,
                 backgroundImage: NetworkImage(urlImage),
               ),
-              SizedBox(width: 20),
+              const SizedBox(width: 20),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     nombre,
-                    style: TextStyle(fontSize: 20, color: Colors.white),
+                    style: const TextStyle(fontSize: 20, color: Colors.white),
                   )
                 ],
               )

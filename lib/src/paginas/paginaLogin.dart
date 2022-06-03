@@ -4,7 +4,7 @@ import 'package:solucionutiles/src/widgets/contenedorIcono.dart';
 import 'package:solucionutiles/src/widgets/formularioLogin.dart';
 
 class PaginaLogin extends StatefulWidget {
-  PaginaLogin({Key? key}) : super(key: key);
+  const PaginaLogin({Key? key}) : super(key: key);
 
   @override
   State<PaginaLogin> createState() => _PaginaLoginState();
@@ -17,11 +17,12 @@ class _PaginaLoginState extends State<PaginaLogin> {
     final Responsive responsive = Responsive.of(context);
 
     return Scaffold(
-      //minimizamos el teclado al pinchar fuera del teclado
+      //minimizamos el teclado al pinchar fuera de el
       body: GestureDetector(
         onTap: () {
           FocusScope.of(context).unfocus();
         },
+        //Permitimos que la pantalla sea adaptable y no fija añadiendo scroll
         child: SingleChildScrollView(
           child: Container(
             width: responsive.width,
@@ -31,21 +32,27 @@ class _PaginaLoginState extends State<PaginaLogin> {
               alignment: Alignment.center,
               children: <Widget>[
                 Positioned(
-                  top: responsive.wp(20),
+                  top: responsive.isTablet
+                      ? responsive.wp(10)
+                      : responsive.wp(20),
                   child: Column(
                     children: <Widget>[
+                      //Logo de la app
                       ContenedorIcono(
                         imagen: 'recursos/icono2.svg',
-                        size: responsive.wp(40),
+                        size: responsive.isTablet
+                            ? responsive.wp(40)
+                            : responsive.wp(50),
                       ),
                       Text(
                         "Bienvenido",
                         textAlign: TextAlign.center,
+                        style: TextStyle(fontSize: responsive.dp(1.7)),
                       )
                     ],
                   ),
                 ),
-                FormularioLogin(),
+                const FormularioLogin(),
               ],
             ),
           ),
