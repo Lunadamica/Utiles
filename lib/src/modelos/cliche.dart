@@ -1,62 +1,32 @@
-import 'package:solucionutiles/src/modelos/util.dart';
-
-class Cliche extends Util {
+class Cliche {
   late int? color;
-  @override
   late int? codSociedad;
-  @override
   late int? codUtil;
-  @override
   late int? codFisico;
-  @override
   late int? codParte;
-  @override
   late int? codAlmacen;
-  @override
   late String? nombreAl;
-  @override
   late int? tipoAl;
-  @override
   late int? codZona;
-  @override
   late String? nombreZo;
-  @override
   late int? anchoZo;
-  @override
   late int? codCasillero;
-  @override
   late int? nombreCa;
-  @override
   late int? anchoCa;
-  @override
   late int? tipoCa;
-  @override
   late int? codMaquina;
-  @override
   late int? largo;
-  @override
   late int? anchoUtil;
-  @override
   late int? codEstado;
-  @override
   late String? nomEstado;
-  @override
   late int? fechaCambioUtil;
-  @override
   late int? fechaPrLlegada;
-  @override
   late String? causa;
-  @override
   late int? codCliente;
-  @override
   late String? nomCliente;
-  @override
   late int? codPieza;
-  @override
   late int? codSubpieza;
-  @override
   late String? referencia;
-  @override
   late String? observaciones;
 
   Cliche.origin() {

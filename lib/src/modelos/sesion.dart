@@ -77,8 +77,6 @@ class Sesion {
 
       final diff = fechaActual.difference(fechaSesion).inSeconds;
 
-      //  Logs.log.i("Segundos sesion: ${this.segundosExpiracion - diff}");
-
       if (segundosExpiracion - diff > segundosMinimosConexion) {
         _completo();
         return token;

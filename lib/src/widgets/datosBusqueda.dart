@@ -39,7 +39,7 @@ class DatosBusqueda extends StatelessWidget {
       bool conLlegada = preLlegada(listaTroquel![0].codEstado!);
       return GestureDetector(
         onTap: () {
-          _alerta(context, listaTroquel!);
+          _listaDetallada(context, listaTroquel!);
         },
         child: Container(
           decoration: BoxDecoration(
@@ -255,7 +255,7 @@ class DatosBusqueda extends StatelessWidget {
     return conLlegada;
   }
 
-  void _alerta(BuildContext context, List<Troquel> lista) {
+  void _listaDetallada(BuildContext context, List<Troquel> lista) {
     showDialog(
         context: context,
         //Si clicamos fuera del cuadro este no se cerrara
