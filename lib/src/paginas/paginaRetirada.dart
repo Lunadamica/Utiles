@@ -3,10 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:solucionutiles/src/utils/utils.dart';
 
-import '../widgets/menuNavegacion.dart';
-
 class PaginaRetirada extends StatefulWidget {
-  PaginaRetirada({Key? key}) : super(key: key);
+  const PaginaRetirada({Key? key}) : super(key: key);
 
   @override
   State<PaginaRetirada> createState() => _PaginaRetiradaState();

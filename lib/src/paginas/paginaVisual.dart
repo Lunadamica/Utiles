@@ -14,7 +14,7 @@ import '../widgets/mapaPocoUso.dart';
 import '../widgets/menuNavegacion.dart';
 
 class PaginaVisual extends StatefulWidget {
-  PaginaVisual({Key? key}) : super(key: key);
+  const PaginaVisual({Key? key}) : super(key: key);
 
   @override
   State<PaginaVisual> createState() => _PaginaVisualState();

@@ -42,7 +42,7 @@ class MyApp extends StatelessWidget {
       routes: getApplicationRoutes(),
       onGenerateRoute: (RouteSettings settings) {
         return MaterialPageRoute(
-            builder: (BuildContext context) => PaginaSplash());
+            builder: (BuildContext context) => const PaginaSplash());
       },
     );
   }

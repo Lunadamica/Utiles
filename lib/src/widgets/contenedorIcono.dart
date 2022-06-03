@@ -18,7 +18,7 @@ class ContenedorIcono extends StatelessWidget {
       height: size,
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(this.size * 0.15),
+        borderRadius: BorderRadius.circular(size * 0.15),
       ),
       child: Center(
         child: SvgPicture.asset(

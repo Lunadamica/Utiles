@@ -26,7 +26,7 @@ class MostrarDatosCliche extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
             color: Colors.white, borderRadius: BorderRadius.circular(20)),
-        padding: EdgeInsets.all(10),
+        padding: const EdgeInsets.all(10),
         width: size.width,
         child: Column(
           children: <Widget>[
@@ -102,11 +102,11 @@ class MostrarDatosCliche extends StatelessWidget {
                 ),
                 Text(
                   '${listaCliche![0].codEstado}',
-                  style: TextStyle(fontSize: 15),
+                  style: const TextStyle(fontSize: 15),
                 ),
                 Text(
                   ' - ${listaCliche![0].nomEstado}',
-                  style: TextStyle(fontSize: 15),
+                  style: const TextStyle(fontSize: 15),
                 ),
               ],
             ),
@@ -205,7 +205,7 @@ class MostrarDatosCliche extends StatelessWidget {
             ),
             Text(
               '${listaCliche![0].nomCliente}',
-              style: TextStyle(fontSize: 15),
+              style: const TextStyle(fontSize: 15),
             ),
             const Divider(),
             const Text(
@@ -217,7 +217,7 @@ class MostrarDatosCliche extends StatelessWidget {
             ),
             Text(
               '${listaCliche![0].referencia}',
-              style: TextStyle(fontSize: 15),
+              style: const TextStyle(fontSize: 15),
             ),
             const Divider(),
             const Text(

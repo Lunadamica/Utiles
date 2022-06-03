@@ -13,11 +13,11 @@ Map<String, WidgetBuilder> getApplicationRoutes() {
   return <String, WidgetBuilder>{
     '/': (BuildContext context) => const PaginaSplash(),
     'login': (BuildContext context) => const PaginaLogin(),
-    'home': (BuildContext context) => PaginaHome(),
+    'home': (BuildContext context) => const PaginaHome(),
     'buscador': (BuildContext context) => const PaginaBuscarUtil(),
     'inventario': (BuildContext context) => const PaginaInventario(),
-    'retirada': (BuildContext context) => PaginaRetirada(),
-    'visual': (BuildContext context) => PaginaVisual(),
-    'listado': (BuildContext context) => PaginaListado()
+    'retirada': (BuildContext context) => const PaginaRetirada(),
+    'visual': (BuildContext context) => const PaginaVisual(),
+    'listado': (BuildContext context) => const PaginaListado()
   };
 }

@@ -10,7 +10,7 @@ import '../widgets/background.dart';
 import '../widgets/input_text.dart';
 
 class PaginaListado extends StatefulWidget {
-  PaginaListado({Key? key}) : super(key: key);
+  const PaginaListado({Key? key}) : super(key: key);
 
   @override
   State<PaginaListado> createState() => _PaginaListadoState();
@@ -22,13 +22,13 @@ class _PaginaListadoState extends State<PaginaListado> {
   List<Inventario>? miInventario;
   List<Inventario>? miBusqueda = [];
   Zona? miZona;
-  Map<String?, int?> mapMin = Map<String?, int?>();
-  Map<String?, int?> mapMax = Map<String?, int?>();
+  Map<String?, int?> mapMin = <String?, int?>{};
+  Map<String?, int?> mapMax = <String?, int?>{};
 
   @override
   Widget build(BuildContext context) {
     Responsive size = Responsive(context);
-    //Recibo el tipo de util desde el home
+    //Recibo los datos de parametros
     Map<dynamic, dynamic>? parametros =
         ModalRoute.of(context)!.settings.arguments as Map?;
     opcionSeleccionada = parametros!['opcionSeleccionada'] ?? 'Cliche';
@@ -71,8 +71,11 @@ class _PaginaListadoState extends State<PaginaListado> {
                           onChanged: (text) {
                             casillero = text;
                           },
+                          //Función al hacer enter en el filtrado de casillero
                           onFieldSubmitted: (_) {
+                            //Limpiamos de busquedas anteriores
                             miBusqueda!.clear();
+                            //recorro mi inventario y guardo en una lista los resultados de mis busqueda
                             for (int i = 0; i < miInventario!.length; i++) {
                               if (miInventario![i]
                                       .codigoCasillero
@@ -109,9 +112,11 @@ class _PaginaListadoState extends State<PaginaListado> {
                           onChanged: (text) {
                             util = text;
                           },
-                          //Función de buscar con el enter
+                          //Función de buscar con enter
                           onFieldSubmitted: (_) {
+                            //Limpiamos de busquedas anteriores
                             miBusqueda!.clear();
+                            //recorro mi inventario y guardo en una lista los resultados de mis busqueda
                             for (int i = 0; i < miInventario!.length; i++) {
                               if (miInventario![i]
                                       .codigoUtil
@@ -137,6 +142,7 @@ class _PaginaListadoState extends State<PaginaListado> {
                 ),
                 const Divider(),
                 cargarDatos(),
+                //Botonera de filtrado
                 SizedBox(
                   height: size.hp(10),
                   child: Stack(
@@ -146,6 +152,7 @@ class _PaginaListadoState extends State<PaginaListado> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
+                            //Boton de busqueda estado activo
                             FlatButton(
                               onPressed: () {
                                 miBusqueda!.clear();
@@ -160,12 +167,12 @@ class _PaginaListadoState extends State<PaginaListado> {
                                 if (miBusqueda!.isEmpty) {
                                   _alerta(context);
                                 }
-                                ;
                                 setState(() {});
                               },
                               child: Text(activoE),
                               color: activo,
                             ),
+                            //Boton de busqueda estado pendiente
                             FlatButton(
                               onPressed: () {
                                 miBusqueda!.clear();
@@ -180,12 +187,12 @@ class _PaginaListadoState extends State<PaginaListado> {
                                 if (miBusqueda!.isEmpty) {
                                   _alerta(context);
                                 }
-                                ;
                                 setState(() {});
                               },
                               child: Text(pendienteLlegarE),
                               color: pendienteLlegar,
                             ),
+                            //Boton de busqueda estado inactivo
                             FlatButton(
                               onPressed: () {
                                 miBusqueda!.clear();
@@ -200,12 +207,12 @@ class _PaginaListadoState extends State<PaginaListado> {
                                 if (miBusqueda!.isEmpty) {
                                   _alerta(context);
                                 }
-                                ;
                                 setState(() {});
                               },
                               child: Text(inactivoE),
                               color: inactivo,
                             ),
+                            //Boton de busqueda estado ninguno
                             FlatButton(
                               onPressed: () {
                                 miBusqueda!.clear();
@@ -220,7 +227,6 @@ class _PaginaListadoState extends State<PaginaListado> {
                                 if (miBusqueda!.isEmpty) {
                                   _alerta(context);
                                 }
-                                ;
                                 setState(() {});
                               },
                               child: Text(ningunoE),
@@ -241,6 +247,7 @@ class _PaginaListadoState extends State<PaginaListado> {
   }
 
   Widget cargarDatos() {
+    //Si no hemos realizado un filtrado
     if (miBusqueda!.isEmpty) {
       return Expanded(
         child: ListView(
@@ -290,6 +297,7 @@ class _PaginaListadoState extends State<PaginaListado> {
           ],
         ),
       );
+      //Si hemos realizado un filtrado
     } else {
       return Expanded(
         child: ListView(
@@ -313,6 +321,7 @@ class _PaginaListadoState extends State<PaginaListado> {
                         Navigator.pushNamed(context, 'buscador',
                             //argumentos que manda los datos desde la lista de inventario
                             arguments: {
+                              'opcionSeleccionada': opcionSeleccionada,
                               'codUtil': miBusqueda![i].codigoUtil.toString(),
                             });
                       }
@@ -401,7 +410,7 @@ class _PaginaListadoState extends State<PaginaListado> {
   void _alerta(BuildContext context) {
     showDialog(
       context: context,
-      //Si clickamos fuera del cuadro este no se cerrara
+      //Si clicamos fuera del cuadro este no se cerrara
       barrierDismissible: false,
       builder: (context) {
         return AlertDialog(

@@ -14,7 +14,7 @@ class DatosBusqueda extends StatelessWidget {
   final List<Cliche>? listaCliche;
   final List<Troquel>? listaTroquel;
 
-  final context;
+  final BuildContext context;
   const DatosBusqueda({
     Key? key,
     this.listaCliche,

@@ -24,6 +24,10 @@ final String tipoCliche = '0';
 final String tipoTroquel = '1';
 final String sinTipo = '';
 
+//Tipos
+final String TCliche = 'Cliche';
+final String TTroquel = 'Troquel';
+
 //Estados
 final String ningunoE = 'Vacío';
 final String pendienteLlegarE = 'Pendiente';

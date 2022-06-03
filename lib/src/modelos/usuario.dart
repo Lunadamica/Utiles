@@ -1,4 +1,3 @@
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:solucionutiles/src/modelos/sociedadUsuario.dart';
 
 class Usuario {
@@ -128,7 +127,7 @@ class Usuario {
       sImpresoraSeleccionada: "",
       iVersionAPP: json['VersionAPP'] as int,
       sRutaActualizacionAPP: json['RutaActualizacion'] as String,
-      miSociedadSeleccionada: new SociedadUsuario(),
+      miSociedadSeleccionada: SociedadUsuario(),
     );
   }
 

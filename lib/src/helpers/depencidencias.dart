@@ -11,8 +11,8 @@ abstract class Dependencia {
     const FlutterSecureStorage _secureStorage = FlutterSecureStorage();
     GetIt.instance.registerSingleton<FlutterSecureStorage>(_secureStorage);
 
-    // String sUrl = "http://10.0.2.2:8091/Service1.svc";
-    String sUrl = "http://199.5.84.237:8092/Service1.svc/";
+    String sUrl = "http://10.0.2.2:8091/Service1.svc";
+    // String sUrl = "http://199.5.84.237:8092/Service1.svc/";
     //String sUrl = "http://199.5.84.237:8090/Service1.svc/";
     //String sUrl = "http://80.26.155.246:8090/Service1.svc";
     final Dio _dio = Dio(BaseOptions(baseUrl: sUrl));

@@ -9,7 +9,7 @@ import '../modelos/almacen.dart';
 import '../widgets/background.dart';
 
 class PaginaHome extends StatefulWidget {
-  PaginaHome({Key? key}) : super(key: key);
+  const PaginaHome({Key? key}) : super(key: key);
 
   @override
   State<PaginaHome> createState() => _PaginaHomeState();
@@ -21,9 +21,9 @@ class _PaginaHomeState extends State<PaginaHome> {
   String? opcionSeleccionadaAl;
 
   //Asignamos un valor por defecto
-  String? opcionSeleccionada = "Cliche";
+  String? opcionSeleccionada = TCliche;
 
-  List<String> _tipo = ['Cliche', 'Troquel'];
+  final List<String> _tipo = [TCliche, TTroquel];
   String? valorUtil;
 
   @override
@@ -84,12 +84,12 @@ class _PaginaHomeState extends State<PaginaHome> {
 
   List<DropdownMenuItem<String>> getOpcionesDropdown() {
     List<DropdownMenuItem<String>> lista = <DropdownMenuItem<String>>[];
-    _tipo.forEach((util) {
+    for (var util in _tipo) {
       lista.add(DropdownMenuItem(
         child: Text(util),
         value: util,
       ));
-    });
+    }
     return lista;
   }
 
