@@ -1,5 +1,6 @@
 import 'package:get_it/get_it.dart';
 import 'package:solucionutiles/src/modelos/almacen.dart';
+import 'package:solucionutiles/src/modelos/maquina.dart';
 import 'package:solucionutiles/src/modelos/zona.dart';
 
 import '../helpers/Http.dart';
@@ -155,6 +156,23 @@ class BBDD {
       }
 
       return misZonas;
+    });
+  }
+
+  Future<RespuestaHTTP<List<Maquina>>> dameMaquinas() async {
+    final Sesion miSesion = GetIt.instance<Sesion>();
+    final token = await miSesion.accessToken;
+    List<Maquina> misMaquinas = <Maquina>[];
+
+    return _http.respuesta<List<Maquina>>("/DameMaquinas/Token/$token",
+        metodo: "GET", cadenaResultado: "DameMaquinasResult", parser: (datos) {
+      List<dynamic> maquinas = datos;
+
+      for (var i = 0; i < maquinas.length; i++) {
+        misMaquinas.add(Maquina.fromJson(maquinas[i] as Map<String, dynamic>));
+      }
+
+      return misMaquinas;
     });
   }
 

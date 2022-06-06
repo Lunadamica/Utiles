@@ -9,7 +9,6 @@ import '../helpers/RespuestaHTTP.dart';
 import '../modelos/inventario.dart';
 import '../modelos/zona.dart';
 import '../utils/responsive.dart';
-import '../widgets/listaInventario.dart';
 import '../widgets/mapaPocoUso.dart';
 import '../widgets/menuNavegacion.dart';
 

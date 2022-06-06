@@ -1,9 +1,13 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
+import 'package:solucionutiles/src/modelos/maquina.dart';
 import 'package:solucionutiles/src/modelos/zona.dart';
 import 'package:solucionutiles/src/utils/responsive.dart';
 
+import '../api/BBDD.dart';
+import '../helpers/RespuestaHTTP.dart';
 import '../modelos/inventario.dart';
 import '../utils/utils.dart';
 import '../widgets/background.dart';
@@ -17,6 +21,7 @@ class PaginaListado extends StatefulWidget {
 }
 
 class _PaginaListadoState extends State<PaginaListado> {
+  final BBDD _miBBDD = GetIt.instance<BBDD>();
   String casillero = '', util = '';
   String? opcionSeleccionada;
   List<Inventario>? miInventario;
@@ -24,6 +29,15 @@ class _PaginaListadoState extends State<PaginaListado> {
   Zona? miZona;
   Map<String?, int?> mapMin = <String?, int?>{};
   Map<String?, int?> mapMax = <String?, int?>{};
+  List<Maquina>? misMaquinas;
+  String? opcionSeleccionadaMa;
+  Maquina? miMaquina;
+
+  @override
+  void initState() {
+    super.initState();
+    cargarMaquinas();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -268,6 +282,8 @@ class _PaginaListadoState extends State<PaginaListado> {
                     padding: EdgeInsets.all(5),
                   ),
                   ListTile(
+                    onLongPress: () =>
+                        _maquina(context, miInventario![i - 1].codigoUtil),
                     onTap: () {
                       if (miInventario![i - 1].estadoUtil! > -1) {
                         Navigator.pushNamed(context, 'buscador',
@@ -316,6 +332,8 @@ class _PaginaListadoState extends State<PaginaListado> {
                     padding: EdgeInsets.all(5),
                   ),
                   ListTile(
+                    onLongPress: () =>
+                        _maquina(context, miInventario![i - 1].codigoUtil),
                     onTap: () {
                       if (miBusqueda![i].estadoUtil! > -1) {
                         Navigator.pushNamed(context, 'buscador',
@@ -429,5 +447,125 @@ class _PaginaListadoState extends State<PaginaListado> {
         );
       },
     );
+  }
+
+  void _maquina(BuildContext context, int? codigoUtil) {
+    showDialog(
+      context: context,
+      //Si clicamos fuera del cuadro este no se cerrara
+      barrierDismissible: false,
+      builder: (context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+          title: const Text('Envio a máquina'),
+          content: SizedBox(
+            height: 100,
+            child: Column(
+              children: <Widget>[
+                const Text(
+                    'Introduzca el número de la máquina al que se va a enviar:'),
+                const SizedBox(
+                  height: 10,
+                ),
+                _crearDropdown(codigoUtil!),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            FlatButton(
+              onPressed: () {
+                for (int i = 0; i < misMaquinas!.length; i++) {
+                  if (misMaquinas![i].nombreMaquina == opcionSeleccionadaMa) {
+                    miMaquina = misMaquinas![i];
+                  }
+                }
+                print("pasar el util: " +
+                    codigoUtil.toString() +
+                    " a la maquina con cod: " +
+                    miMaquina!.codMaquina.toString() +
+                    " de nombre: " +
+                    miMaquina!.nombreMaquina.toString());
+                Navigator.of(context).pop();
+              },
+              child: const Text('Aceptar'),
+            ),
+            FlatButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: const Text('Volver'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void mostrarMensaje(bool error, String texto) {
+    ScaffoldMessenger.of(context)
+        .showSnackBar(dameSnackBar(titulo: texto, error: error));
+  }
+
+  List<DropdownMenuItem<String>> getOpcionesDropdown() {
+    List<DropdownMenuItem<String>> lista = <DropdownMenuItem<String>>[];
+    misMaquinas?.forEach((maquina) {
+      lista.add(DropdownMenuItem(
+        child: Text(maquina.nombreMaquina!),
+        value: maquina.nombreMaquina,
+      ));
+    });
+    return lista;
+  }
+
+  Widget _crearDropdown(int codigoUtil) {
+    return Row(
+      children: <Widget>[
+        const SizedBox(
+          width: 20,
+        ),
+        //Si no queremos que nuestro dropdown se expanda ocupando todo el espacio
+        //simplemente lo sacamos fuera y eliminamos el widget
+        Expanded(
+          child: DropdownButtonHideUnderline(
+            child: DropdownButton(
+                hint: const Text('Selecciona una máquina'),
+                value: opcionSeleccionadaMa,
+                iconSize: 36,
+                icon: const Icon(
+                  Icons.arrow_drop_down,
+                  color: Colors.black,
+                ),
+                isExpanded: true,
+                items: getOpcionesDropdown(),
+                onChanged: (opt) {
+                  setState(() {
+                    opcionSeleccionadaMa = opt as String;
+                    Navigator.of(context).pop();
+                    _maquina(context, codigoUtil);
+                  });
+                }),
+          ),
+        )
+      ],
+    );
+  }
+
+  Future<void> cargarMaquinas() async {
+    final RespuestaHTTP<List<Maquina>> miRespuesta =
+        await _miBBDD.dameMaquinas();
+
+    if (miRespuesta.data != null) {
+      misMaquinas = miRespuesta.data;
+
+      setState(() {
+        if (misMaquinas!.isNotEmpty) {
+          opcionSeleccionadaMa = misMaquinas![0].nombreMaquina;
+        }
+      });
+    } else {
+      mostrarMensaje(true, miRespuesta.error!.mensaje!);
+
+      comprobarTipoError(context, miRespuesta.error!);
+    }
   }
 }

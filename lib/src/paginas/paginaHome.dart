@@ -128,9 +128,9 @@ class _PaginaHomeState extends State<PaginaHome> {
 
   //Metodo para conseguir la lista de almacenes segun el tipo
   Future<void> cargarAlmacenes() async {
-    if (opcionSeleccionada == 'Cliche') {
+    if (opcionSeleccionada == TCliche) {
       valorUtil = tipoCliche;
-    } else if (opcionSeleccionada == 'Troquel') {
+    } else if (opcionSeleccionada == TTroquel) {
       valorUtil = tipoTroquel;
     }
     final RespuestaHTTP<List<Almacen>> miRespuesta =
