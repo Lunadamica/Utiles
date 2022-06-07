@@ -58,7 +58,11 @@ class _VisorPdfState extends State<VisorPdf> {
                     filePath: localFile,
                   ),
                 )
-              : const CircularProgressIndicator(),
+              : SizedBox(
+                  child: const CircularProgressIndicator(),
+                  height: size.hp(7),
+                  width: size.hp(7),
+                ),
         ),
       ),
     );

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
+import 'package:solucionutiles/src/utils/responsive.dart';
 import 'package:solucionutiles/src/utils/utils.dart';
 
 import '../api/apiPdf.dart';
@@ -31,6 +32,7 @@ class _ImagenCompletaState extends State<ImagenCompleta> {
 
   @override
   Widget build(BuildContext context) {
+    Responsive responsive = Responsive(context);
     return Scaffold(
       // drawer: MenuNavegacion(),
       appBar: dameAppBar(widget.codigo, context),
@@ -42,7 +44,11 @@ class _ImagenCompletaState extends State<ImagenCompleta> {
                   filePath: _localFile,
                 ),
               )
-            : const CircularProgressIndicator(),
+            : SizedBox(
+                height: responsive.hp(7),
+                width: responsive.hp(7),
+                child: const CircularProgressIndicator(),
+              ),
       ),
     );
   }

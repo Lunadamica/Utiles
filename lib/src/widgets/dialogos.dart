@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:solucionutiles/src/utils/responsive.dart';
 
 abstract class Dialogs {
   static alert(
@@ -23,6 +24,7 @@ abstract class Dialogs {
 
 abstract class ProgressDialog {
   static show(BuildContext context) {
+    Responsive responsive = Responsive(context);
     showDialog(
         context: context,
         builder: (_) {
@@ -31,8 +33,12 @@ abstract class ProgressDialog {
               width: double.infinity,
               height: double.infinity,
               color: Colors.white.withOpacity(0.7),
-              child: const Center(
-                child: CircularProgressIndicator(),
+              child: Center(
+                child: SizedBox(
+                  child: const CircularProgressIndicator(),
+                  height: responsive.hp(7),
+                  width: responsive.hp(7),
+                ),
               ),
             ),
             onWillPop: () async => false,

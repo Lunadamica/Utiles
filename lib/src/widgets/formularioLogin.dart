@@ -209,7 +209,7 @@ class _FormularioLoginState extends State<FormularioLogin> {
                       'Iniciar Sesión',
                       style: TextStyle(
                         color: Colors.white,
-                        fontSize: responsive.dp(1.5),
+                        fontSize: responsive.dp(1.7),
                       ),
                     ),
                     color: Colors.brown,
