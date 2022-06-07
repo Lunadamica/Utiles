@@ -34,7 +34,8 @@ class TarjetaNavegacion extends StatelessWidget {
                     //argumentos que manda los datos desde el Home
                     arguments: {
                       'opcionSeleccionada': opcionSeleccionada,
-                      'misAlmacenes': misAlmacenes
+                      'misAlmacenes': misAlmacenes,
+                      'misMaquinas': misMaquinas
                     });
               },
             ),
@@ -47,7 +48,8 @@ class TarjetaNavegacion extends StatelessWidget {
                       //argumentos que manda los datos desde el Home
                       arguments: {
                         'opcionSeleccionada': opcionSeleccionada,
-                        'misAlmacenes': misAlmacenes
+                        'misAlmacenes': misAlmacenes,
+                        'misMaquinas': misMaquinas
                       });
                 }),
           ],
@@ -72,7 +74,13 @@ class TarjetaNavegacion extends StatelessWidget {
               icon: Icons.auto_delete,
               text: 'Pendiente de retirada',
               onPressed: () {
-                Navigator.pushNamed(context, 'retirada');
+                Navigator.pushNamed(context, 'retirada',
+                    //argumentos que manda los datos desde el Home
+                    arguments: {
+                      'opcionSeleccionada': opcionSeleccionada,
+                      'misAlmacenes': misAlmacenes,
+                      'misMaquinas': misMaquinas
+                    });
               },
             ),
           ],

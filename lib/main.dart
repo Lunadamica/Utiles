@@ -67,6 +67,12 @@ class _RestartWidgetState extends State<RestartWidget> {
   void restartApp() {
     setState(() {
       key = UniqueKey();
+      //Mandamos al login si la sesión se ha caducado
+      Navigator.pushNamedAndRemoveUntil(
+        context,
+        'login',
+        (_) => false,
+      );
     });
   }
 
