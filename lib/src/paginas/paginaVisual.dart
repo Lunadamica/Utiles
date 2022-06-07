@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:solucionutiles/src/modelos/almacen.dart';
+import 'package:solucionutiles/src/modelos/maquina.dart';
 import 'package:solucionutiles/src/utils/utils.dart';
 import 'package:solucionutiles/src/widgets/background.dart';
 
@@ -23,6 +24,7 @@ class _PaginaVisualState extends State<PaginaVisual> {
   String opcionSeleccionada = 'Cliche';
   String? opcionSeleccionadaAl;
   List<Almacen>? misAlmacenes;
+  List<Maquina>? misMaquinas;
   List<Inventario>? miInventario;
   bool isVisible = false;
 
@@ -43,6 +45,7 @@ class _PaginaVisualState extends State<PaginaVisual> {
         ModalRoute.of(context)!.settings.arguments as Map?;
     opcionSeleccionada = parametros!['opcionSeleccionada'] ?? 'Cliche';
     misAlmacenes = parametros['misAlmacenes'];
+    misMaquinas = parametros['misMaquinas'];
 
     if (opcionSeleccionada == 'Cliche') {
       tipoUtil = tipoCliche;
@@ -54,6 +57,7 @@ class _PaginaVisualState extends State<PaginaVisual> {
       drawer: MenuNavegacion(
         opcionSeleccionada: opcionSeleccionada,
         misAlmacenes: misAlmacenes,
+        misMaquinas: misMaquinas,
       ),
       appBar: dameAppBar('Mapa inventario', context),
       body: Stack(children: [

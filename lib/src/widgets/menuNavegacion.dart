@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:solucionutiles/src/modelos/almacen.dart';
+import 'package:solucionutiles/src/modelos/maquina.dart';
 import 'package:solucionutiles/src/paginas/paginaUsuario.dart';
 
 import '../datos/autentificacionCliente.dart';
@@ -9,8 +10,12 @@ import '../datos/autentificacionCliente.dart';
 class MenuNavegacion extends StatefulWidget {
   String? opcionSeleccionada;
   List<Almacen>? misAlmacenes;
+  List<Maquina>? misMaquinas;
   MenuNavegacion(
-      {Key? key, required this.opcionSeleccionada, required this.misAlmacenes})
+      {Key? key,
+      required this.opcionSeleccionada,
+      required this.misAlmacenes,
+      required this.misMaquinas})
       : super(key: key);
 
   @override
@@ -28,6 +33,7 @@ class _MenuNavegacionState extends State<MenuNavegacion> {
     comprobarUsuario();
   }
 
+  //Nos traemos el usuario para poder mostrar el nombre en el menu lateral
   void comprobarUsuario() async {
     SharedPreferences miConfiguracion = await SharedPreferences.getInstance();
 
@@ -48,7 +54,7 @@ class _MenuNavegacionState extends State<MenuNavegacion> {
 
   @override
   Widget build(BuildContext context) {
-    final nombre = _sUsuario;
+    String nombre = _sUsuario;
     //La imagen del usuario la estoy cogiendo directamente desde internet
     const urlImage =
         'https://d500.epimg.net/cincodias/imagenes/2016/07/04/lifestyle/1467646262_522853_1467646344_noticia_normal.jpg';
@@ -57,6 +63,7 @@ class _MenuNavegacionState extends State<MenuNavegacion> {
         color: Colors.brown,
         child: ListView(
           children: <Widget>[
+            //cabecera del menu lateral
             buildHeader(
                 urlImage: urlImage,
                 nombre: nombre,
@@ -68,6 +75,7 @@ class _MenuNavegacionState extends State<MenuNavegacion> {
             const SizedBox(
               height: 16,
             ),
+            //menu de opciones
             buildMenuItem(
               text: 'Buscar útil',
               icon: Icons.search,
@@ -93,9 +101,14 @@ class _MenuNavegacionState extends State<MenuNavegacion> {
               height: 16,
             ),
             buildMenuItem(
+              text: 'Lista Máquina',
+              icon: Icons.list,
+              onClicked: () => selectedItem(context, 4),
+            ),
+            buildMenuItem(
               text: 'Pendiente de retirada',
               icon: Icons.auto_delete,
-              onClicked: () => selectedItem(context, 4),
+              onClicked: () => selectedItem(context, 5),
             ),
             const SizedBox(
               height: 24,
@@ -132,6 +145,7 @@ class _MenuNavegacionState extends State<MenuNavegacion> {
 
   //Metedo donde definimos nuestros onpressed
   Future<void> selectedItem(BuildContext context, int index) async {
+    //funcionalidad de cada opción
     switch (index) {
       case 0:
         await _autentificacionCliente.signOut();
@@ -148,6 +162,7 @@ class _MenuNavegacionState extends State<MenuNavegacion> {
           arguments: {
             'opcionSeleccionada': widget.opcionSeleccionada ?? 'Cliche',
             'misAlmacenes': widget.misAlmacenes,
+            'misMaquinas': widget.misMaquinas,
           },
         );
         break;
@@ -159,6 +174,7 @@ class _MenuNavegacionState extends State<MenuNavegacion> {
           arguments: {
             'opcionSeleccionada': widget.opcionSeleccionada ?? 'Cliche',
             'misAlmacenes': widget.misAlmacenes ?? [],
+            'misMaquinas': widget.misMaquinas ?? [],
           },
         );
         break;
@@ -170,13 +186,30 @@ class _MenuNavegacionState extends State<MenuNavegacion> {
           arguments: {
             'opcionSeleccionada': widget.opcionSeleccionada ?? 'Cliche',
             'misAlmacenes': widget.misAlmacenes ?? [],
+            'misMaquinas': widget.misMaquinas ?? [],
           },
         );
         break;
       case 4:
         Navigator.pushNamed(
           context,
+          'maquina',
+          arguments: {
+            'opcionSeleccionada': widget.opcionSeleccionada ?? 'Cliche',
+            'misAlmacenes': widget.misAlmacenes ?? [],
+            'misMaquinas': widget.misMaquinas ?? [],
+          },
+        );
+        break;
+      case 5:
+        Navigator.pushNamed(
+          context,
           'retirada',
+          arguments: {
+            'opcionSeleccionada': widget.opcionSeleccionada ?? 'Cliche',
+            'misAlmacenes': widget.misAlmacenes ?? [],
+            'misMaquinas': widget.misMaquinas ?? [],
+          },
         );
         break;
     }

@@ -176,6 +176,21 @@ class BBDD {
     });
   }
 
+  Future<RespuestaHTTP> modificaMaquina(
+      String? tipo, String? codigoFisico, String? codigoMaquina) async {
+    final Sesion miSesion = GetIt.instance<Sesion>();
+    final token = await miSesion.accessToken;
+
+    codigoFisico = encryptar(codigoFisico!);
+    codigoMaquina = encryptar(codigoMaquina!);
+    tipo = encryptar(tipo!);
+
+    return _http.respuesta(
+        "/ModificaMaquina/Token/$token/Tipo/$tipo/codigoFisico/$codigoFisico/codigoMaquina/$codigoMaquina",
+        metodo: "GET",
+        cadenaResultado: "ModificaMaquinaResult");
+  }
+
   Future<RespuestaHTTP<List<Inventario>>> dameInventarioUtiles(
       {String? tipo,
       String? codigoUtil,

@@ -6,6 +6,7 @@ import 'package:solucionutiles/src/widgets/menuNavegacion.dart';
 import '../api/BBDD.dart';
 import '../helpers/RespuestaHTTP.dart';
 import '../modelos/almacen.dart';
+import '../modelos/maquina.dart';
 import '../widgets/background.dart';
 
 class PaginaHome extends StatefulWidget {
@@ -18,7 +19,9 @@ class PaginaHome extends StatefulWidget {
 class _PaginaHomeState extends State<PaginaHome> {
   final BBDD _miBBDD = GetIt.instance<BBDD>();
   List<Almacen>? misAlmacenes = <Almacen>[];
+  List<Maquina>? misMaquinas = <Maquina>[];
   String? opcionSeleccionadaAl;
+  String? opcionSeleccionadaMa;
 
   //Asignamos un valor por defecto
   String? opcionSeleccionada = TCliche;
@@ -30,6 +33,7 @@ class _PaginaHomeState extends State<PaginaHome> {
   void initState() {
     super.initState();
     cargarAlmacenes();
+    cargarMaquinas();
   }
 
   @override
@@ -38,6 +42,7 @@ class _PaginaHomeState extends State<PaginaHome> {
       drawer: MenuNavegacion(
         opcionSeleccionada: opcionSeleccionada,
         misAlmacenes: misAlmacenes,
+        misMaquinas: misMaquinas,
       ),
       appBar: dameAppBar('Ondupack', context),
       body: Stack(
@@ -74,7 +79,8 @@ class _PaginaHomeState extends State<PaginaHome> {
               ),
               TarjetaNavegacion(
                   opcionSeleccionada: opcionSeleccionada,
-                  misAlmacenes: misAlmacenes),
+                  misAlmacenes: misAlmacenes,
+                  misMaquinas: misMaquinas),
             ]),
           )
         ],
@@ -142,6 +148,24 @@ class _PaginaHomeState extends State<PaginaHome> {
       setState(() {
         if (misAlmacenes!.isNotEmpty) {
           opcionSeleccionadaAl = misAlmacenes![0].nombreAlmacen;
+        }
+      });
+    } else {
+      mostrarMensaje(true, miRespuesta.error!.mensaje!);
+
+      comprobarTipoError(context, miRespuesta.error!);
+    }
+  }
+
+  Future<void> cargarMaquinas() async {
+    final RespuestaHTTP<List<Maquina>> miRespuesta =
+        await _miBBDD.dameMaquinas();
+
+    if (miRespuesta.data != null) {
+      misMaquinas = miRespuesta.data;
+      setState(() {
+        if (misMaquinas!.isNotEmpty) {
+          opcionSeleccionadaMa = misMaquinas![0].nombreMaquina;
         }
       });
     } else {

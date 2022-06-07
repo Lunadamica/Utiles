@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:solucionutiles/src/helpers/RespuestaHTTP.dart';
 import 'package:solucionutiles/src/modelos/almacen.dart';
+import 'package:solucionutiles/src/modelos/maquina.dart';
 import 'package:solucionutiles/src/utils/responsive.dart';
 import 'package:solucionutiles/src/utils/utils.dart';
 import 'package:solucionutiles/src/widgets/background.dart';
@@ -37,6 +38,7 @@ class _PaginaBuscarUtilState extends State<PaginaBuscarUtil> {
   List<Cliche>? _misCliches = <Cliche>[];
   List<Troquel>? _misTroqueles = <Troquel>[];
   List<Almacen>? misAlmacenes;
+  List<Maquina>? misMaquinas;
 
   @override
   Widget build(BuildContext context) {
@@ -46,6 +48,7 @@ class _PaginaBuscarUtilState extends State<PaginaBuscarUtil> {
         ModalRoute.of(context)!.settings.arguments as Map?;
     opcionSeleccionada = parametros!['opcionSeleccionada'] ?? 'Cliche';
     misAlmacenes = parametros['misAlmacenes'];
+    misMaquinas = parametros['misMaquinas'];
 
     //Controlamos que esto solo se ejecute una vez y si se cumplen las condiciones deseadas
     if (contador == 0) {
@@ -67,7 +70,10 @@ class _PaginaBuscarUtilState extends State<PaginaBuscarUtil> {
       },
       child: Scaffold(
         drawer: MenuNavegacion(
-            opcionSeleccionada: opcionSeleccionada, misAlmacenes: misAlmacenes),
+          opcionSeleccionada: opcionSeleccionada,
+          misAlmacenes: misAlmacenes,
+          misMaquinas: misMaquinas,
+        ),
         appBar: dameAppBar('Buscador ' + opcionSeleccionada, context),
         body: Stack(children: [
           Background(),

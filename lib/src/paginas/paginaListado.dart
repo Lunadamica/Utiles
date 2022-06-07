@@ -32,6 +32,9 @@ class _PaginaListadoState extends State<PaginaListado> {
   List<Maquina>? misMaquinas;
   String? opcionSeleccionadaMa;
   Maquina? miMaquina;
+  int? miCodigoFisico;
+  final textControllerCasillero = TextEditingController();
+  final textControllerUtil = TextEditingController();
 
   @override
   void initState() {
@@ -85,6 +88,8 @@ class _PaginaListadoState extends State<PaginaListado> {
                           onChanged: (text) {
                             casillero = text;
                           },
+                          //Controlador del texto
+                          controlador: textControllerCasillero,
                           //Función al hacer enter en el filtrado de casillero
                           onFieldSubmitted: (_) {
                             //Limpiamos de busquedas anteriores
@@ -126,6 +131,7 @@ class _PaginaListadoState extends State<PaginaListado> {
                           onChanged: (text) {
                             util = text;
                           },
+                          controlador: textControllerUtil,
                           //Función de buscar con enter
                           onFieldSubmitted: (_) {
                             //Limpiamos de busquedas anteriores
@@ -169,6 +175,8 @@ class _PaginaListadoState extends State<PaginaListado> {
                             //Boton de busqueda estado activo
                             FlatButton(
                               onPressed: () {
+                                textControllerCasillero.clear();
+                                textControllerUtil.clear();
                                 miBusqueda!.clear();
                                 for (int i = 0; i < miInventario!.length; i++) {
                                   if (miInventario![i].estadoUtil.toString() ==
@@ -189,6 +197,8 @@ class _PaginaListadoState extends State<PaginaListado> {
                             //Boton de busqueda estado pendiente
                             FlatButton(
                               onPressed: () {
+                                textControllerCasillero.clear();
+                                textControllerUtil.clear();
                                 miBusqueda!.clear();
                                 for (int i = 0; i < miInventario!.length; i++) {
                                   if (miInventario![i].estadoUtil.toString() ==
@@ -209,6 +219,8 @@ class _PaginaListadoState extends State<PaginaListado> {
                             //Boton de busqueda estado inactivo
                             FlatButton(
                               onPressed: () {
+                                textControllerCasillero.clear();
+                                textControllerUtil.clear();
                                 miBusqueda!.clear();
                                 for (int i = 0; i < miInventario!.length; i++) {
                                   if (miInventario![i].estadoUtil.toString() ==
@@ -229,6 +241,8 @@ class _PaginaListadoState extends State<PaginaListado> {
                             //Boton de busqueda estado ninguno
                             FlatButton(
                               onPressed: () {
+                                textControllerCasillero.clear();
+                                textControllerUtil.clear();
                                 miBusqueda!.clear();
                                 for (int i = 0; i < miInventario!.length; i++) {
                                   if (miInventario![i].estadoUtil.toString() ==
@@ -264,102 +278,129 @@ class _PaginaListadoState extends State<PaginaListado> {
     //Si no hemos realizado un filtrado
     if (miBusqueda!.isEmpty) {
       return Expanded(
-        child: ListView(
-          scrollDirection: Axis.vertical,
-          shrinkWrap: true,
-          children: <Widget>[
-            for (int i = mapMin[miZona!.nombreZona]!;
-                i <= mapMax[miZona!.nombreZona]!;
-                i++)
-              Card(
-                color: obtenerColor(i),
-                //Creación de sombra de la tarjeta
-                elevation: 10.0,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20.0)),
-                child: Column(children: <Widget>[
-                  const Padding(
-                    padding: EdgeInsets.all(5),
-                  ),
-                  ListTile(
-                    onLongPress: () =>
-                        _maquina(context, miInventario![i - 1].codigoUtil),
-                    onTap: () {
-                      if (miInventario![i - 1].estadoUtil! > -1) {
-                        Navigator.pushNamed(context, 'buscador',
-                            //argumentos que manda los datos desde la lista de inventario
-                            arguments: {
-                              'opcionSeleccionada': opcionSeleccionada,
-                              'codUtil':
-                                  miInventario![i - 1].codigoUtil.toString(),
-                            });
-                      }
-                    },
-                    title: Text(
-                      'Casillero: ' + i.toString(),
-                      style: const TextStyle(fontWeight: FontWeight.bold),
+        //Widget para refrescar y traer de vuelta todos los resultados
+        child: RefreshIndicator(
+          onRefresh: () async {
+            textControllerCasillero.clear();
+            textControllerUtil.clear();
+            setState(() {
+              miBusqueda!.clear();
+              cargarDatos();
+            });
+          },
+          child: ListView(
+            scrollDirection: Axis.vertical,
+            shrinkWrap: true,
+            children: <Widget>[
+              for (int i = mapMin[miZona!.nombreZona]!;
+                  i <= mapMax[miZona!.nombreZona]!;
+                  i++)
+                Card(
+                  color: obtenerColor(i),
+                  //Creación de sombra de la tarjeta
+                  elevation: 10.0,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20.0)),
+                  child: Column(children: <Widget>[
+                    const Padding(
+                      padding: EdgeInsets.all(5),
                     ),
-                    subtitle: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 10),
-                      child: Text('Código Cliché: ' +
-                          miInventario![i - 1].codigoUtil.toString() +
-                          '\n\nParte: ' +
-                          miInventario![i - 1].codigoParteUtil.toString()),
+                    ListTile(
+                      onLongPress: () {
+                        miCodigoFisico = miInventario![i - 1].codigoUtilFisico;
+                        _maquina(context);
+                      },
+                      onTap: () {
+                        if (miInventario![i - 1].estadoUtil! > -1) {
+                          Navigator.pushNamed(context, 'buscador',
+                              //argumentos que manda los datos desde la lista de inventario
+                              arguments: {
+                                'opcionSeleccionada': opcionSeleccionada,
+                                'codUtil':
+                                    miInventario![i - 1].codigoUtil.toString(),
+                              });
+                        }
+                      },
+                      title: Text(
+                        'Casillero: ' +
+                            miInventario![i - 1].codigoCasillero.toString(),
+                        style: const TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      subtitle: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 10),
+                        child: Text('Código $opcionSeleccionada: ' +
+                            miInventario![i - 1].codigoUtil.toString() +
+                            '\n\nParte: ' +
+                            miInventario![i - 1].codigoParteUtil.toString()),
+                      ),
+                      trailing: Text('Estado: ' + obtenerEstado(i)),
                     ),
-                    trailing: Text('Estado: ' + obtenerEstado(i)),
-                  ),
-                ]),
-              )
-          ],
+                  ]),
+                )
+            ],
+          ),
         ),
       );
       //Si hemos realizado un filtrado
     } else {
       return Expanded(
-        child: ListView(
-          scrollDirection: Axis.vertical,
-          shrinkWrap: true,
-          children: <Widget>[
-            for (int i = 0; i < miBusqueda!.length; i++)
-              Card(
-                color: obtenerColor(i),
-                //Creación de sombra de la tarjeta
-                elevation: 10.0,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20.0)),
-                child: Column(children: <Widget>[
-                  const Padding(
-                    padding: EdgeInsets.all(5),
-                  ),
-                  ListTile(
-                    onLongPress: () =>
-                        _maquina(context, miInventario![i - 1].codigoUtil),
-                    onTap: () {
-                      if (miBusqueda![i].estadoUtil! > -1) {
-                        Navigator.pushNamed(context, 'buscador',
-                            //argumentos que manda los datos desde la lista de inventario
-                            arguments: {
-                              'opcionSeleccionada': opcionSeleccionada,
-                              'codUtil': miBusqueda![i].codigoUtil.toString(),
-                            });
-                      }
-                    },
-                    title: Text(
-                      'Casillero: ' + miBusqueda![i].codigoCasillero.toString(),
-                      style: const TextStyle(fontWeight: FontWeight.bold),
+        child: RefreshIndicator(
+          onRefresh: () async {
+            textControllerCasillero.clear();
+            textControllerUtil.clear();
+            setState(() {
+              miBusqueda!.clear();
+              cargarDatos();
+            });
+          },
+          child: ListView(
+            scrollDirection: Axis.vertical,
+            shrinkWrap: true,
+            children: <Widget>[
+              for (int i = 0; i < miBusqueda!.length; i++)
+                Card(
+                  color: obtenerColor(i),
+                  //Creación de sombra de la tarjeta
+                  elevation: 10.0,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20.0)),
+                  child: Column(children: <Widget>[
+                    const Padding(
+                      padding: EdgeInsets.all(5),
                     ),
-                    subtitle: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 10),
-                      child: Text('Código útil: ' +
-                          miBusqueda![i].codigoUtil.toString() +
-                          '\n\nParte: ' +
-                          miBusqueda![i].codigoParteUtil.toString()),
+                    ListTile(
+                      onLongPress: () {
+                        miCodigoFisico = miInventario![i - 1].codigoUtilFisico;
+                        _maquina(context);
+                      },
+                      onTap: () {
+                        if (miBusqueda![i].estadoUtil! > -1) {
+                          Navigator.pushNamed(context, 'buscador',
+                              //argumentos que manda los datos desde la lista de inventario
+                              arguments: {
+                                'opcionSeleccionada': opcionSeleccionada,
+                                'codUtil': miBusqueda![i].codigoUtil.toString(),
+                              });
+                        }
+                      },
+                      title: Text(
+                        'Casillero: ' +
+                            miBusqueda![i].codigoCasillero.toString(),
+                        style: const TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      subtitle: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 10),
+                        child: Text('Código $opcionSeleccionada: ' +
+                            miBusqueda![i].codigoUtil.toString() +
+                            '\n\nParte: ' +
+                            miBusqueda![i].codigoParteUtil.toString()),
+                      ),
+                      trailing: Text('Estado: ' + obtenerEstado(i)),
                     ),
-                    trailing: Text('Estado: ' + obtenerEstado(i)),
-                  ),
-                ]),
-              )
-          ],
+                  ]),
+                )
+            ],
+          ),
         ),
       );
     }
@@ -449,7 +490,7 @@ class _PaginaListadoState extends State<PaginaListado> {
     );
   }
 
-  void _maquina(BuildContext context, int? codigoUtil) {
+  void _maquina(BuildContext context) {
     showDialog(
       context: context,
       //Si clicamos fuera del cuadro este no se cerrara
@@ -469,7 +510,7 @@ class _PaginaListadoState extends State<PaginaListado> {
                 const SizedBox(
                   height: 10,
                 ),
-                _crearDropdown(codigoUtil!),
+                _crearDropdown(),
               ],
             ),
           ),
@@ -481,8 +522,9 @@ class _PaginaListadoState extends State<PaginaListado> {
                     miMaquina = misMaquinas![i];
                   }
                 }
+                modificarMaquinas();
                 print("pasar el util: " +
-                    codigoUtil.toString() +
+                    miCodigoFisico.toString() +
                     " a la maquina con cod: " +
                     miMaquina!.codMaquina.toString() +
                     " de nombre: " +
@@ -517,7 +559,7 @@ class _PaginaListadoState extends State<PaginaListado> {
     return lista;
   }
 
-  Widget _crearDropdown(int codigoUtil) {
+  Widget _crearDropdown() {
     return Row(
       children: <Widget>[
         const SizedBox(
@@ -541,7 +583,7 @@ class _PaginaListadoState extends State<PaginaListado> {
                   setState(() {
                     opcionSeleccionadaMa = opt as String;
                     Navigator.of(context).pop();
-                    _maquina(context, codigoUtil);
+                    _maquina(context);
                   });
                 }),
           ),
@@ -562,6 +604,21 @@ class _PaginaListadoState extends State<PaginaListado> {
           opcionSeleccionadaMa = misMaquinas![0].nombreMaquina;
         }
       });
+    } else {
+      mostrarMensaje(true, miRespuesta.error!.mensaje!);
+
+      comprobarTipoError(context, miRespuesta.error!);
+    }
+  }
+
+  Future<void> modificarMaquinas() async {
+    final RespuestaHTTP miRespuesta = await _miBBDD.modificaMaquina(
+        opcionSeleccionada,
+        miCodigoFisico.toString(),
+        miMaquina!.codMaquina.toString());
+
+    if (miRespuesta.data != null) {
+      print(miRespuesta.data);
     } else {
       mostrarMensaje(true, miRespuesta.error!.mensaje!);
 

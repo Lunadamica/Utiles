@@ -3,6 +3,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:solucionutiles/src/modelos/maquina.dart';
 
 import '../modelos/almacen.dart';
 
@@ -10,8 +11,12 @@ class TarjetaNavegacion extends StatelessWidget {
   //Datos que requerimos para pasar por argumentos
   String? opcionSeleccionada;
   List<Almacen>? misAlmacenes;
+  List<Maquina>? misMaquinas;
   TarjetaNavegacion(
-      {Key? key, required this.opcionSeleccionada, this.misAlmacenes})
+      {Key? key,
+      required this.opcionSeleccionada,
+      this.misAlmacenes,
+      this.misMaquinas})
       : super(key: key);
 
   @override
@@ -51,14 +56,15 @@ class TarjetaNavegacion extends StatelessWidget {
           children: [
             _SingleCard(
                 color: Colors.white,
-                icon: Icons.map,
-                text: 'Visualizar Inventario',
+                icon: Icons.list,
+                text: 'Lista Máquina',
                 onPressed: () {
-                  Navigator.pushNamed(context, 'visual',
+                  Navigator.pushNamed(context, 'maquina',
                       //argumentos que manda los datos desde el Home
                       arguments: {
                         'opcionSeleccionada': opcionSeleccionada,
-                        'misAlmacenes': misAlmacenes
+                        'misAlmacenes': misAlmacenes,
+                        'misMaquinas': misMaquinas
                       });
                 }),
             _SingleCard(
