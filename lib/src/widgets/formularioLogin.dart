@@ -177,6 +177,9 @@ class _FormularioLoginState extends State<FormularioLogin> {
                           }
                           return null;
                         },
+                        onFieldSubmitted: (_) {
+                          _validar();
+                        },
                       ),
                     ),
                   ],
@@ -185,7 +188,7 @@ class _FormularioLoginState extends State<FormularioLogin> {
                   alignment: Alignment.topRight,
                   child: FlatButton(
                     onPressed: () {
-                      _alerta(context);
+                      _recordatorio(context);
                     },
                     child: Text(
                       'Recordar contraseña',
@@ -221,6 +224,7 @@ class _FormularioLoginState extends State<FormularioLogin> {
           SizedBox(
             height: responsive.dp(3.5),
           ),
+          //Logos de la empresas del grupo
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
@@ -239,7 +243,7 @@ class _FormularioLoginState extends State<FormularioLogin> {
     );
   }
 
-  void _alerta(BuildContext context) {
+  void _recordatorio(BuildContext context) {
     if (_sUsuario.isEmpty) {
       showDialog(
         context: context,

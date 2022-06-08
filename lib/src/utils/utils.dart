@@ -46,6 +46,13 @@ final Color activo = Color.fromARGB(255, 151, 243, 154);
 final Color pendienteLlegar = Color.fromARGB(255, 233, 220, 106);
 final Color inactivo = Color.fromARGB(255, 250, 153, 146);
 
+//Color porcentajes
+final Color nuevo = Color.fromARGB(255, 142, 243, 142);
+final Color pocoUsado = Color.fromARGB(255, 212, 235, 132);
+final Color media = Color.fromARGB(255, 230, 219, 129);
+final Color muyUsado = Color.fromARGB(255, 241, 198, 142);
+final Color gastado = Color.fromARGB(255, 247, 174, 169);
+
 const String tipoCodigoServicioCorrecto = "0";
 const String tipoCodigoServicioSesionCaducada = "1";
 const String tipoCodigoServicioError = "2";

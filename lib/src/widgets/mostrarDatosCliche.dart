@@ -46,14 +46,14 @@ class MostrarDatosCliche extends StatelessWidget {
             Row(
               children: [
                 const Text(
-                  'Número de partes: ',
+                  'Cantidad de partes: ',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 15,
                   ),
                 ),
                 Text(
-                  listaCliche!.length.toString(),
+                  listaCliche!.last.codParte.toString(),
                   style: const TextStyle(fontSize: 15),
                 ),
               ],

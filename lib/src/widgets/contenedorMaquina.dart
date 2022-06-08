@@ -3,7 +3,12 @@ import 'package:flutter/material.dart';
 class ContenedorMaquina extends StatefulWidget {
   String codigoUtil;
   bool checked;
-  ContenedorMaquina({Key? key, required this.codigoUtil, required this.checked})
+  Color color;
+  ContenedorMaquina(
+      {Key? key,
+      required this.codigoUtil,
+      required this.checked,
+      required this.color})
       : super(key: key);
 
   @override
@@ -16,17 +21,19 @@ class _ContenedorMaquinaState extends State<ContenedorMaquina> {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
-        color: Colors.white,
+        color: widget.color,
       ),
       child: CheckboxListTile(
-        title: Text(widget.codigoUtil),
+        title: Text(widget.codigoUtil,
+            style: const TextStyle(
+                fontWeight: FontWeight.bold, color: Colors.black87)),
         value: widget.checked,
         onChanged: (bool? value) {
           setState(() {
             widget.checked = value!;
           });
         },
-        secondary: const Icon(Icons.hourglass_empty),
+        secondary: const Icon(Icons.search),
       ),
     );
   }

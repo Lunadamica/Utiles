@@ -81,23 +81,32 @@ class _PaginaListaMaquinaState extends State<PaginaListaMaquina> {
                 ListView(
                   shrinkWrap: true,
                   children: <Widget>[
-                    ContenedorMaquina(codigoUtil: '30003130', checked: false),
+                    ContenedorMaquina(
+                        codigoUtil: '30003130',
+                        checked: false,
+                        color: pocoUsado),
                     const SizedBox(
                       height: 10,
                     ),
-                    ContenedorMaquina(codigoUtil: '30003131', checked: false),
+                    ContenedorMaquina(
+                        codigoUtil: '30003131', checked: false, color: gastado),
                     const SizedBox(
                       height: 10,
                     ),
-                    ContenedorMaquina(codigoUtil: '30003132', checked: false),
+                    ContenedorMaquina(
+                        codigoUtil: '30003132', checked: false, color: nuevo),
                     const SizedBox(
                       height: 10,
                     ),
-                    ContenedorMaquina(codigoUtil: '30003133', checked: false),
+                    ContenedorMaquina(
+                        codigoUtil: '30003133', checked: false, color: media),
                     const SizedBox(
                       height: 10,
                     ),
-                    ContenedorMaquina(codigoUtil: '30003134', checked: false),
+                    ContenedorMaquina(
+                        codigoUtil: '30003134',
+                        checked: false,
+                        color: muyUsado),
                     const SizedBox(
                       height: 10,
                     ),

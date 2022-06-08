@@ -612,10 +612,14 @@ class _PaginaListadoState extends State<PaginaListado> {
   }
 
   Future<void> modificarMaquinas() async {
+    String? valorUtil;
+    if (opcionSeleccionada == TCliche) {
+      valorUtil = tipoCliche;
+    } else if (opcionSeleccionada == TTroquel) {
+      valorUtil = tipoTroquel;
+    }
     final RespuestaHTTP miRespuesta = await _miBBDD.modificaMaquina(
-        opcionSeleccionada,
-        miCodigoFisico.toString(),
-        miMaquina!.codMaquina.toString());
+        valorUtil, miCodigoFisico.toString(), miMaquina!.codMaquina.toString());
 
     if (miRespuesta.data != null) {
       print(miRespuesta.data);
