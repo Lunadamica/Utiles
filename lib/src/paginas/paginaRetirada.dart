@@ -71,7 +71,7 @@ class _PaginaRetiradaState extends State<PaginaRetirada> {
   void _alerta(BuildContext context, String item) {
     showDialog(
       context: context,
-      //Si clickamos fuera del cuadro este no se cerrara
+      //Si clicamos fuera del cuadro este no se cerrara
       barrierDismissible: false,
       builder: (context) {
         return AlertDialog(
