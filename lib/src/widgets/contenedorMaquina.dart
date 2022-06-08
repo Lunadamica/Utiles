@@ -18,22 +18,25 @@ class ContenedorMaquina extends StatefulWidget {
 class _ContenedorMaquinaState extends State<ContenedorMaquina> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20),
-        color: widget.color,
-      ),
-      child: CheckboxListTile(
-        title: Text(widget.codigoUtil,
-            style: const TextStyle(
-                fontWeight: FontWeight.bold, color: Colors.black87)),
-        value: widget.checked,
-        onChanged: (bool? value) {
-          setState(() {
-            widget.checked = value!;
-          });
-        },
-        secondary: const Icon(Icons.search),
+    return Padding(
+      padding: EdgeInsets.all(5),
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20),
+          color: widget.color,
+        ),
+        child: CheckboxListTile(
+          title: Text(widget.codigoUtil,
+              style: const TextStyle(
+                  fontWeight: FontWeight.bold, color: Colors.black87)),
+          value: widget.checked,
+          onChanged: (bool? value) {
+            setState(() {
+              widget.checked = value!;
+            });
+          },
+          secondary: const Icon(Icons.search),
+        ),
       ),
     );
   }

@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
+import 'package:get_it/get_it.dart';
 import 'package:solucionutiles/src/modelos/almacen.dart';
+import 'package:solucionutiles/src/modelos/datosPtes.dart';
 import 'package:solucionutiles/src/modelos/maquina.dart';
 import 'package:solucionutiles/src/utils/utils.dart';
 import 'package:solucionutiles/src/widgets/background.dart';
-import 'package:solucionutiles/src/widgets/contenedorMaquina.dart';
 
+import '../api/BBDD.dart';
+import '../helpers/RespuestaHTTP.dart';
+import '../widgets/contenedorMaquina.dart';
 import '../widgets/menuNavegacion.dart';
 
 class PaginaListaMaquina extends StatefulWidget {
@@ -16,19 +19,19 @@ class PaginaListaMaquina extends StatefulWidget {
 }
 
 class _PaginaListaMaquinaState extends State<PaginaListaMaquina> {
+  final BBDD _miBBDD = GetIt.instance<BBDD>();
+  List<DatosPtes>? lista;
   String opcionSeleccionada = 'Cliche';
-  String? opcionSeleccionadaMa = 'PLANA';
+  String? opcionSeleccionadaMa;
   List<Almacen>? misAlmacenes;
   List<Maquina>? misMaquinas;
   bool isVisible = false;
+  Maquina? miMaquina;
 
   late String tipoUtil;
 
-  final scaffoldKey = GlobalKey<ScaffoldState>();
-
   @override
   Widget build(BuildContext context) {
-    bool _checked = false;
     //Recibo el tipo de util desde el home
     Map<dynamic, dynamic>? parametros =
         ModalRoute.of(context)!.settings.arguments as Map?;
@@ -73,44 +76,22 @@ class _PaginaListaMaquinaState extends State<PaginaListaMaquina> {
                   child: _crearDropdown(),
                 ),
                 const SizedBox(
-                  height: 10,
+                  height: 20,
                 ),
-                const SizedBox(
-                  height: 10,
-                ),
-                ListView(
-                  shrinkWrap: true,
-                  children: <Widget>[
-                    ContenedorMaquina(
-                        codigoUtil: '30003130',
-                        checked: false,
-                        color: pocoUsado),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    ContenedorMaquina(
-                        codigoUtil: '30003131', checked: false, color: gastado),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    ContenedorMaquina(
-                        codigoUtil: '30003132', checked: false, color: nuevo),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    ContenedorMaquina(
-                        codigoUtil: '30003133', checked: false, color: media),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    ContenedorMaquina(
-                        codigoUtil: '30003134',
-                        checked: false,
-                        color: muyUsado),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                  ],
+                Visibility(
+                  visible: isVisible,
+                  child: ListView(
+                    shrinkWrap: true,
+                    scrollDirection: Axis.vertical,
+                    children: <Widget>[
+                      if (isVisible)
+                        for (int i = 0; i < lista!.length; i++)
+                          ContenedorMaquina(
+                              codigoUtil: lista![i].codCliche.toString(),
+                              checked: lista![i].enMaquina!,
+                              color: pocoUsado),
+                    ],
+                  ),
                 )
               ],
             ),
@@ -118,6 +99,33 @@ class _PaginaListaMaquinaState extends State<PaginaListaMaquina> {
         ),
       ]),
     );
+  }
+
+  void mostrarMensaje(bool error, String texto) {
+    ScaffoldMessenger.of(context)
+        .showSnackBar(dameSnackBar(titulo: texto, error: error));
+  }
+
+  Future<void> cargarLista() async {
+    String? valorUtil;
+    if (opcionSeleccionada == TCliche) {
+      valorUtil = tipoCliche;
+    } else if (opcionSeleccionada == TTroquel) {
+      valorUtil = tipoTroquel;
+    }
+    final RespuestaHTTP<List<DatosPtes>> miRespuesta =
+        await _miBBDD.dameUtilesMaquina(
+            codigoMaquina: miMaquina!.codMaquina.toString(), tipo: valorUtil);
+
+    if (miRespuesta.data != null) {
+      lista = miRespuesta.data;
+      isVisible = true;
+      setState(() {});
+    } else {
+      mostrarMensaje(true, miRespuesta.error!.mensaje!);
+
+      comprobarTipoError(context, miRespuesta.error!);
+    }
   }
 
   List<DropdownMenuItem<String>> getOpcionesDropdown() {
@@ -154,7 +162,14 @@ class _PaginaListaMaquinaState extends State<PaginaListaMaquina> {
                 onChanged: (opt) {
                   setState(() {
                     opcionSeleccionadaMa = opt as String;
+                    for (int i = 0; i < misMaquinas!.length; i++) {
+                      if (opcionSeleccionadaMa ==
+                          misMaquinas![i].nombreMaquina) {
+                        miMaquina = misMaquinas![i];
+                      }
+                    }
                   });
+                  cargarLista();
                 }),
           ),
         )
@@ -162,5 +177,3 @@ class _PaginaListaMaquinaState extends State<PaginaListaMaquina> {
     );
   }
 }
-
-class Incon {}
