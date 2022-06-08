@@ -3,6 +3,7 @@ import 'package:get_it/get_it.dart';
 import 'package:solucionutiles/src/modelos/almacen.dart';
 import 'package:solucionutiles/src/modelos/datosPtes.dart';
 import 'package:solucionutiles/src/modelos/maquina.dart';
+import 'package:solucionutiles/src/utils/responsive.dart';
 import 'package:solucionutiles/src/utils/utils.dart';
 import 'package:solucionutiles/src/widgets/background.dart';
 
@@ -32,6 +33,7 @@ class _PaginaListaMaquinaState extends State<PaginaListaMaquina> {
 
   @override
   Widget build(BuildContext context) {
+    Responsive responsive = Responsive(context);
     //Recibo el tipo de util desde el home
     Map<dynamic, dynamic>? parametros =
         ModalRoute.of(context)!.settings.arguments as Map?;
@@ -46,56 +48,60 @@ class _PaginaListaMaquinaState extends State<PaginaListaMaquina> {
         misAlmacenes: misAlmacenes,
         misMaquinas: misMaquinas,
       ),
-      appBar: dameAppBar('Útiles en máquina', context),
+      appBar: dameAppBar('$opcionSeleccionada en máquina', context),
       body: Stack(children: [
         Background(),
-        SingleChildScrollView(
-          child: Container(
-            margin: const EdgeInsets.all(10),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                const Text(
-                  'Máquinas:',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.all(10),
+              child: Column(
+                children: <Widget>[
+                  Text(
+                    'Máquinas:',
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: responsive.dp(1.7)),
                   ),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Container(
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    border: Border.all(
-                      color: Colors.brown,
-                      width: 2,
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      border: Border.all(
+                        color: Colors.brown,
+                        width: 2,
+                      ),
+                      borderRadius: BorderRadius.circular(12),
                     ),
-                    borderRadius: BorderRadius.circular(12),
+                    child: _crearDropdown(),
                   ),
-                  child: _crearDropdown(),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                Visibility(
-                  visible: isVisible,
-                  child: ListView(
-                    shrinkWrap: true,
-                    scrollDirection: Axis.vertical,
-                    children: <Widget>[
-                      if (isVisible)
-                        for (int i = 0; i < lista!.length; i++)
-                          ContenedorMaquina(
-                              codigoUtil: lista![i].codCliche.toString(),
-                              checked: lista![i].enMaquina!,
-                              color: pocoUsado),
-                    ],
+                  const SizedBox(
+                    height: 20,
                   ),
-                )
-              ],
+                ],
+              ),
             ),
-          ),
+            Visibility(
+              visible: isVisible,
+              child: Flexible(
+                child: ListView(
+                  shrinkWrap: true,
+                  scrollDirection: Axis.vertical,
+                  children: <Widget>[
+                    if (isVisible)
+                      for (int i = 0; i < lista!.length; i++)
+                        ContenedorMaquina(
+                            codigoUtil: lista![i].codCliche.toString(),
+                            checked: lista![i].enMaquina!,
+                            color: pocoUsado),
+                  ],
+                ),
+              ),
+            )
+          ],
         ),
       ]),
     );
