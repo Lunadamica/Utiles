@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:solucionutiles/src/modelos/almacen.dart';
-import 'package:solucionutiles/src/modelos/datosPtes.dart';
+import 'package:solucionutiles/src/modelos/utilMaquina.dart';
 import 'package:solucionutiles/src/modelos/maquina.dart';
 import 'package:solucionutiles/src/utils/responsive.dart';
 import 'package:solucionutiles/src/utils/utils.dart';
@@ -21,13 +21,14 @@ class PaginaListaMaquina extends StatefulWidget {
 
 class _PaginaListaMaquinaState extends State<PaginaListaMaquina> {
   final BBDD _miBBDD = GetIt.instance<BBDD>();
-  List<DatosPtes>? lista;
+  List<UtilMaquina>? lista;
   String opcionSeleccionada = 'Cliche';
   String? opcionSeleccionadaMa;
   List<Almacen>? misAlmacenes;
   List<Maquina>? misMaquinas;
   bool isVisible = false;
   Maquina? miMaquina;
+  Color? colorPorcentaje;
 
   late String tipoUtil;
 
@@ -94,9 +95,9 @@ class _PaginaListaMaquinaState extends State<PaginaListaMaquina> {
                     if (isVisible)
                       for (int i = 0; i < lista!.length; i++)
                         ContenedorMaquina(
-                            codigoUtil: lista![i].codCliche.toString(),
+                            codigoUtil: lista![i].codUtil.toString(),
                             checked: lista![i].enMaquina!,
-                            color: pocoUsado),
+                            color: _colores(i)),
                   ],
                 ),
               ),
@@ -105,6 +106,19 @@ class _PaginaListaMaquinaState extends State<PaginaListaMaquina> {
         ),
       ]),
     );
+  }
+
+  Color _colores(i) {
+    if (lista![i].porcentaje! <= 50) {
+      colorPorcentaje = nuevo;
+    } else if (lista![i].porcentaje! > 50 && lista![i].porcentaje! <= 75) {
+      colorPorcentaje = usado;
+    } else if (lista![i].porcentaje! > 75 && lista![i].porcentaje! <= 90) {
+      colorPorcentaje = muyUsado;
+    } else {
+      colorPorcentaje = gastado;
+    }
+    return colorPorcentaje!;
   }
 
   void mostrarMensaje(bool error, String texto) {
@@ -119,12 +133,13 @@ class _PaginaListaMaquinaState extends State<PaginaListaMaquina> {
     } else if (opcionSeleccionada == TTroquel) {
       valorUtil = tipoTroquel;
     }
-    final RespuestaHTTP<List<DatosPtes>> miRespuesta =
+    final RespuestaHTTP<List<UtilMaquina>> miRespuesta =
         await _miBBDD.dameUtilesMaquina(
             codigoMaquina: miMaquina!.codMaquina.toString(), tipo: valorUtil);
 
     if (miRespuesta.data != null) {
-      lista = miRespuesta.data;
+      lista = miRespuesta.data!;
+      // lista = lista.sort((a, b) => a.orden!.compareTo(b.orden!));
       isVisible = true;
       setState(() {});
     } else {

@@ -6,7 +6,7 @@ import 'package:solucionutiles/src/modelos/zona.dart';
 import '../helpers/Http.dart';
 import '../helpers/RespuestaHTTP.dart';
 import '../modelos/cliche.dart';
-import '../modelos/datosPtes.dart';
+import '../modelos/utilMaquina.dart';
 import '../modelos/inventario.dart';
 import '../modelos/sesion.dart';
 import '../modelos/troquel.dart';
@@ -113,16 +113,16 @@ class BBDD {
     });
   }
 
-  Future<RespuestaHTTP<List<DatosPtes>>> dameUtilesMaquina(
+  Future<RespuestaHTTP<List<UtilMaquina>>> dameUtilesMaquina(
       {String? codigoMaquina, String? tipo}) async {
     final Sesion miSesion = GetIt.instance<Sesion>();
     final token = await miSesion.accessToken;
-    List<DatosPtes> misDatosPtes = <DatosPtes>[];
+    List<UtilMaquina> misDatosPtes = <UtilMaquina>[];
 
     codigoMaquina = encryptar(codigoMaquina!);
     tipo = encryptar(tipo!);
 
-    return _http.respuesta<List<DatosPtes>>(
+    return _http.respuesta<List<UtilMaquina>>(
         "/DameUtilesMaquina/Token/$token/CodigoMaquina/$codigoMaquina/Tipo/$tipo",
         metodo: "GET",
         cadenaResultado: "DameUtilesMaquinaResult", parser: (datos) {
@@ -130,7 +130,7 @@ class BBDD {
 
       for (var i = 0; i < datosPtes.length; i++) {
         misDatosPtes
-            .add(DatosPtes.fromJson(datosPtes[i] as Map<String, dynamic>));
+            .add(UtilMaquina.fromJson(datosPtes[i] as Map<String, dynamic>));
       }
 
       return misDatosPtes;
