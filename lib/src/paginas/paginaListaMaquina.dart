@@ -97,7 +97,8 @@ class _PaginaListaMaquinaState extends State<PaginaListaMaquina> {
                         ContenedorMaquina(
                             codigoUtil: lista![i].codUtil.toString(),
                             checked: lista![i].enMaquina!,
-                            color: _colores(i)),
+                            color: _colores(i),
+                            opcionSeleccionada: opcionSeleccionada),
                   ],
                 ),
               ),
@@ -108,6 +109,7 @@ class _PaginaListaMaquinaState extends State<PaginaListaMaquina> {
     );
   }
 
+//Obtenemos el color segun el lo gastado que este el util por fecha o golpes
   Color _colores(i) {
     if (lista![i].porcentaje! <= 50) {
       colorPorcentaje = nuevo;

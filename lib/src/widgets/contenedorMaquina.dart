@@ -4,11 +4,14 @@ class ContenedorMaquina extends StatefulWidget {
   String codigoUtil;
   bool checked;
   Color color;
+  String opcionSeleccionada;
+
   ContenedorMaquina(
       {Key? key,
       required this.codigoUtil,
       required this.checked,
-      required this.color})
+      required this.color,
+      required this.opcionSeleccionada})
       : super(key: key);
 
   @override
@@ -19,7 +22,7 @@ class _ContenedorMaquinaState extends State<ContenedorMaquina> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(5),
+      padding: const EdgeInsets.all(5),
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
@@ -35,7 +38,17 @@ class _ContenedorMaquinaState extends State<ContenedorMaquina> {
               widget.checked = value!;
             });
           },
-          secondary: const Icon(Icons.search),
+          secondary: TextButton(
+            child: const Icon(Icons.search),
+            onPressed: () {
+              Navigator.pushNamed(context, 'buscador',
+                  //argumentos que manda los datos desde la lista de inventario
+                  arguments: {
+                    'opcionSeleccionada': widget.opcionSeleccionada,
+                    'codUtil': widget.codigoUtil,
+                  });
+            },
+          ),
         ),
       ),
     );
