@@ -39,7 +39,7 @@ class _PaginaListadoState extends State<PaginaListado> {
   @override
   void initState() {
     super.initState();
-    cargarMaquinas();
+    // cargarMaquinas();
   }
 
   @override
@@ -522,7 +522,7 @@ class _PaginaListadoState extends State<PaginaListado> {
                     miMaquina = misMaquinas![i];
                   }
                 }
-                modificarMaquinas();
+                // modificarMaquinas();
                 print("pasar el util: " +
                     miCodigoFisico.toString() +
                     " a la maquina con cod: " +
@@ -592,41 +592,22 @@ class _PaginaListadoState extends State<PaginaListado> {
     );
   }
 
-  Future<void> cargarMaquinas() async {
-    final RespuestaHTTP<List<Maquina>> miRespuesta =
-        await _miBBDD.dameMaquinas();
+  // Future<void> PasarAMaquina() async {
+  //   String? valorUtil;
+  //   if (opcionSeleccionada == TCliche) {
+  //     valorUtil = tipoCliche;
+  //   } else if (opcionSeleccionada == TTroquel) {
+  //     valorUtil = tipoTroquel;
+  //   }
+  //   final RespuestaHTTP miRespuesta = await _miBBDD.PasarAMaquina(
+  //       valorUtil, miCodigoFisico.toString(), miMaquina!.codMaquina.toString(),);
 
-    if (miRespuesta.data != null) {
-      misMaquinas = miRespuesta.data;
+  //   if (miRespuesta.data != null) {
+  //     print(miRespuesta.data);
+  //   } else {
+  //     mostrarMensaje(true, miRespuesta.error!.mensaje!);
 
-      setState(() {
-        if (misMaquinas!.isNotEmpty) {
-          opcionSeleccionadaMa = misMaquinas![0].nombreMaquina;
-        }
-      });
-    } else {
-      mostrarMensaje(true, miRespuesta.error!.mensaje!);
-
-      comprobarTipoError(context, miRespuesta.error!);
-    }
-  }
-
-  Future<void> modificarMaquinas() async {
-    String? valorUtil;
-    if (opcionSeleccionada == TCliche) {
-      valorUtil = tipoCliche;
-    } else if (opcionSeleccionada == TTroquel) {
-      valorUtil = tipoTroquel;
-    }
-    final RespuestaHTTP miRespuesta = await _miBBDD.modificaMaquina(
-        valorUtil, miCodigoFisico.toString(), miMaquina!.codMaquina.toString());
-
-    if (miRespuesta.data != null) {
-      print(miRespuesta.data);
-    } else {
-      mostrarMensaje(true, miRespuesta.error!.mensaje!);
-
-      comprobarTipoError(context, miRespuesta.error!);
-    }
-  }
+  //     comprobarTipoError(context, miRespuesta.error!);
+  //   }
+  // }
 }

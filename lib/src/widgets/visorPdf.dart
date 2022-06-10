@@ -74,7 +74,7 @@ class _VisorPdfState extends State<VisorPdf> {
     //scaffoldKey.currentState.showSnackBar(dameSnackBar(titulo: texto, error: error));
   }
 
-  //Metodo que obtiene el URL de la BBDD
+  //Metodo que obtiene el URL del WS
   Future<void> obtenerUri() async {
     final RespuestaHTTP<String> miRespuesta =
         await _miBBDD.dameRutaFichero(codigo: widget.codigo, tipo: widget.tipo);

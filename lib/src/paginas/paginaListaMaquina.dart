@@ -95,10 +95,15 @@ class _PaginaListaMaquinaState extends State<PaginaListaMaquina> {
                     if (isVisible)
                       for (int i = 0; i < lista!.length; i++)
                         ContenedorMaquina(
-                            codigoUtil: lista![i].codUtil.toString(),
-                            checked: lista![i].enMaquina!,
-                            color: _colores(i),
-                            opcionSeleccionada: opcionSeleccionada),
+                          codigoUtil: lista![i].codUtil.toString(),
+                          checked: lista![i].enMaquina!,
+                          color: _colores(i),
+                          opcionSeleccionada: opcionSeleccionada,
+                          miMaquina: miMaquina!,
+                          misMaquinas: misMaquinas!,
+                          orden: lista![i].orden.toString(),
+                          idFabricacion: lista![i].idFabricacion.toString(),
+                        ),
                   ],
                 ),
               ),

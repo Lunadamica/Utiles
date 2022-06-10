@@ -5,6 +5,7 @@ class UtilMaquina {
   late int? codUtil;
   late bool? enMaquina;
   late double? porcentaje;
+  late int? idFabricacion;
 
   UtilMaquina.origin() {
     codMaquina = 0;
@@ -13,6 +14,7 @@ class UtilMaquina {
     codUtil = 0;
     enMaquina = false;
     porcentaje = 0;
+    idFabricacion = 0;
   }
 
   UtilMaquina(
@@ -21,7 +23,8 @@ class UtilMaquina {
       this.orden,
       this.codUtil,
       this.enMaquina,
-      this.porcentaje});
+      this.porcentaje,
+      this.idFabricacion});
 
   factory UtilMaquina.fromJson(Map<String, dynamic> json) {
     return UtilMaquina(
@@ -30,6 +33,7 @@ class UtilMaquina {
         orden: json['Orden'] as int,
         codUtil: json['CodUtil'] as int,
         enMaquina: json['EnMaquina'] as bool,
-        porcentaje: json['Porcentaje'] as double);
+        porcentaje: json['Porcentaje'] as double,
+        idFabricacion: json['IdFabricacion'] as int);
   }
 }
