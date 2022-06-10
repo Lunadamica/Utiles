@@ -62,14 +62,26 @@ class _ContenedorMaquinaState extends State<ContenedorMaquina> {
           onChanged: (bool? value) {
             setState(() {
               widget.checked = value!;
-              if (value) {
-                if (widget.opcionSeleccionada == TCliche) {
-                  cargarCliches();
-                  _enviarMaquinaCliche(context);
-                } else {
-                  cargarTroqueles();
-                  // _enviarMaquina(context);
-                }
+
+              if (widget.opcionSeleccionada == TCliche) {
+                cargarCliches();
+                // //Si hemos marcado a true realizamos los procedimientos necesarios para pasarlo a maquina
+                // if (value) {
+                _enviarMaquinaCliche(context);
+                //   //Lo sacamos de maquina al desmarcarse
+                // } else {
+                //   //Le pasamos la maquina a 0
+                //   for (var fisico in _fisicos.keys) {
+                //     //Busco el fisico que esta en maquina
+                //     if (_fisicos[fisico] != 0) {
+                //       selectedRadio = fisico!;
+                //     }
+                //   }
+                //   pasarAMaquina(0);
+                // }
+              } else {
+                cargarTroqueles();
+                // _enviarMaquina(context);
               }
             });
           },
@@ -136,77 +148,91 @@ class _ContenedorMaquinaState extends State<ContenedorMaquina> {
   Future<bool> _enviarMaquinaCliche(BuildContext context) async {
     //Ponemos un delayed para que espere 50 milisegundos para que carguen los datos
     await Future.delayed(const Duration(milliseconds: 50), () {});
-    if (_fisicos.length > 1) {
-      showDialog(
-        context: context,
-        //Si clicamos fuera del cuadro este no se cerrara
-        barrierDismissible: false,
-        builder: (context) {
-          return FittedBox(
-            child: SimpleDialog(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                title: const Text('Envio a máquina'),
-                children: <Widget>[
-                  Column(
-                    children: <Widget>[
-                      Text(
-                          'Partes del ${widget.opcionSeleccionada} nº ${widget.codigoUtil}:'),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      //Nos aseguramos de que la lista de cliches tenga datos
-                      if (_misCliches!.isNotEmpty)
-                        Column(
+    //Si el check es true
+    if (widget.checked) {
+      //Si tenemos varios utiles con el mismo codigo
+      if (_fisicos.length > 1) {
+        showDialog(
+          context: context,
+          //Si clicamos fuera del cuadro este no se cerrara
+          barrierDismissible: false,
+          builder: (context) {
+            return FittedBox(
+              child: SimpleDialog(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  title: const Text('Envio a máquina'),
+                  children: <Widget>[
+                    Column(
+                      children: <Widget>[
+                        Text(
+                            'Partes del ${widget.opcionSeleccionada} nº ${widget.codigoUtil}:'),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        //Nos aseguramos de que la lista de cliches tenga datos
+                        if (_misCliches!.isNotEmpty)
+                          Column(
+                            children: [
+                              for (var fisico in _fisicos.keys)
+                                _cargarDatos(fisico),
+                            ],
+                          ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
                           children: [
-                            for (var fisico in _fisicos.keys)
-                              _cargarDatos(fisico),
+                            FlatButton(
+                              onPressed: () {
+                                pasarAMaquina(widget.miMaquina.codMaquina!);
+                                Navigator.of(context).pop();
+                                widget.checked = true;
+                                setState(() {});
+                              },
+                              child: const Text('Aceptar'),
+                            ),
+                            FlatButton(
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                                widget.checked = false;
+                                setState(() {});
+                              },
+                              child: const Text('Volver'),
+                            ),
                           ],
                         ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          FlatButton(
-                            onPressed: () {
-                              pasarAMaquina();
-                              Navigator.of(context).pop();
-                              widget.checked = true;
-                              setState(() {});
-                            },
-                            child: const Text('Aceptar'),
-                          ),
-                          FlatButton(
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                              widget.checked = false;
-                              setState(() {});
-                            },
-                            child: const Text('Volver'),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ]),
-          );
-        },
-      );
-    } else {
-      //SI SOLO TIENE UN FISICO LO PASO DIRECTAMENTE A MAQUINA
-      for (var fisico in _fisicos.keys) {
-        selectedRadio = fisico!;
+                      ],
+                    ),
+                  ]),
+            );
+          },
+        );
+      } else {
+        //Si solo tiene un fisico asigno el codFisico y lo paso directamente a maquina
+        for (var fisico in _fisicos.keys) {
+          selectedRadio = fisico!;
+        }
+        pasarAMaquina(widget.miMaquina.codMaquina!);
+        widget.checked = true;
+        setState(() {});
       }
-      //Asignamos a selectedratio el codigo del fisico
-      pasarAMaquina();
-      widget.checked = true;
-      setState(() {});
+    }
+    //si el check es false
+    else {
+      for (var fisico in _fisicos.keys) {
+        //Busco el fisico que esta en maquina
+        if (_fisicos[fisico] != 0) {
+          selectedRadio = fisico!;
+        }
+      }
+      //Le pasamos la maquina a 0
+      pasarAMaquina(0);
     }
 
     return widget.checked;
   }
 
-  Future<void> pasarAMaquina() async {
+  Future<void> pasarAMaquina(int codMaquina) async {
     String? valorUtil;
     if (widget.opcionSeleccionada == TCliche) {
       valorUtil = tipoCliche;
@@ -216,7 +242,7 @@ class _ContenedorMaquinaState extends State<ContenedorMaquina> {
     final RespuestaHTTP miRespuesta = await _miBBDD.pasarAMaquina(
         valorUtil,
         selectedRadio.toString(),
-        widget.miMaquina.codMaquina.toString(),
+        codMaquina.toString(),
         widget.idFabricacion.toString());
 
     if (miRespuesta.data != null) {
