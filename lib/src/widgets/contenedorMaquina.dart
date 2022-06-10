@@ -41,8 +41,8 @@ class _ContenedorMaquinaState extends State<ContenedorMaquina> {
   int selectedRadio = 0;
   Map<int?, dynamic?> _fisicos = <int?, dynamic?>{};
   String? nombreMaquina;
-  List<Cliche>? _misCliches;
-  List<Troquel>? _misTroqueles;
+  List<Cliche>? _misCliches = [];
+  List<Troquel>? _misTroqueles = [];
 
   @override
   Widget build(BuildContext context) {
@@ -65,24 +65,10 @@ class _ContenedorMaquinaState extends State<ContenedorMaquina> {
 
               if (widget.opcionSeleccionada == TCliche) {
                 cargarCliches();
-                // //Si hemos marcado a true realizamos los procedimientos necesarios para pasarlo a maquina
-                // if (value) {
-                _enviarMaquinaCliche(context);
-                //   //Lo sacamos de maquina al desmarcarse
-                // } else {
-                //   //Le pasamos la maquina a 0
-                //   for (var fisico in _fisicos.keys) {
-                //     //Busco el fisico que esta en maquina
-                //     if (_fisicos[fisico] != 0) {
-                //       selectedRadio = fisico!;
-                //     }
-                //   }
-                //   pasarAMaquina(0);
-                // }
               } else {
                 cargarTroqueles();
-                // _enviarMaquina(context);
               }
+              _enviarMaquina(context);
             });
           },
           secondary: TextButton(
@@ -135,6 +121,14 @@ class _ContenedorMaquinaState extends State<ContenedorMaquina> {
 
     if (miRespuesta.data != null) {
       _misTroqueles = miRespuesta.data;
+      //Recorremos nuestra lista de cliches para crear una lista con los fisicos y la maquina a la que esta asociada
+      for (int i = 0; i < _misTroqueles!.length; i++) {
+        //si mi lista de fisicos no contiene ya ese fisico lo añadimos
+        if (!_fisicos.keys.contains(_misTroqueles![i].codFisico!)) {
+          _fisicos.addAll(
+              {_misTroqueles![i].codFisico!: _misTroqueles![i].codMaquina});
+        }
+      }
       setState(() {});
     } else {
       mostrarMensaje(true, miRespuesta.error!.mensaje!);
@@ -145,7 +139,7 @@ class _ContenedorMaquinaState extends State<ContenedorMaquina> {
 
 //Una vez que tenemos nuestra lista de cliches cargada con los fisicos y
 //la maquina correspondiente abrimos una pantalla emergente
-  Future<bool> _enviarMaquinaCliche(BuildContext context) async {
+  Future<bool> _enviarMaquina(BuildContext context) async {
     //Ponemos un delayed para que espere 50 milisegundos para que carguen los datos
     await Future.delayed(const Duration(milliseconds: 50), () {});
     //Si el check es true
@@ -172,7 +166,8 @@ class _ContenedorMaquinaState extends State<ContenedorMaquina> {
                           height: 10,
                         ),
                         //Nos aseguramos de que la lista de cliches tenga datos
-                        if (_misCliches!.isNotEmpty)
+                        if (_misCliches!.isNotEmpty ||
+                            _misTroqueles!.isNotEmpty)
                           Column(
                             children: [
                               for (var fisico in _fisicos.keys)
@@ -219,6 +214,7 @@ class _ContenedorMaquinaState extends State<ContenedorMaquina> {
     }
     //si el check es false
     else {
+      cargarCliches();
       for (var fisico in _fisicos.keys) {
         //Busco el fisico que esta en maquina
         if (_fisicos[fisico] != 0) {
@@ -227,6 +223,8 @@ class _ContenedorMaquinaState extends State<ContenedorMaquina> {
       }
       //Le pasamos la maquina a 0
       pasarAMaquina(0);
+      _fisicos[selectedRadio] = 0;
+      setState(() {});
     }
 
     return widget.checked;
@@ -278,7 +276,7 @@ class _ContenedorMaquinaState extends State<ContenedorMaquina> {
               //debido a problemas de estado de los cuadros de dialogo cerramos y volvemos a abrir cuando cambiemos el estado
               selectedRadio = valor!;
               Navigator.of(context).pop();
-              _enviarMaquinaCliche(context);
+              _enviarMaquina(context);
             });
           },
         ),
@@ -297,7 +295,7 @@ class _ContenedorMaquinaState extends State<ContenedorMaquina> {
               //debido a problemas de estado de los cuadros de dialogo cerramos y volvemos a abrir cuando cambiemos el estado
               selectedRadio = valor!;
               Navigator.of(context).pop();
-              _enviarMaquinaCliche(context);
+              _enviarMaquina(context);
             });
           },
         ),
