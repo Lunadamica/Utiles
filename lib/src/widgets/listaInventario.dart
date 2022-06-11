@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:solucionutiles/src/modelos/maquina.dart';
 import 'package:solucionutiles/src/modelos/zona.dart';
 import 'package:solucionutiles/src/widgets/inventarioUtiles.dart';
 
@@ -8,6 +9,7 @@ import '../utils/utils.dart';
 class ListaInventario extends StatefulWidget {
   final List<Zona> lista;
   final List<Inventario>? miInventario;
+  final List<Maquina>? misMaquinas;
   final String tipo;
   final String? opcionSeleccionada;
   const ListaInventario(
@@ -15,7 +17,8 @@ class ListaInventario extends StatefulWidget {
       required this.lista,
       required this.tipo,
       required this.miInventario,
-      required this.opcionSeleccionada})
+      required this.opcionSeleccionada,
+      required this.misMaquinas})
       : super(key: key);
 
   @override
@@ -64,6 +67,7 @@ class _ListaInventarioState extends State<ListaInventario> {
                         arguments: {
                           'opcionSeleccionada': widget.opcionSeleccionada,
                           'miInventario': widget.miInventario,
+                          'misMaquinas': widget.misMaquinas,
                           'miZona': widget.lista[i],
                           'mapMin': mapMin,
                           'mapMax': mapMax,

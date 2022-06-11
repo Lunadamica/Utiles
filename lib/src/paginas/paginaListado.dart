@@ -50,6 +50,7 @@ class _PaginaListadoState extends State<PaginaListado> {
         ModalRoute.of(context)!.settings.arguments as Map?;
     opcionSeleccionada = parametros!['opcionSeleccionada'] ?? 'Cliche';
     miInventario = parametros['miInventario'];
+    misMaquinas = parametros['misMaquinas'];
     miZona = parametros['miZona'];
     mapMin = parametros['mapMin'];
     mapMax = parametros['mapMax'];
@@ -466,6 +467,30 @@ class _PaginaListadoState extends State<PaginaListado> {
     }
   }
 
+  void _funcionDesabilitada(BuildContext context, String texto) {
+    showDialog(
+      context: context,
+      //Si clicamos fuera del cuadro este no se cerrara
+      barrierDismissible: false,
+      builder: (context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+          title: const Text('Función deshabilitada'),
+          content: Text(
+              'Función deshabilitada por cambios de diseño en la app, no obtante los cambios serían: \n\n$texto'),
+          actions: <Widget>[
+            FlatButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: const Text('Volver'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   void _alerta(BuildContext context) {
     showDialog(
       context: context,
@@ -523,13 +548,11 @@ class _PaginaListadoState extends State<PaginaListado> {
                   }
                 }
                 // modificarMaquinas();
-                print("pasar el util: " +
-                    miCodigoFisico.toString() +
-                    " a la maquina con cod: " +
-                    miMaquina!.codMaquina.toString() +
-                    " de nombre: " +
-                    miMaquina!.nombreMaquina.toString());
+                String texto =
+                    'Pasamos el util: $miCodigoFisico a la maquina con cod: ${miMaquina!.codMaquina} de nombre: ${miMaquina!.nombreMaquina}';
+
                 Navigator.of(context).pop();
+                _funcionDesabilitada(context, texto);
               },
               child: const Text('Aceptar'),
             ),

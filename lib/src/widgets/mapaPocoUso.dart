@@ -39,10 +39,12 @@ class _MapaPocoUsoState extends State<MapaPocoUso> {
                         color: Colors.grey,
                         child: FlatButton(
                           onPressed: () {
-                            print('Contenedor(columna):' +
-                                i.toString() +
-                                ' Posición:' +
-                                j.toString());
+                            _alerta(context,
+                                'Contenedor(columna): $i Posición: $j');
+                            // print('Contenedor(columna):' +
+                            //     i.toString() +
+                            //     ' Posición:' +
+                            //     j.toString());
                           },
                           child: const Text(
                             'num',
@@ -56,6 +58,29 @@ class _MapaPocoUsoState extends State<MapaPocoUso> {
             ),
         ],
       ),
+    );
+  }
+
+  void _alerta(BuildContext context, String posicion) {
+    showDialog(
+      context: context,
+      //Si clicamos fuera del cuadro este no se cerrara
+      barrierDismissible: false,
+      builder: (context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+          title: const Text('Posicion del útil'),
+          content: Text(posicion),
+          actions: <Widget>[
+            FlatButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: const Text('Volver'),
+            ),
+          ],
+        );
+      },
     );
   }
 }

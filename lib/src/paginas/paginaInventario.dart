@@ -101,6 +101,7 @@ class _PaginaInventarioState extends State<PaginaInventario> {
                         tipo: tipoUtil,
                         miInventario: miInventario,
                         opcionSeleccionada: opcionSeleccionada,
+                        misMaquinas: misMaquinas,
                       )
                     ],
                   ),

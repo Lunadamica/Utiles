@@ -202,17 +202,18 @@ class BBDD {
   }
 
   Future<RespuestaHTTP> pasarAMaquina(String? tipo, String? codigoFisico,
-      String? codigoMaquina, String? idFabricacion) async {
+      String? codigoMaquina, String? idFabricacion, String? codigoUtil) async {
     final Sesion miSesion = GetIt.instance<Sesion>();
     final token = await miSesion.accessToken;
 
     codigoFisico = encryptar(codigoFisico!);
     codigoMaquina = encryptar(codigoMaquina!);
+    codigoUtil = encryptar(codigoUtil!);
     idFabricacion = encryptar(idFabricacion!);
     tipo = encryptar(tipo!);
 
     return _http.respuesta(
-        "/PasarAMaquina/Token/$token/Tipo/$tipo/IdFabricacion/$idFabricacion/codigoFisico/$codigoFisico/codigoMaquina/$codigoMaquina",
+        "/PasarAMaquina/Token/$token/Tipo/$tipo/IdFabricacion/$idFabricacion/codigoFisico/$codigoFisico/codigoMaquina/$codigoMaquina/codigoUtil/$codigoUtil",
         metodo: "GET",
         cadenaResultado: "PasarAMaquinaResult");
   }

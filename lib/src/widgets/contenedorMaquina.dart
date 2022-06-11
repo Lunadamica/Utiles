@@ -99,6 +99,7 @@ class _ContenedorMaquinaState extends State<ContenedorMaquina> {
 
     if (miRespuesta.data != null) {
       _misCliches = miRespuesta.data;
+      _fisicos.clear();
       //Recorremos nuestra lista de cliches para crear una lista con los fisicos y la maquina a la que esta asociada
       for (int i = 0; i < _misCliches!.length; i++) {
         //si mi lista de fisicos no contiene ya ese fisico lo añadimos
@@ -141,7 +142,7 @@ class _ContenedorMaquinaState extends State<ContenedorMaquina> {
 //la maquina correspondiente abrimos una pantalla emergente
   Future<bool> _enviarMaquina(BuildContext context) async {
     //Ponemos un delayed para que espere 50 milisegundos para que carguen los datos
-    await Future.delayed(const Duration(milliseconds: 50), () {});
+    await Future.delayed(const Duration(milliseconds: 100), () {});
     //Si el check es true
     if (widget.checked) {
       //Si tenemos varios utiles con el mismo codigo
@@ -241,7 +242,8 @@ class _ContenedorMaquinaState extends State<ContenedorMaquina> {
         valorUtil,
         selectedRadio.toString(),
         codMaquina.toString(),
-        widget.idFabricacion.toString());
+        widget.idFabricacion.toString(),
+        widget.codigoUtil.toString());
 
     if (miRespuesta.data != null) {
       print(miRespuesta.data);
