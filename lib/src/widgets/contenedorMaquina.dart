@@ -79,6 +79,7 @@ class _ContenedorMaquinaState extends State<ContenedorMaquina> {
                   arguments: {
                     'opcionSeleccionada': widget.opcionSeleccionada,
                     'codUtil': widget.codigoUtil,
+                    'misMaquinas': widget.misMaquinas,
                   });
             },
           ),
