@@ -183,6 +183,7 @@ class _ContenedorMaquinaState extends State<ContenedorMaquina> {
                                 pasarAMaquina(widget.miMaquina.codMaquina!);
                                 Navigator.of(context).pop();
                                 widget.checked = true;
+                                _fisicos.clear;
                                 setState(() {});
                               },
                               child: const Text('Aceptar'),
@@ -191,6 +192,7 @@ class _ContenedorMaquinaState extends State<ContenedorMaquina> {
                               onPressed: () {
                                 Navigator.of(context).pop();
                                 widget.checked = false;
+                                selectedRadio = 0;
                                 setState(() {});
                               },
                               child: const Text('Volver'),
@@ -210,6 +212,7 @@ class _ContenedorMaquinaState extends State<ContenedorMaquina> {
         }
         pasarAMaquina(widget.miMaquina.codMaquina!);
         widget.checked = true;
+        _fisicos.clear;
         setState(() {});
       }
     }
@@ -224,7 +227,8 @@ class _ContenedorMaquinaState extends State<ContenedorMaquina> {
       }
       //Le pasamos la maquina a 0
       pasarAMaquina(0);
-      _fisicos[selectedRadio] = 0;
+      // _fisicos[selectedRadio] = 0;
+      _fisicos.clear;
       setState(() {});
     }
 
@@ -247,6 +251,7 @@ class _ContenedorMaquinaState extends State<ContenedorMaquina> {
 
     if (miRespuesta.data != null) {
       print(miRespuesta.data);
+      selectedRadio = 0;
     } else {
       mostrarMensaje(true, miRespuesta.error!.mensaje!);
 
@@ -274,11 +279,12 @@ class _ContenedorMaquinaState extends State<ContenedorMaquina> {
           activeColor: Colors.blue,
           onChanged: (int? valor) {
             setState(() {
-              print(valor); //Valor es el codigo fisico que ha sido seleccionado
-              //debido a problemas de estado de los cuadros de dialogo cerramos y volvemos a abrir cuando cambiemos el estado
-              selectedRadio = valor!;
-              Navigator.of(context).pop();
-              _enviarMaquina(context);
+              //FUTURA IMPLEMENTACIÓN PARA PODER UN ÚTIL DE UNA MÁQUINA A OTRA
+              // print(valor); //Valor es el codigo fisico que ha sido seleccionado
+              // //debido a problemas de estado de los cuadros de dialogo cerramos y volvemos a abrir cuando cambiemos el estado
+              // selectedRadio = valor!;
+              // Navigator.of(context).pop();
+              // _enviarMaquina(context);
             });
           },
         ),
@@ -296,6 +302,7 @@ class _ContenedorMaquinaState extends State<ContenedorMaquina> {
             setState(() {
               //debido a problemas de estado de los cuadros de dialogo cerramos y volvemos a abrir cuando cambiemos el estado
               selectedRadio = valor!;
+
               Navigator.of(context).pop();
               _enviarMaquina(context);
             });
