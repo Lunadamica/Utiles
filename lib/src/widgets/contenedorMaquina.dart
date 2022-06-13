@@ -58,8 +58,8 @@ class _ContenedorMaquinaState extends State<ContenedorMaquina> {
         child: CheckboxListTile(
           title: Column(
             children: [
-              Text('Orden - Cód. ${widget.opcionSeleccionada} - Fabricación',
-                  style: const TextStyle(color: Colors.black87)),
+              // Text('Orden - Cód. ${widget.opcionSeleccionada} - Fabricación',
+              //     style: const TextStyle(color: Colors.black87)),
               Text(
                   '${widget.orden} - ${widget.codigoUtil} - ${widget.idFabricacion}',
                   style: const TextStyle(
@@ -100,6 +100,11 @@ class _ContenedorMaquinaState extends State<ContenedorMaquina> {
   }
 
   void mostrarMensaje(bool error, String texto) {
+    ScaffoldMessenger.of(context)
+        .showSnackBar(dameSnackBar(titulo: texto, error: error));
+  }
+
+  void mensajeMaquina(bool error, String texto) {
     ScaffoldMessenger.of(context)
         .showSnackBar(dameSnackBar(titulo: texto, error: error));
   }
@@ -262,7 +267,8 @@ class _ContenedorMaquinaState extends State<ContenedorMaquina> {
         widget.codigoUtil.toString());
 
     if (miRespuesta.data != null) {
-      print(miRespuesta.data);
+      String texto = miRespuesta.data;
+      mensajeMaquina(false, texto);
       selectedRadio = 0;
     } else {
       mostrarMensaje(true, miRespuesta.error!.mensaje!);

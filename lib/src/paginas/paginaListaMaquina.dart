@@ -80,7 +80,7 @@ class _PaginaListaMaquinaState extends State<PaginaListaMaquina> {
                     child: _crearDropdown(),
                   ),
                   const SizedBox(
-                    height: 20,
+                    height: 5,
                   ),
                 ],
               ),
@@ -88,22 +88,37 @@ class _PaginaListaMaquinaState extends State<PaginaListaMaquina> {
             Visibility(
               visible: isVisible,
               child: Flexible(
-                child: ListView(
-                  shrinkWrap: true,
-                  scrollDirection: Axis.vertical,
-                  children: <Widget>[
-                    if (isVisible)
-                      for (int i = 0; i < lista!.length; i++)
-                        ContenedorMaquina(
-                          codigoUtil: lista![i].codUtil.toString(),
-                          checked: lista![i].enMaquina!,
-                          color: _colores(i),
-                          opcionSeleccionada: opcionSeleccionada,
-                          miMaquina: miMaquina!,
-                          misMaquinas: misMaquinas!,
-                          orden: lista![i].orden.toString(),
-                          idFabricacion: lista![i].idFabricacion.toString(),
-                        ),
+                child: Column(
+                  children: [
+                    Text('Orden - Cód. $opcionSeleccionada - idFabricación',
+                        style: TextStyle(
+                            fontSize: responsive.hp(2),
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black87)),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Flexible(
+                      child: ListView(
+                        shrinkWrap: true,
+                        scrollDirection: Axis.vertical,
+                        children: <Widget>[
+                          if (isVisible)
+                            for (int i = 0; i < lista!.length; i++)
+                              ContenedorMaquina(
+                                codigoUtil: lista![i].codUtil.toString(),
+                                checked: lista![i].enMaquina!,
+                                color: _colores(i),
+                                opcionSeleccionada: opcionSeleccionada,
+                                miMaquina: miMaquina!,
+                                misMaquinas: misMaquinas!,
+                                orden: lista![i].orden.toString(),
+                                idFabricacion:
+                                    lista![i].idFabricacion.toString(),
+                              ),
+                        ],
+                      ),
+                    ),
                   ],
                 ),
               ),
