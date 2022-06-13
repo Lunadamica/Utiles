@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:solucionutiles/src/api/BBDD.dart';
+import 'package:solucionutiles/src/utils/responsive.dart';
 
 import '../helpers/RespuestaHTTP.dart';
 import '../modelos/cliche.dart';
@@ -46,6 +47,7 @@ class _ContenedorMaquinaState extends State<ContenedorMaquina> {
 
   @override
   Widget build(BuildContext context) {
+    Responsive responsive = Responsive(context);
     return Padding(
       padding: const EdgeInsets.all(5),
       child: Container(
@@ -54,10 +56,16 @@ class _ContenedorMaquinaState extends State<ContenedorMaquina> {
           color: widget.color,
         ),
         child: CheckboxListTile(
-          title: Text(
-              '${widget.orden} - ${widget.codigoUtil} - ${widget.idFabricacion}',
-              style: const TextStyle(
-                  fontWeight: FontWeight.bold, color: Colors.black87)),
+          title: Column(
+            children: [
+              Text('Orden - Cód. ${widget.opcionSeleccionada} - Fabricación',
+                  style: const TextStyle(color: Colors.black87)),
+              Text(
+                  '${widget.orden} - ${widget.codigoUtil} - ${widget.idFabricacion}',
+                  style: const TextStyle(
+                      fontWeight: FontWeight.bold, color: Colors.black87)),
+            ],
+          ),
           value: widget.checked,
           onChanged: (bool? value) {
             setState(() {
@@ -71,17 +79,20 @@ class _ContenedorMaquinaState extends State<ContenedorMaquina> {
               _enviarMaquina(context);
             });
           },
-          secondary: TextButton(
-            child: const Icon(Icons.search),
-            onPressed: () {
-              Navigator.pushNamed(context, 'buscador',
-                  //argumentos que manda los datos desde la lista de inventario
-                  arguments: {
-                    'opcionSeleccionada': widget.opcionSeleccionada,
-                    'codUtil': widget.codigoUtil,
-                    'misMaquinas': widget.misMaquinas,
-                  });
-            },
+          secondary: SizedBox(
+            width: responsive.wp(5),
+            child: TextButton(
+              child: const Icon(Icons.search),
+              onPressed: () {
+                Navigator.pushNamed(context, 'buscador',
+                    //argumentos que manda los datos desde la lista de inventario
+                    arguments: {
+                      'opcionSeleccionada': widget.opcionSeleccionada,
+                      'codUtil': widget.codigoUtil,
+                      'misMaquinas': widget.misMaquinas,
+                    });
+              },
+            ),
           ),
         ),
       ),
