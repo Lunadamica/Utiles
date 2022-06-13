@@ -279,6 +279,7 @@ class _ContenedorMaquinaState extends State<ContenedorMaquina> {
 
 //Recibimos por parametro la clave de nuestro map que es el codigo del fisico
   Widget _cargarDatos(int? fisico) {
+    Responsive responsive = Responsive(context);
     //recorremos la lista de mis maquinas
     for (int i = 0; i < widget.misMaquinas.length; i++) {
       //Cuando el codigo de maquina de mi fisico sea igual al de la lista asignamos a ese valor un nombre de maquina
@@ -291,20 +292,31 @@ class _ContenedorMaquinaState extends State<ContenedorMaquina> {
       return ListTile(
         //Mostramos el codigo fisico y el nombre de la maquina
         title: Text('$fisico - $nombreMaquina'),
-        leading: Radio(
-          value: fisico!,
-          groupValue: selectedRadio,
-          activeColor: Colors.blue,
-          onChanged: (int? valor) {
-            setState(() {
-              //FUTURA IMPLEMENTACIÓN PARA PODER UN ÚTIL DE UNA MÁQUINA A OTRA
-              // print(valor); //Valor es el codigo fisico que ha sido seleccionado
-              // //debido a problemas de estado de los cuadros de dialogo cerramos y volvemos a abrir cuando cambiemos el estado
-              // selectedRadio = valor!;
-              // Navigator.of(context).pop();
-              // _enviarMaquina(context);
-            });
-          },
+        leading: Padding(
+          padding: EdgeInsets.symmetric(horizontal: responsive.wp(5)),
+          child: Container(
+            width: 10,
+            height: 10,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(45),
+              color: Colors.grey,
+            ),
+            child: Radio(
+              value: fisico!,
+              groupValue: selectedRadio,
+              activeColor: Colors.blue,
+              onChanged: (int? valor) {
+                setState(() {
+                  //FUTURA IMPLEMENTACIÓN PARA PODER UN ÚTIL DE UNA MÁQUINA A OTRA
+                  // print(valor); //Valor es el codigo fisico que ha sido seleccionado
+                  // //debido a problemas de estado de los cuadros de dialogo cerramos y volvemos a abrir cuando cambiemos el estado
+                  // selectedRadio = valor!;
+                  // Navigator.of(context).pop();
+                  // _enviarMaquina(context);
+                });
+              },
+            ),
+          ),
         ),
       );
       //si nuestro fisico NO esta asignado a una maquina
@@ -312,19 +324,26 @@ class _ContenedorMaquinaState extends State<ContenedorMaquina> {
       return ListTile(
         //mostramos solo el fisico
         title: Text(fisico.toString()),
-        leading: Radio(
-          value: fisico!,
-          groupValue: selectedRadio,
-          activeColor: Colors.blue,
-          onChanged: (int? valor) {
-            setState(() {
-              //debido a problemas de estado de los cuadros de dialogo cerramos y volvemos a abrir cuando cambiemos el estado
-              selectedRadio = valor!;
+        leading: Padding(
+          padding: EdgeInsets.symmetric(horizontal: responsive.wp(5)),
+          child: SizedBox(
+            width: 10,
+            height: 10,
+            child: Radio(
+              value: fisico!,
+              groupValue: selectedRadio,
+              activeColor: Colors.blue,
+              onChanged: (int? valor) {
+                setState(() {
+                  //debido a problemas de estado de los cuadros de dialogo cerramos y volvemos a abrir cuando cambiemos el estado
+                  selectedRadio = valor!;
 
-              Navigator.of(context).pop();
-              _enviarMaquina(context);
-            });
-          },
+                  Navigator.of(context).pop();
+                  _enviarMaquina(context);
+                });
+              },
+            ),
+          ),
         ),
       );
     }

@@ -531,7 +531,7 @@ class _PaginaListadoState extends State<PaginaListado> {
             child: Column(
               children: <Widget>[
                 const Text(
-                    'Introduzca el número de la máquina al que se va a enviar:'),
+                    'Introduzca el nombre de la máquina al que se va a enviar:'),
                 const SizedBox(
                   height: 10,
                 ),

@@ -109,22 +109,26 @@ class _PaginaBuscarUtilState extends State<PaginaBuscarUtil> {
                                   width: 2,
                                 ),
                               ),
-                              child: InputText(
-                                label: 'Introduzca el código útil',
-                                fontSize: 17,
-                                //Cargamos los datos haciendo uso del boton del teclado
-                                onFieldSubmitted: (_) {
-                                  if (opcionSeleccionada == 'Cliche') {
-                                    cargarCliches();
-                                  } else {
-                                    cargarTroqueles();
-                                  }
-                                  isVisible = !isVisible;
-                                },
-                                keyboardType: TextInputType.number,
-                                onChanged: (text) {
-                                  codigoUtil = text;
-                                },
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: responsive.wp(2)),
+                                child: InputText(
+                                  label: 'Introduzca el código útil',
+                                  fontSize: 17,
+                                  //Cargamos los datos haciendo uso del boton del teclado
+                                  onFieldSubmitted: (_) {
+                                    if (opcionSeleccionada == 'Cliche') {
+                                      cargarCliches();
+                                    } else {
+                                      cargarTroqueles();
+                                    }
+                                    isVisible = !isVisible;
+                                  },
+                                  keyboardType: TextInputType.number,
+                                  onChanged: (text) {
+                                    codigoUtil = text;
+                                  },
+                                ),
                               ),
                             ),
                           ],

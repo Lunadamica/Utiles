@@ -11,7 +11,7 @@ class PaginaUsuario extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: dameAppBar('Usuario', context),
+      appBar: dameAppBar('Usuario $name', context),
       body: Image.network(urlImage,
           width: double.infinity, height: double.infinity, fit: BoxFit.cover),
     );
