@@ -18,18 +18,16 @@ class _PaginaRetiradaState extends State<PaginaRetirada> {
   List<Almacen>? misAlmacenes;
   List<Maquina>? misMaquinas;
   List<String> opciones = [
-    'Uno',
-    'Dos',
-    'Tres',
-    'Cuatro',
-    'Cinco',
-    'Seis',
-    'Siete',
-    'Ocho',
-    'Nueve',
-    'Diez',
-    'Once',
-    'Doce',
+    '36654944',
+    '64736256',
+    '65626265',
+    '96353974',
+    '65876786',
+    '84238452',
+    '86987467',
+    '34322932',
+    '84897384',
+    '49663967',
   ];
   @override
   Widget build(BuildContext context) {
@@ -55,7 +53,7 @@ class _PaginaRetiradaState extends State<PaginaRetirada> {
         children: <Widget>[
           ListTile(
             title: Text(item),
-            subtitle: const Text('Subtitulos'),
+            subtitle: Text(opcionSeleccionada!),
             trailing: const Text('P: 4 C:330'),
             //Al hacer click que salga un dialogo que nos pregunte si deseamos eliminar de la lista el elemento
             onTap: () {
