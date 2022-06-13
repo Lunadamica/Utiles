@@ -57,7 +57,7 @@ class _MenuNavegacionState extends State<MenuNavegacion> {
     String nombre = _sUsuario;
     //La imagen del usuario la estoy cogiendo directamente desde internet
     const urlImage =
-        'https://d500.epimg.net/cincodias/imagenes/2016/07/04/lifestyle/1467646262_522853_1467646344_noticia_normal.jpg';
+        'https://pbs.twimg.com/media/FVJn0PPXsAci_zA?format=png&name=small';
     return Drawer(
       child: Material(
         color: Colors.brown,
