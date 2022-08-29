@@ -57,7 +57,7 @@ class _MenuNavegacionState extends State<MenuNavegacion> {
     String nombre = _sUsuario;
     //La imagen del usuario la estoy cogiendo directamente desde internet
     const urlImage =
-        'https://pbs.twimg.com/media/FVJn0PPXsAci_zA?format=png&name=small';
+        'https://grupoindustrialcl.com/wp-content/uploads/ondupack-grid-marca-color-rev1.jpg';
     return Drawer(
       child: Material(
         color: Colors.brown,
